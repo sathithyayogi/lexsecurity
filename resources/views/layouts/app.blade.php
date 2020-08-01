@@ -99,7 +99,9 @@
         </nav>
       </div>
       <div id="layoutSidenav_content">
-    @yield('content')
+        @include('inc.messages')
+        @yield('content')
+        
         <footer class="py-4 bg-light mt-auto">
           <div class="container-fluid">
             <div

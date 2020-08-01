@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Device; 
+use DB;
 
 class deviceController extends Controller
 {
@@ -40,6 +41,19 @@ class deviceController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'deviceName' => 'required',
+            'deviceID' => 'required',
+            'mobileNumber' => 'required'
+        ]);
+        // return 123;
+        $device = new Device;
+        $device->deviceName = $request->input('deviceName');
+        $device->deviceID = $request->input('deviceID');
+        $device->mobileNumber = $request->input('mobileNumber');
+        $device->save();
+
+        return redirect('/devices')->with('success', 'Device Added');
     }
 
     /**
@@ -62,6 +76,8 @@ class deviceController extends Controller
     public function edit($id)
     {
         //
+        $device = Device::find($id);
+        return view('editdevice')->with('device', $device);
     }
 
     /**
@@ -74,6 +90,19 @@ class deviceController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'deviceName' => 'required',
+            'deviceID' => 'required',
+            'mobileNumber' => 'required'
+        ]);
+        // return 123;
+        $device = Device::find($id);
+        $device->deviceName = $request->input('deviceName');
+        $device->deviceID = $request->input('deviceID');
+        $device->mobileNumber = $request->input('mobileNumber');
+        $device->save();
+
+        return redirect('/devices')->with('success', 'Device Updated');
     }
 
     /**
@@ -85,5 +114,8 @@ class deviceController extends Controller
     public function destroy($id)
     {
         //
+        $device = Device::find($id);
+        $device->delete();
+        return redirect('/devices')->with('success', 'Device Removed');
     }
 }
