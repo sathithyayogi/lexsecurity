@@ -1,5 +1,0 @@
-ccreating new laravel project
-
-installing vue 
- refering this link
-https://www.techiediaries.com/laravel/how-to-install-vuejs-in-laravel-6-7-by-example/
