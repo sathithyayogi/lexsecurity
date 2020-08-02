@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Device; 
 use DB;
-
+use Carbon\Carbon;
 class deviceController extends Controller
 {
     /**
@@ -51,6 +51,9 @@ class deviceController extends Controller
         $device->deviceName = $request->input('deviceName');
         $device->deviceID = $request->input('deviceID');
         $device->mobileNumber = $request->input('mobileNumber');
+
+        $mutable = Carbon::now('+05:30');
+        $device->connectionTime = $mutable;
         $device->save();
 
         return redirect('/devices')->with('success', 'Device Added');

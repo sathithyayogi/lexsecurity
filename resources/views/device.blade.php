@@ -54,7 +54,7 @@
                                 <td>{{ $device->deviceName }}</td>
                                 <td>{{ $device->deviceID }}</td>
                                 <td>{{ $device->mobileNumber }}</td>
-                                <td>{{ $device->created_at }}</td>
+                                <td>{{ $device->created_at->diffForHumans()}}</td>
                                 <td><a href="/devices/{{$device->id}}/edit" class="btn btn-default">Edit</a></td>
                                 <td>
                                     <form action="{{ action('deviceController@destroy', $device->id) }}" method="POST">

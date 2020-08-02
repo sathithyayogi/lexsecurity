@@ -20,7 +20,13 @@
             </div>
           </div>
           <div class="card-body">
-            <div class="mainindicator"><p>red</p></div>
+            @if ($device->movementStatus == 0)
+            <div class="mainindicatorstop"><p>red</p></div>
+            @elseif($device->movementStatus == 1)
+            <div class="mainindicatoryellow"><p>red</p></div>
+            @elseif($device->movementStatus == 2)
+            <div class="mainindicatorgo"><p>red</p></div>
+            @endif
             <div class="row">
               <div class="col-xl-6">
                 <span class="badge badge-success">CONNECTED</span>

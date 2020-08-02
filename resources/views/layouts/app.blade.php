@@ -1,3 +1,6 @@
+<?php
+use Carbon\Carbon;
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,7 +35,11 @@
         class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"
       >
         <div class="input-group">
-          <p class="text-white">30-07-2020 05:50 AM</p>
+          <?php
+          $mutable = Carbon::now('+05:30');
+          // echo $mutable;
+         echo "<p class=\"text-white\">$mutable</p>";
+          ?>
         </div>
       </form>
       <!-- Navbar-->

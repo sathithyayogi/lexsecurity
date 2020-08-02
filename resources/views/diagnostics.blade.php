@@ -19,7 +19,7 @@
                   <div class="card-header">
                       <div class="row">
                       <div class="col-xl-6"> <i class="fas fa-tachometer-alt mr-1"></i>
-                        DeviceOne</div>
+                        {{$device->deviceName}} - {{$device->deviceID}}</div>
                         <div class="col-xl-6"> 
                             <!-- <span class="rounded-circle"><i class="fas fa-circle mr-1"></i></span> -->
                          
@@ -28,11 +28,15 @@
                     
                   </div>
                   <div class="card-body">
-                    <h1>Diagnostics</h1>
-                  
+                    <h1></h1>
                     <div class="row">
                       <div class="col-xl-6">
-                        <span class="badge badge-success">{{$device->connectionStatus}}</span>
+                        @if ($device->connectionStatus == 0)
+                        <span class="badge badge-danger">Not Connected</span>
+                        @elseif ($device->connectionStatus == 1)
+                        <span class="badge badge-success">Connected</span>
+                        @endif
+                     
                         <!-- <span class="badge badge-danger">NOT CONNECTED</span> -->
                       </div>
       
@@ -49,8 +53,9 @@
                     <div class="row">
                       <div class="col-xl-6 font-weight-bold">No. Of Alarm Raised</div>
                       <div class="col-xl-6 font-weight-bold">No. Of Active Alarm</div>
-                      <div class="col-xl-6">54</div>
-                      <div class="col-xl-6">1</div>
+
+                      <div class="col-xl-6">{{$device->alarmRaisedNo}}</div>
+                      <div class="col-xl-6">{{$device->alarmActiveNo}}</div>
                     </div>
       
                     <div class="row">

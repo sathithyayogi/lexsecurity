@@ -69,10 +69,21 @@ body {
   background-color: #fff;
 }
 
-.mainindicator{
+.mainindicatorstop{
   width: 90px;
   height: 90px;
   background: red;
+}
+
+.mainindicatorgo{
+  width: 90px;
+  height: 90px;
+  background: green;
+}
+.mainindicatoryellow{
+  width: 90px;
+  height: 90px;
+  background: yellow;
 }
 
 
