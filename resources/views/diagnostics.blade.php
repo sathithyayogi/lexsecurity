@@ -12,8 +12,7 @@
       <div class="row">
         
         @if (count($devices) > 0)
-            @foreach ($devices as $device)
-            
+            @foreach ($devices as $device)            
               <div class="col-xl-6">
                 <div class="card mb-4">
                   <div class="card-header">
@@ -42,7 +41,7 @@
       
                       <div class="col-xl-6">
                           <div class="row">
-                        <p class="font-weight-bold">05:45:05</p>
+                        <p class="font-weight-bold" id="{{$device->deviceID}}">05:45:05</p>
                         <a  data-toggle="tooltip" data-placement="right" title="Elopsed Time">
                             <i class="fas fa-info-circle"></i>  
                           </a>
@@ -69,6 +68,8 @@
                 </div>
               
             </div>
+            
+             
                 
             @endforeach
             
@@ -79,3 +80,74 @@
     </div>
   </main>
   @endsection
+ 
+  <script>
+    //Define vars to hold time values
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
+let day = 0;
+
+//Define vars to hold "display" value
+let displaySeconds = 0;
+let displayMinutes = 0;
+let displayHours = 0;
+
+//Define var to hold setInterval() function
+let interval = null;
+
+//Define var to hold stopwatch status
+let status = "stopped";
+
+//Stopwatch function (logic to determine when to increment next value, etc.)
+function stopWatch(){
+
+    seconds++;
+
+    //Logic to determine when to increment next value
+    if(seconds / 60 === 1){
+        seconds = 0;
+        minutes++;
+
+        if(minutes / 60 === 1){
+            minutes = 0;
+            hours++;
+
+            if(hours /24 ===1){
+                hours = 0;
+                day++;
+            }
+        }
+    }
+
+    //If seconds/minutes/hours are only one digit, add a leading 0 to the value
+    if(seconds < 10){
+        displaySeconds = "0" + seconds.toString();
+    }
+    else{
+        displaySeconds = seconds;
+    }
+
+    if(minutes < 10){
+        displayMinutes = "0" + minutes.toString();
+    }
+    else{
+        displayMinutes = minutes;
+    }
+
+    if(hours < 10){
+        displayHours = "0" + hours.toString();
+    }
+    else{
+        displayHours = hours;
+    }
+    //Display updated time values to user
+    if(day == 0){
+        document.getElementById("{{$device->deviceID}}").innerHTML = displayHours + ":" + displayMinutes + ":" + displaySeconds;
+    }else{
+        document.getElementById("{{$device->deviceID}}").innerHTML = day+ "d :"+ displayHours + ":" + displayMinutes + ":" + displaySeconds;
+    }
+}
+window.setInterval(stopWatch, 1000);
+console.log("{{$device->deviceID}}");
+</script>
