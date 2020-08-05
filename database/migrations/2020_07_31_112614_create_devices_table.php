@@ -12,7 +12,7 @@ class CreateDevicesTable extends Migration
      * @return void
      * movement status 0 red stop, 1 yellow, 2 green
      * connection status 0 not connected & 1 connected
-     */ 
+     */
     public function up()
     {
         Schema::create('devices', function (Blueprint $table) {
@@ -22,10 +22,13 @@ class CreateDevicesTable extends Migration
             $table->integer('movementStatus')->nullable();
             $table->integer('connectionStatus')->nullable();
             $table->string('mobileNumber');
+            $table->integer('initialized')->nullable();
             $table->integer('alarmRaisedNo')->nullable();
             $table->integer('alarmActiveNo')->nullable();
             $table->timestamp('connectionTime')->nullable();
             $table->timestamp('alarmOneTime')->nullable();
+            $table->string('alarmonetotTime')->nullable();
+            $table->string('alarmtwototTime')->nullable();
             $table->timestamp('alarmTwoTime')->nullable();
             $table->timestamps();
         });

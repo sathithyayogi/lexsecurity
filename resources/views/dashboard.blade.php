@@ -21,11 +21,14 @@
           </div>
           <div class="card-body">
             @if ($device->movementStatus == 0)
-            <div class="mainindicatorstop"><p>red</p></div>
+            {{-- <div class="mainindicatorstop"><p>red</p></div> --}}
+            <div class="circleindicator red"></div>
             @elseif($device->movementStatus == 1)
-            <div class="mainindicatoryellow"><p>red</p></div>
+            {{-- <div class="mainindicatoryellow"><p>red</p></div> --}}
+            <div class="circleindicator yellow" ></div>
             @elseif($device->movementStatus == 2)
-            <div class="mainindicatorgo"><p>red</p></div>
+            <div class="circleindicator green" ></div>
+            {{-- <div class="mainindicatorgo"><p>red</p></div> --}}
             @endif
             <div class="row">
               <div class="col-xl-6">

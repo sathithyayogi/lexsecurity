@@ -17,3 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('devices', 'deviceApiController@devices');
+
+Route::get('devices/{id}', 'deviceApiController@devicesByID');
+
+Route::post('devices', 'deviceApiController@devicesSave');
+
+Route::put('devices/{deviceapi}', 'deviceApiController@deviceUpdate');
+
+

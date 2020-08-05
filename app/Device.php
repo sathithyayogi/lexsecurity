@@ -9,4 +9,5 @@ class Device extends Model
 {
     //
     protected $table = 'devices';
+    // protected $fillable = ['deviceID', 'deviceName', 'mobileNumber', 'initialized'];
 }

@@ -32,8 +32,7 @@ use Carbon\Carbon;
       </button>
       <!-- Navbar Search-->
       <form
-        class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"
-      >
+        class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
           <?php
           $mutable = Carbon::now('+05:30');
@@ -123,12 +122,11 @@ use Carbon\Carbon;
           </div>
         </footer>
       </div>
-    </div>
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.min.js"
+    </div>  
+      <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
       crossorigin="anonymous"></script>
-  
-
     <script
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
       crossorigin="anonymous"
@@ -146,6 +144,8 @@ use Carbon\Carbon;
       src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
       crossorigin="anonymous"
     ></script>
+
     <script src="{{ asset('js/datatables-demo.js') }}"></script>
+ 
   </body>
 </html>

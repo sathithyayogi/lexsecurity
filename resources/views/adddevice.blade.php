@@ -8,7 +8,8 @@
                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Add Device</h3></div>
                     <div class="card-body">
-                        <form action="{{ action('deviceController@store') }}" method="POST">
+                        {{-- <form action="{{ action('deviceController@store') }}" method="POST" id="adddevice"> --}}
+                        <form id="adddevice">
                             {{ csrf_field() }}
                             <div class="form-row">
                                 <div class="col-md-6">
@@ -29,7 +30,6 @@
                                 <input class="form-control py-4" id="mobileNumber" type="number" name="mobileNumber"/>
                             </div>
                             <button class="form-control btn btn-primary btn-block"  type="submit">Add Device</button>
-                        
                         </form>
                     </div>
                  
@@ -39,3 +39,28 @@
     </div>
 </main>
 @endsection
+<script
+src="https://code.jquery.com/jquery-3.5.1.js"
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#adddevice').on('submit', function(e){
+            e.preventDefault();
+            $.ajax({
+                url: "/devices",
+                type: "POST",
+                data: $('#adddevice').serialize(),
+                success: function (response) {
+                    console.log(response)
+                    alert("New Device Added Successfully");
+                    window.location = '/devices';
+                },
+                error: function(error){
+                    console.log(error)
+                    alert("Data Not Saved");
+                }
+            });
+        });
+    });
+</script>
