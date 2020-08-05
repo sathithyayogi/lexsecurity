@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\DeviceApi;
+use SebastianBergmann\Environment\Console;
+use Carbon\Carbon;
 
 class deviceApiController extends Controller
 {
@@ -25,5 +27,55 @@ class deviceApiController extends Controller
     public function deviceUpdate(Request $request, DeviceApi $deviceapi){
         $deviceapi->update($request->all());
         return response()->json($deviceapi, 200);
+    }
+
+
+    public function deviceInit(Request $request, $id){
+        $device = DeviceApi::find($id);
+        $device->initialized = 1;
+        $device->save();
+
+        //Device Initialization
+        return response()->json($device, 200);
+    }
+
+    public function devicealarmOneStart(Request $request, $id){
+        $device = DeviceApi::find($id);
+        $device->alarmRaisedNo++;
+        $device->alarmActiveNo = 1;
+        $device->alarmOneTime = Carbon::now('Asia/Kolkata');
+        $device->save();
+
+        //Alarm One Start
+        return response()->json($device, 200);
+    }
+
+    public function devicealarmOneStop(Request $request, $id){
+        $device = DeviceApi::find($id);
+        $device->alarmActiveNo = 0;
+        $device->save();
+
+        //Alarm One Stop
+        return response()->json($device, 200);
+    }
+
+    public function devicealarmTwoStart(Request $request, $id){
+        $device = DeviceApi::find($id);
+        $device->alarmRaisedNo++;
+        $device->alarmActiveNo = 2;
+        $device->alarmTwoTime = Carbon::now('Asia/Kolkata');
+        $device->save();
+
+        //Alarm One Start
+        return response()->json($device, 200);
+    }
+
+    public function devicealarmTwoStop(Request $request, $id){
+        $device = DeviceApi::find($id);
+        $device->alarmActiveNo = 0;
+        $device->save();
+
+        //Alarm One Stop
+        return response()->json($device, 200);
     }
 }

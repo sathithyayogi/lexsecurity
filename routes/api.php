@@ -24,6 +24,22 @@ Route::get('devices/{id}', 'deviceApiController@devicesByID');
 
 Route::post('devices', 'deviceApiController@devicesSave');
 
+//Edit Testing
 Route::put('devices/{deviceapi}', 'deviceApiController@deviceUpdate');
+
+//Device Init
+Route::put('devices/{id}/init','deviceApiController@deviceInit');
+
+//alarm one start
+Route::put('devices/{id}/alarmonestart','deviceApiController@devicealarmOneStart');
+
+//alarm one stop
+Route::put('devices/{id}/alarmonestop','deviceApiController@devicealarmOneStop');
+
+//alarm two start
+Route::put('devices/{id}/alarmtwostart','deviceApiController@devicealarmtwoStart');
+
+//alarm two stop
+Route::put('devices/{id}/alarmtwostop','deviceApiController@devicealarmtwoStop');
 
 
