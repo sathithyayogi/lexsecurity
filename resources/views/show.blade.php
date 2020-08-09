@@ -11,16 +11,13 @@
 
       <div class="row">
 
-        @if (count($devices) > 0)
-            @foreach ($devices as $device)
 
               <div class="col-xl-6">
                 <div class="card mb-4">
                   <div class="card-header">
                       <div class="row">
                       <div class="col-xl-6"> <i class="fas fa-tachometer-alt mr-1"></i>
-                        <a href="/diagnostics/{{ $device->id }}">
-                        {{$device->deviceName}} - {{$device->deviceID}}</a></div>
+                        {{$device->deviceName}} - {{$device->deviceID}}</div>
                         <div class="col-xl-6">
                           <div class="circleindicatorsmall red"></div>
                             <!-- <span class="rounded-circle"><i class="fas fa-circle mr-1"></i></span> -->
@@ -78,9 +75,7 @@
 
 
 
-            @endforeach
 
-        @endif
 
 
       </div>

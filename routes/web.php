@@ -22,5 +22,6 @@ Route::get('/', 'dashboardController@index');
 Auth::routes();
 
 Route::get('/diagnostics', 'diagnosticController@index')->name('home');
+Route::get('/diagnostics/{id}', 'diagnosticController@show')->name('show');
 
 Route::resource('devices', 'deviceController');

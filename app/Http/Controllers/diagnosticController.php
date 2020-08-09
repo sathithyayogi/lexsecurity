@@ -14,4 +14,19 @@ class diagnosticController extends Controller
         return view('diagnostics')->with('devices', $devices);
     }
 
+      /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+        $device = device::findorFail($id);
+        // return $devices;
+        return view('show')->with('device', $device);
+    }
+
+
 }
