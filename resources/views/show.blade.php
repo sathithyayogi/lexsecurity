@@ -11,7 +11,6 @@
 
       <div class="row">
 
-
               <div class="col-xl-6">
                 <div class="card mb-4">
                   <div class="card-header">
@@ -72,11 +71,6 @@
                 </div>
 
             </div>
-
-
-
-
-
 
       </div>
     </div>
@@ -153,3 +147,4 @@ function stopWatch(){
 window.setInterval(stopWatch, 1000);
 console.log("{{$device->deviceID}}");
 </script>
+{{-- <script src="/js/app.js"></script> --}}

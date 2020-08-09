@@ -12,6 +12,8 @@ use Carbon\Carbon;
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard - SB Admin</title>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link
@@ -25,6 +27,8 @@ use Carbon\Carbon;
     ></script>
   </head>
   <body class="sb-nav-fixed">
+      <div id="app">
+
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
       <a class="navbar-brand" href="/">LexLabs</a>
       <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle">
@@ -33,13 +37,7 @@ use Carbon\Carbon;
       <!-- Navbar Search-->
       <form
         class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <div class="input-group">
-          <?php
-          $mutable = Carbon::now('+05:30');
-        //  echo "<p class=\"text-white\">$mutable</p>";
-          ?>
-<div><p id="demo" class="text-white"></p></div>
-</div>
+<div class="input-group">
       </form>
       <!-- Navbar-->
       <ul class="navbar-nav ml-auto ml-md-0">
@@ -105,9 +103,10 @@ use Carbon\Carbon;
         </nav>
       </div>
       <div id="layoutSidenav_content">
+
         @include('inc.messages')
         @yield('content')
-        
+
         <footer class="py-4 bg-light mt-auto">
           <div class="container-fluid">
             <div
@@ -122,8 +121,11 @@ use Carbon\Carbon;
           </div>
         </footer>
       </div>
-    </div>  
-      <script
+    </div>
+</div>
+</div>
+<script src="/js/app.js"></script>
+    <script
       src="https://code.jquery.com/jquery-3.5.1.js"
       integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
       crossorigin="anonymous"></script>
@@ -146,6 +148,5 @@ use Carbon\Carbon;
     ></script>
 
     <script src="{{ asset('js/datatables-demo.js') }}"></script>
- 
   </body>
 </html>

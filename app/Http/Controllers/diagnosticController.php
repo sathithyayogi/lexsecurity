@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Device;
+use App\Events\WebsocketDemoEvent;
 
 class diagnosticController extends Controller
 {
@@ -23,6 +24,7 @@ class diagnosticController extends Controller
     public function show($id)
     {
         //
+        broadcast(new WebsocketDemoEvent('some data'));
         $device = device::findorFail($id);
         // return $devices;
         return view('show')->with('device', $device);

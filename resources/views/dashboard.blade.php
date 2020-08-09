@@ -3,8 +3,6 @@
 @section('content')
 <main>
   <div class="container-fluid">
- 
-
 
     <div class="row">
 
@@ -42,10 +40,9 @@
   @endif
 
 
-
-
     </div>
   </div>
 </main>
 
 @endsection
+<script src="js/app.js"></script>
