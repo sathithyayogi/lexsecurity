@@ -14,7 +14,7 @@
         @if (count($devices) > 0)
             @foreach ($devices as $device)
 
-              <div class="col-xl-6">
+            <div class="col-xl-6">
                 <div class="card mb-4">
                   <div class="card-header">
                       <div class="row">
@@ -32,7 +32,7 @@
                   <div class="card-body">
                     <h1></h1>
                     @if ($device->initialized == 0)
-<h6>Device Not Initalized</h6>
+                    <h6>Device Not Initalized</h6>
                     @elseif($device->initialized == 1)
 
                     <div class="row">
@@ -75,9 +75,6 @@
                 </div>
 
             </div>
-
-
-
             @endforeach
 
         @endif

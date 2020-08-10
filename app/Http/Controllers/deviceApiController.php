@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Device;
 use Illuminate\Http\Request;
 use App\DeviceApi;
 use SebastianBergmann\Environment\Console;
+use App\Events\WebsocketDemoEvent;
+use App\Events\DeviceDiagnosticShow;
 use Carbon\Carbon;
 
 class deviceApiController extends Controller
@@ -39,7 +42,8 @@ class deviceApiController extends Controller
         return response()->json($device, 200);
     }
 
-    public function devicealarmOneStart(Request $request, $id){
+    public function devicealarmOneStart(Request $request, $id, Device $device){
+        broadcast(new DeviceDiagnosticShow($device));
         $device = DeviceApi::find($id);
         $device->alarmRaisedNo++;
         $device->alarmActiveNo = 1;
@@ -59,18 +63,21 @@ class deviceApiController extends Controller
         return response()->json($device, 200);
     }
 
-    public function devicealarmTwoStart(Request $request, $id){
+    public function devicealarmTwoStart(Request $request, $id, Device $device){
+
+
+        broadcast(new DeviceDiagnosticShow($device));
         $device = DeviceApi::find($id);
         $device->alarmRaisedNo++;
         $device->alarmActiveNo = 2;
         $device->alarmTwoTime = Carbon::now('Asia/Kolkata');
         $device->save();
-
         //Alarm One Start
         return response()->json($device, 200);
     }
 
     public function devicealarmTwoStop(Request $request, $id){
+
         $device = DeviceApi::find($id);
         $device->alarmActiveNo = 0;
         $device->save();

@@ -1,0 +1,97 @@
+<template>
+<div>
+<div class="container-fluid">
+      <div class="row">
+
+
+              <div class="col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-header">
+                      <div class="row">
+                      <div class="col-xl-6"> <i class="fas fa-tachometer-alt mr-1"></i>{{ deviceName }}</div>
+                        <div class="col-xl-6">
+                          <div class="circleindicatorsmall red"></div>
+                            <!-- <span class="rounded-circle"><i class="fas fa-circle mr-1"></i></span> -->
+                        </div>
+                    </div>
+
+                  </div>
+                  <div class="card-body">
+                    <h1></h1>
+                    <div class="row">
+                      <div class="col-xl-6">
+
+                        <span class="badge badge-success" v-if="connstatus == 1">Connected</span>
+                        <span class="badge badge-danger" v-else-if="connstatus == 0">Disconnected</span>
+                      </div>
+
+                      <div class="col-xl-6">
+                          <div class="row">
+                        <!-- <p class="font-weight-bold" id="">{{ connstatustime }}</p> -->
+                        <stop-watch></stop-watch>
+                        <a  data-toggle="tooltip" data-placement="right" title="Elopsed Time">
+                            <i class="fas fa-info-circle"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xl-6 font-weight-bold">No. Of Alarm Raised</div>
+                      <div class="col-xl-6 font-weight-bold">No. Of Active Alarm</div>
+                      <div class="col-xl-6">{{ AlarmRaised }}</div>
+                      <div class="col-xl-6">{{ AlarmActive }}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-6"> <strong> Alarm 1 Active Time</strong></div>
+                        <div class="col-xl-6"> <strong> Alarm 2 Active Time</strong></div>
+                        <div class="col-xl-6">{{ timeActiveAlarmOne }}</div>
+                        <div class="col-xl-6">{{ timeActiveAlarmTwo }}</div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+</template>
+
+<script>
+    export default {
+        props: ['devid', 'deviceid', 'devicename', 'connstatus', 'connstatustime', 'noalarmraised', 'noalarmactive', 'timeactivealarmone', 'timeactivealarmtwo'],
+
+        data() {
+            return {
+                dID: this.devid,
+                deviceID: this.deviceid,
+                deviceName: this.devicename,
+                conStatus: this.connstatus,
+                conStatusTime: this.connstatustime,
+                AlarmRaised: this.noalarmraised,
+                AlarmActive: this.noalarmactive,
+                timeActiveAlarmOne: this.timeactivealarmone,
+                timeActiveAlarmTwo: this.timeactivealarmtwo
+            }
+        },
+
+        mounted() {
+            Echo.channel('DeviceDiagShow.' + this.devid)
+.listen('DeviceDiagnosticShow', (device) => {
+    // console.log(device.device.alarmRaisedNo);
+    // console.log(device);
+    this.dID = device.device.id
+    this.deviceID = device.device.deviceID
+    this.deviceName = device.device.deviceName
+    this.conStatus = device.device.connectionStatus
+    this.conStatusTime = device.device.connectionTime
+    this.AlarmRaised = device.device.alarmRaisedNo
+    this.AlarmActive = device.device.alarmActiveNo
+    this.timeActiveAlarmOne = device.device.alarmOneTime
+    this.timeActiveAlarmTwo = device.device.alarmTwoTime
+ console.log('success');
+    // this.AlarmActive =
+});
+        }
+    }
+</script>

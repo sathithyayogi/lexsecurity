@@ -31,13 +31,13 @@ Route::put('devices/{deviceapi}', 'deviceApiController@deviceUpdate');
 Route::put('devices/{id}/init','deviceApiController@deviceInit');
 
 //alarm one start
-Route::put('devices/{id}/alarmonestart','deviceApiController@devicealarmOneStart');
+Route::put('devices/{id}/alarmonestart/{device}','deviceApiController@devicealarmOneStart');
 
 //alarm one stop
 Route::put('devices/{id}/alarmonestop','deviceApiController@devicealarmOneStop');
 
 //alarm two start
-Route::put('devices/{id}/alarmtwostart','deviceApiController@devicealarmtwoStart');
+Route::put('devices/{id}/alarmtwostart/{device}','deviceApiController@devicealarmtwoStart');
 
 //alarm two stop
 Route::put('devices/{id}/alarmtwostop','deviceApiController@devicealarmtwoStop');
