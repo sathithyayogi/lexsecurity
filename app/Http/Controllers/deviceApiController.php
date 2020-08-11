@@ -10,6 +10,7 @@ use SebastianBergmann\Environment\Console;
 use App\Events\WebsocketDemoEvent;
 use App\Events\DeviceDiagnosticShow;
 use Carbon\Carbon;
+use DB;
 
 class deviceApiController extends Controller
 {
@@ -34,11 +35,11 @@ class deviceApiController extends Controller
     }
 
 
-    public function deviceInit(Request $request, $id){
+    public function deviceInit(Request $request, $id, Device $device){
         $device = Device::find($id);
         $device->initialized = 1;
         $device->save();
-
+        broadcast(new DeviceDiagnosticsEvent($device));
         //Device Initialization
         return response()->json($device, 200);
     }
@@ -59,6 +60,15 @@ class deviceApiController extends Controller
     public function devicealarmOneStop(Request $request, $id){
         $device = Device::find($id);
         $device->alarmActiveNo = 0;
+
+        $olddate = DB::table('device')
+        ->select('alarmOneTime')
+        ->where('id','=', $id);
+
+        $currenttime = Carbon::now('Asia/Kolkata');
+
+        // $diff_in_minutes = $currenttime->diffInMinutes($olddate);
+        $device->alarmonetotTime = 50;
         $device->save();
 
         //Alarm One Stop

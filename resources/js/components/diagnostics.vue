@@ -15,7 +15,12 @@
                         </div>
                     </div>
                   </div>
-                  <div class="card-body">
+
+                  <div class="card-body" v-if="device.initialized == 0">
+                    <h4>Device Not Initialized</h4>
+                  </div>
+
+                  <div class="card-body" v-if="device.initialized == 1">
 
                     <div class="row">
                       <div class="col-xl-6">
@@ -28,13 +33,12 @@
                             <!-- <p class="font-weight-bold">{{device.connectionTime}}</p> -->
                                  <stop-watch
                         :year = "2020"
-                        :month = "7"
-                        :date = "11"
-                        :hour = "0"
+                        :month = "6"
+                        :date = "10"
+                        :hour = "4"
                         :minute = "55"
                         :second = "60"
-                        :millisecond = "0"
-                        />
+                        :millisecond = "0" />
                             <a  data-toggle="tooltip" data-placement="right" title="Elopsed Time">
                             <i class="fas fa-info-circle"></i>
 
@@ -47,15 +51,15 @@
                     <div class="row">
                       <div class="col-xl-6 font-weight-bold">No. Of Alarm Raised</div>
                       <div class="col-xl-6 font-weight-bold">No. Of Active Alarm</div>
-                      <div class="col-xl-6">{{ device.alarmRaisedNo }}</div>
+                      <div class="col-xl-6" >{{ device.alarmRaisedNo }}</div>
                       <div class="col-xl-6">{{ device.alarmActiveNo }}</div>
                     </div>
 
                     <div class="row">
                         <div class="col-xl-6"> <strong> Alarm 1 Active Time</strong></div>
                         <div class="col-xl-6"> <strong> Alarm 2 Active Time</strong></div>
-                        <div class="col-xl-6">05:45:10</div>
-                        <div class="col-xl-6">05:45:10</div>
+                        <div class="col-xl-6">{{ device.alarmOneTime }}</div>
+                        <div class="col-xl-6">{{ device.alarmTwoTime }}</div>
                     </div>
 
                   </div>
@@ -69,8 +73,6 @@
 </div>
 
 
-
-
             </div>
 </div>
 </template>
@@ -78,26 +80,27 @@
 <script>
     export default {
         mounted() {
-            this.loadDevices();
-                        Echo.channel('DeviceDiag')
-.listen('DeviceDiagnosticsEvent', (device) => {
-console.log(device);
+                this.loadDevices();
+                Echo.channel('DeviceDiag')
+                .listen('DeviceDiagnosticsEvent', (device) => {
+                this.loadDevices();
+                console.log("success");
 });
         },
         data: function() {
             return {
-                devices: []
+                devices: [],
+                AlarmRaised: '',
+                dID: ''
             }
         },
 
         methods: {
             loadDevices: function() {
             console.log('Device Loaded.');
-            //load Api
             axios.get('/api/devices')
             .then((response) => {
-                this.devices = response.data;
-                console.log(this.devices);
+                this.devices = response.data
             })
             .catch(function(error) {
                 console.log(error);

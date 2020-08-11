@@ -28,7 +28,7 @@ Route::post('devices', 'deviceApiController@devicesSave');
 Route::put('devices/{deviceapi}', 'deviceApiController@deviceUpdate');
 
 //Device Init
-Route::put('devices/{id}/init','deviceApiController@deviceInit');
+Route::put('devices/{id}/init/{device}','deviceApiController@deviceInit');
 
 //alarm one start
 Route::put('devices/{id}/alarmonestart/{device}','deviceApiController@devicealarmOneStart');

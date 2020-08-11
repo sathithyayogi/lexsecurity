@@ -2013,6 +2013,73 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    this.loadDevices();
+    Echo.channel('DeviceDiag').listen('DeviceDiagnosticsEvent', function (device) {
+      console.log(device.device.alarmRaisedNo);
+      console.log("pls work");
+    });
+  },
+  data: function data() {
+    return {
+      devices: [],
+      AlarmRaised: '',
+      dID: ''
+    };
+  },
+  methods: {
+    loadDevices: function loadDevices() {
+      var _this = this;
+
+      console.log('Device Loaded.');
+      axios.get('/api/devices').then(function (response) {
+        _this.devices = response.data;
+        console.log(response.data);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/diagnostics.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/diagnostics.vue?vue&type=script&lang=js& ***!
@@ -2099,27 +2166,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
+    var _this = this;
+
     this.loadDevices();
     Echo.channel('DeviceDiag').listen('DeviceDiagnosticsEvent', function (device) {
-      console.log(device);
+      _this.loadDevices();
+
+      console.log("success");
     });
   },
   data: function data() {
     return {
-      devices: []
+      devices: [],
+      AlarmRaised: '',
+      dID: ''
     };
   },
   methods: {
     loadDevices: function loadDevices() {
-      var _this = this;
+      var _this2 = this;
 
-      console.log('Device Loaded.'); //load Api
-
+      console.log('Device Loaded.');
       axios.get('/api/devices').then(function (response) {
-        _this.devices = response.data;
-        console.log(_this.devices);
+        _this2.devices = response.data;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2138,6 +2211,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -43967,6 +44041,66 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard.vue?vue&type=template&id=57220a4e&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard.vue?vue&type=template&id=57220a4e& ***!
+  \************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "row" },
+      _vm._l(_vm.devices, function(device) {
+        return _c("div", { staticClass: "col-xl-3" }, [_vm._m(0, true)])
+      }),
+      0
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card xl-3" }, [
+      _c("div", { staticClass: "card-header" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-xl-12" }, [
+            _vm._v("\n                DeviceOne\n              ")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "circleindicator red" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-xl-6" }, [
+            _c("span", { staticClass: "badge badge-success" }, [
+              _vm._v("CONNECTED")
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/diagnostics.vue?vue&type=template&id=509226b1&":
 /*!**************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/diagnostics.vue?vue&type=template&id=509226b1& ***!
@@ -44009,64 +44143,84 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-xl-6" }, [
-                  device.connectionStatus == 0
-                    ? _c("span", { staticClass: "badge badge-success" }, [
-                        _vm._v("Connected")
-                      ])
-                    : device.connectionStatus == 1
-                    ? _c("span", { staticClass: "badge badge-danger" }, [
-                        _vm._v("Not Connected")
-                      ])
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6" }, [
-                  _c(
-                    "div",
-                    { staticClass: "row" },
-                    [
-                      _c("stop-watch", {
-                        attrs: {
-                          year: 2020,
-                          month: 7,
-                          date: 11,
-                          hour: 0,
-                          minute: 55,
-                          second: 60,
-                          millisecond: 0
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm._m(1, true)
-                    ],
-                    1
-                  )
+            device.initialized == 0
+              ? _c("div", { staticClass: "card-body" }, [
+                  _c("h4", [_vm._v("Device Not Initialized")])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-xl-6 font-weight-bold" }, [
-                  _vm._v("No. Of Alarm Raised")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6 font-weight-bold" }, [
-                  _vm._v("No. Of Active Alarm")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6" }, [
-                  _vm._v(_vm._s(device.alarmRaisedNo))
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6" }, [
-                  _vm._v(_vm._s(device.alarmActiveNo))
+              : _vm._e(),
+            _vm._v(" "),
+            device.initialized == 1
+              ? _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-xl-6" }, [
+                      device.connectionStatus == 0
+                        ? _c("span", { staticClass: "badge badge-success" }, [
+                            _vm._v("Connected")
+                          ])
+                        : device.connectionStatus == 1
+                        ? _c("span", { staticClass: "badge badge-danger" }, [
+                            _vm._v("Not Connected")
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xl-6" }, [
+                      _c(
+                        "div",
+                        { staticClass: "row" },
+                        [
+                          _c("stop-watch", {
+                            attrs: {
+                              year: 2020,
+                              month: 6,
+                              date: 10,
+                              hour: 4,
+                              minute: 55,
+                              second: 60,
+                              millisecond: 0
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm._m(1, true)
+                        ],
+                        1
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-xl-6 font-weight-bold" }, [
+                      _vm._v("No. Of Alarm Raised")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xl-6 font-weight-bold" }, [
+                      _vm._v("No. Of Active Alarm")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xl-6" }, [
+                      _vm._v(_vm._s(device.alarmRaisedNo))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xl-6" }, [
+                      _vm._v(_vm._s(device.alarmActiveNo))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(2, true),
+                    _vm._v(" "),
+                    _vm._m(3, true),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xl-6" }, [
+                      _vm._v(_vm._s(device.alarmOneTime))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xl-6" }, [
+                      _vm._v(_vm._s(device.alarmTwoTime))
+                    ])
+                  ])
                 ])
-              ]),
-              _vm._v(" "),
-              _vm._m(2, true)
-            ])
+              : _vm._e()
           ])
         }),
         0
@@ -44103,18 +44257,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-xl-6" }, [
-        _c("strong", [_vm._v(" Alarm 1 Active Time")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-xl-6" }, [
-        _c("strong", [_vm._v(" Alarm 2 Active Time")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-xl-6" }, [_vm._v("05:45:10")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-xl-6" }, [_vm._v("05:45:10")])
+    return _c("div", { staticClass: "col-xl-6" }, [
+      _c("strong", [_vm._v(" Alarm 1 Active Time")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-xl-6" }, [
+      _c("strong", [_vm._v(" Alarm 2 Active Time")])
     ])
   }
 ]
@@ -44178,7 +44330,7 @@ var render = function() {
                     [
                       _c("stop-watch", {
                         attrs: {
-                          year: 2020,
+                          year: _vm.connectionStatus,
                           month: 7,
                           date: 11,
                           hour: 0,
@@ -44187,6 +44339,8 @@ var render = function() {
                           millisecond: 0
                         }
                       }),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(" " + _vm._s(_vm.conStatusTime) + " ")]),
                       _vm._v(" "),
                       _vm._m(1)
                     ],
@@ -56472,6 +56626,7 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 Vue.component('diagnostic-show', __webpack_require__(/*! ./components/diagnosticshow.vue */ "./resources/js/components/diagnosticshow.vue")["default"]);
 Vue.component('stop-watch', __webpack_require__(/*! ./components/connectionTimer.vue */ "./resources/js/components/connectionTimer.vue")["default"]);
 Vue.component('diagnostics', __webpack_require__(/*! ./components/diagnostics.vue */ "./resources/js/components/diagnostics.vue")["default"]);
+Vue.component('dashboard', __webpack_require__(/*! ./components/dashboard.vue */ "./resources/js/components/dashboard.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -56671,6 +56826,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_connectionTimer_vue_vue_type_template_id_710ec7e8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_connectionTimer_vue_vue_type_template_id_710ec7e8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/components/dashboard.vue ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dashboard_vue_vue_type_template_id_57220a4e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dashboard.vue?vue&type=template&id=57220a4e& */ "./resources/js/components/dashboard.vue?vue&type=template&id=57220a4e&");
+/* harmony import */ var _dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dashboard.vue?vue&type=script&lang=js& */ "./resources/js/components/dashboard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _dashboard_vue_vue_type_template_id_57220a4e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _dashboard_vue_vue_type_template_id_57220a4e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/dashboard.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/dashboard.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./dashboard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard.vue?vue&type=template&id=57220a4e&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/dashboard.vue?vue&type=template&id=57220a4e& ***!
+  \******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_template_id_57220a4e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./dashboard.vue?vue&type=template&id=57220a4e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard.vue?vue&type=template&id=57220a4e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_template_id_57220a4e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_template_id_57220a4e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

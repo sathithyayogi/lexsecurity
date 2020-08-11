@@ -26,7 +26,7 @@
                           <div class="row">
                         <!-- <p class="font-weight-bold" id="">{{ connstatustime }}</p> -->
                         <stop-watch
-                        :year = "2020"
+                        :year = connectionStatus
                         :month = "7"
                         :date = "11"
                         :hour = "0"
@@ -34,6 +34,7 @@
                         :second = "60"
                         :millisecond = "0"
                         />
+                        <p> {{ conStatusTime }} </p>
                         <a  data-toggle="tooltip" data-placement="right" title="Elopsed Time">
                             <i class="fas fa-info-circle"></i>
                           </a>
@@ -93,6 +94,7 @@
     this.AlarmActive = device.device.alarmActiveNo
     this.timeActiveAlarmOne = device.device.alarmOneTime
     this.timeActiveAlarmTwo = device.device.alarmTwoTime
+
  console.log('success');
  console.log(device);
     // this.AlarmActive =
