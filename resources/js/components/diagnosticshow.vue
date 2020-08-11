@@ -2,8 +2,6 @@
 <div>
 <div class="container-fluid">
       <div class="row">
-
-
               <div class="col-xl-6">
                 <div class="card mb-4">
                   <div class="card-header">
@@ -14,7 +12,6 @@
                             <!-- <span class="rounded-circle"><i class="fas fa-circle mr-1"></i></span> -->
                         </div>
                     </div>
-
                   </div>
                   <div class="card-body">
                     <h1></h1>
@@ -28,7 +25,15 @@
                       <div class="col-xl-6">
                           <div class="row">
                         <!-- <p class="font-weight-bold" id="">{{ connstatustime }}</p> -->
-                        <stop-watch></stop-watch>
+                        <stop-watch
+                        :year = "2020"
+                        :month = "7"
+                        :date = "11"
+                        :hour = "0"
+                        :minute = "55"
+                        :second = "60"
+                        :millisecond = "0"
+                        />
                         <a  data-toggle="tooltip" data-placement="right" title="Elopsed Time">
                             <i class="fas fa-info-circle"></i>
                           </a>
@@ -76,10 +81,9 @@
         },
 
         mounted() {
+            console.log(this.conStatusTime);
             Echo.channel('DeviceDiagShow.' + this.devid)
 .listen('DeviceDiagnosticShow', (device) => {
-    // console.log(device.device.alarmRaisedNo);
-    // console.log(device);
     this.dID = device.device.id
     this.deviceID = device.device.deviceID
     this.deviceName = device.device.deviceName
@@ -90,6 +94,7 @@
     this.timeActiveAlarmOne = device.device.alarmOneTime
     this.timeActiveAlarmTwo = device.device.alarmTwoTime
  console.log('success');
+ console.log(device);
     // this.AlarmActive =
 });
         }

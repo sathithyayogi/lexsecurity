@@ -22,6 +22,7 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('diagnostic-show', require('./components/diagnosticshow.vue').default);
 Vue.component('stop-watch', require('./components/connectionTimer.vue').default);
+Vue.component('diagnostics', require('./components/diagnostics.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Device;
 use Illuminate\Http\Request;
 use App\DeviceApi;
+use App\Events\DeviceDiagnosticsEvent;
 use SebastianBergmann\Environment\Console;
 use App\Events\WebsocketDemoEvent;
 use App\Events\DeviceDiagnosticShow;
@@ -23,7 +24,7 @@ class deviceApiController extends Controller
 
     public function devicesSave(Request $request){
         //deviceName, deviceID, mobileNumber must
-        $device = DeviceApi::create($request->all());
+        $device = Device::create($request->all());
         return response()->json($device, 200);
     }
 
@@ -34,7 +35,7 @@ class deviceApiController extends Controller
 
 
     public function deviceInit(Request $request, $id){
-        $device = DeviceApi::find($id);
+        $device = Device::find($id);
         $device->initialized = 1;
         $device->save();
 
@@ -43,19 +44,20 @@ class deviceApiController extends Controller
     }
 
     public function devicealarmOneStart(Request $request, $id, Device $device){
-        broadcast(new DeviceDiagnosticShow($device));
-        $device = DeviceApi::find($id);
+        $device = Device::find($id);
         $device->alarmRaisedNo++;
         $device->alarmActiveNo = 1;
         $device->alarmOneTime = Carbon::now('Asia/Kolkata');
         $device->save();
 
+        broadcast(new DeviceDiagnosticShow($device));
+        broadcast(new DeviceDiagnosticsEvent($device));
         //Alarm One Start
         return response()->json($device, 200);
     }
 
     public function devicealarmOneStop(Request $request, $id){
-        $device = DeviceApi::find($id);
+        $device = Device::find($id);
         $device->alarmActiveNo = 0;
         $device->save();
 
@@ -66,19 +68,20 @@ class deviceApiController extends Controller
     public function devicealarmTwoStart(Request $request, $id, Device $device){
 
 
-        broadcast(new DeviceDiagnosticShow($device));
-        $device = DeviceApi::find($id);
+        $device = Device::find($id);
         $device->alarmRaisedNo++;
         $device->alarmActiveNo = 2;
         $device->alarmTwoTime = Carbon::now('Asia/Kolkata');
         $device->save();
         //Alarm One Start
+        broadcast(new DeviceDiagnosticShow($device));
+        broadcast(new DeviceDiagnosticsEvent($device));
         return response()->json($device, 200);
     }
 
     public function devicealarmTwoStop(Request $request, $id){
 
-        $device = DeviceApi::find($id);
+        $device = Device::find($id);
         $device->alarmActiveNo = 0;
         $device->save();
 
