@@ -6,7 +6,7 @@
                 <div class="card mb-4">
                   <div class="card-header">
                       <div class="row">
-                      <div class="col-xl-6"> <i class="fas fa-tachometer-alt mr-1"></i>{{ deviceName }}</div>
+                      <div class="col-xl-6"> <i class="fas fa-tachometer-alt mr-1"></i>{{ deviceName }} - {{ deviceID }}</div>
                         <div class="col-xl-6">
                           <div class="circleindicatorsmall red"></div>
                             <!-- <span class="rounded-circle"><i class="fas fa-circle mr-1"></i></span> -->
@@ -24,17 +24,9 @@
 
                       <div class="col-xl-6">
                           <div class="row">
-                        <!-- <p class="font-weight-bold" id="">{{ connstatustime }}</p> -->
-                        <stop-watch
-                        :year = connectionStatus
-                        :month = "7"
-                        :date = "11"
-                        :hour = "0"
-                        :minute = "55"
-                        :second = "60"
-                        :millisecond = "0"
-                        />
-                        <p> {{ conStatusTime }} </p>
+                        <p class="font-weight-bold" v-if="connstatus == 1">{{ connstatustime }}</p>
+                        <p class="font-weight-bold" v-else-if="connstatus == 0">00:00:00</p>
+
                         <a  data-toggle="tooltip" data-placement="right" title="Elopsed Time">
                             <i class="fas fa-info-circle"></i>
                           </a>
@@ -52,8 +44,19 @@
                     <div class="row">
                         <div class="col-xl-6"> <strong> Alarm 1 Active Time</strong></div>
                         <div class="col-xl-6"> <strong> Alarm 2 Active Time</strong></div>
-                        <div class="col-xl-6">{{ timeActiveAlarmOne }}</div>
-                        <div class="col-xl-6">{{ timeActiveAlarmTwo }}</div>
+                        <div class="col-xl-6" v-if="AlarmOneRunStatus == 1">
+                            <alarm-one
+                        :timestamp = timeActiveAlarmOne
+                        :addtime = AlarmTotOneTime
+                        /></div>
+                           <div class="col-xl-6" v-else-if="AlarmOneRunStatus == 0">{{AlarmTotOneTime}} </div>
+
+                            <div class="col-xl-6" v-if="AlarmTwoRunStatus == 1">
+                            <alarm-one
+                        :timestamp = timeActiveAlarmTwo
+                        :addtime = AlarmTotTwoTime
+                        /></div>
+                           <div class="col-xl-6" v-else-if="AlarmTwoRunStatus == 0">{{AlarmTotTwoTime}} </div>
                     </div>
                   </div>
                 </div>
@@ -65,7 +68,7 @@
 
 <script>
     export default {
-        props: ['devid', 'deviceid', 'devicename', 'connstatus', 'connstatustime', 'noalarmraised', 'noalarmactive', 'timeactivealarmone', 'timeactivealarmtwo'],
+        props: ['devid', 'deviceid', 'devicename', 'connstatus', 'connstatustime', 'noalarmraised', 'noalarmactive', 'timeactivealarmone', 'timeactivealarmtwo', 'alarmonetottime', 'alarmtwotottime', 'alarmonerunstatus', 'alarmtworunstatus'],
 
         data() {
             return {
@@ -77,12 +80,15 @@
                 AlarmRaised: this.noalarmraised,
                 AlarmActive: this.noalarmactive,
                 timeActiveAlarmOne: this.timeactivealarmone,
-                timeActiveAlarmTwo: this.timeactivealarmtwo
+                timeActiveAlarmTwo: this.timeactivealarmtwo,
+                AlarmTotOneTime: this.alarmonetottime,
+                AlarmTotTwoTime: this.alarmtwotottime,
+                AlarmOneRunStatus: this.alarmonerunstatus,
+                AlarmTwoRunStatus: this.alarmtworunstatus
             }
         },
 
         mounted() {
-            console.log(this.conStatusTime);
             Echo.channel('DeviceDiagShow.' + this.devid)
 .listen('DeviceDiagnosticShow', (device) => {
     this.dID = device.device.id
@@ -94,6 +100,10 @@
     this.AlarmActive = device.device.alarmActiveNo
     this.timeActiveAlarmOne = device.device.alarmOneTime
     this.timeActiveAlarmTwo = device.device.alarmTwoTime
+    this.AlarmOneRunStatus = device.device.alarmOneRunStatus
+    this.AlarmTwoRunStatus = device.device.alarmTwoRunStatus
+    this.AlarmTotOneTime = device.device.alarmonetotTime
+    this.AlarmTotTwoTime = device.device.alarmtwototTime
 
  console.log('success');
  console.log(device);

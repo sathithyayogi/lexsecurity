@@ -39,6 +39,7 @@ class deviceApiController extends Controller
         $device = Device::find($id);
         $device->initialized = 1;
         $device->save();
+        broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));
         //Device Initialization
         return response()->json($device, 200);
@@ -48,6 +49,7 @@ class deviceApiController extends Controller
         $device = Device::find($id);
         $device->alarmRaisedNo++;
         $device->alarmActiveNo = 1;
+        $device->alarmOneRunStatus = 1;
         $device->alarmOneTime = Carbon::now('Asia/Kolkata');
         $device->save();
 
@@ -57,30 +59,36 @@ class deviceApiController extends Controller
         return response()->json($device, 200);
     }
 
-    public function devicealarmOneStop(Request $request, $id){
+    public function devicealarmOneStop(Request $request, $id, Device $device){
         $device = Device::find($id);
         $device->alarmActiveNo = 0;
+        $device->alarmOneRunStatus = 0;
 
-        $olddate = DB::table('device')
-        ->select('alarmOneTime')
-        ->where('id','=', $id);
+        $alarmonetime = DB::table('devices')
+        ->where('id', '=', $id)->pluck('created_at');
 
-        $currenttime = Carbon::now('Asia/Kolkata');
+        $alarmonetimetwo = DB::table('devices')
+        ->where('id', '=', $id)->pluck('updated_at');
 
-        // $diff_in_minutes = $currenttime->diffInMinutes($olddate);
-        $device->alarmonetotTime = 50;
+        $alarmonetottimeprev = DB::table('devices')
+        ->where('id', '=', $id)->pluck('alarmonetotTime');
+
+        // $device->alarmonetotTime = 10 + $alarmonetottimeprev[0];
+
         $device->save();
-
+        broadcast(new DeviceDiagnosticShow($device));
+        broadcast(new DeviceDiagnosticsEvent($device));
         //Alarm One Stop
+
         return response()->json($device, 200);
     }
 
     public function devicealarmTwoStart(Request $request, $id, Device $device){
-
-
         $device = Device::find($id);
         $device->alarmRaisedNo++;
         $device->alarmActiveNo = 2;
+        $device->alarmOneRunStatus = 0;
+        $device->alarmTwoRunStatus = 1;
         $device->alarmTwoTime = Carbon::now('Asia/Kolkata');
         $device->save();
         //Alarm One Start
@@ -89,13 +97,16 @@ class deviceApiController extends Controller
         return response()->json($device, 200);
     }
 
-    public function devicealarmTwoStop(Request $request, $id){
-
+    public function devicealarmTwoStop(Request $request, $id, Device $device){
         $device = Device::find($id);
         $device->alarmActiveNo = 0;
+        $device->alarmOneRunStatus = 0;
+        $device->alarmTwoRunStatus = 0;
         $device->save();
 
         //Alarm One Stop
+        broadcast(new DeviceDiagnosticShow($device));
+        broadcast(new DeviceDiagnosticsEvent($device));
         return response()->json($device, 200);
     }
 }

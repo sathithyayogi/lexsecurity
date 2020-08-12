@@ -9,17 +9,31 @@
 
 <script>
     export default {
-        props: ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'],
+        props: ['timestamp', 'addtime'],
         mounted() {
+
             this.showRemaining();
-            console.log('Component mounted.')
+            // var date = new Date(this.TimeSTamp);
+            // console.log(date.getMonth() + 1);
+            // console.log(date.getFullYear());
+            // console.log(date.getDate());
+            // console.log(date.getHours());
+            // console.log(date.getMinutes());
+            // console.log(date.getSeconds());
+            // const now = new Date();
+            // console.log(now.getHours());
+            // console.log('Component mounted.')
+            console.log(this.TimeSTamp);
+
         },
         data(){
             return {
                 displayDays: 0,
                 displayHours: 0,
                 displayMinutes: 0,
-                displaySeconds: 0
+                displaySeconds: 0,
+                TimeSTamp: this.timestamp,
+                AddTime: this.addtime
             }
         },
         computed: {
@@ -34,14 +48,15 @@
                 return this._hours * 24
             },
             end() {
+                var date = new Date(this.TimeSTamp);
                 return new Date(
-                    this.year,
-                    this.month,
-                    this.date,
-                    this.hour,
-                    this.minute,
-                    this.second,
-                    this.millisecond
+                    this.year =date.getFullYear(),
+                    this.month = date.getMonth(),
+                    this.date = date.getDate(),
+                    this.hour = date.getHours(),
+                    this.minute = date.getMinutes(),
+                    this.second = date.getSeconds(),
+                    this.millisecond = 0
                 );
             }
         },
@@ -52,7 +67,9 @@
                 const timer = setInterval(()=> {
                     const now = new Date();
                     // const end = new Date(2020, 4, 22, 10, 10, 10);
-                    const distance = now.getTime() - this.end.getTime();
+                var distance = now.getTime() - this.end.getTime();
+                // distance = distance + this.AddTime * 60;
+                // console.log(this.AddTime);
 
                     if(distance < 0){
                         clearInterval(timer);

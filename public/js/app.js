@@ -1932,10 +1932,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/connectionTimer.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/connectionTimer.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/alarmonetime.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/alarmonetime.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1951,17 +1951,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'],
+  props: ['timestamp', 'addtime'],
   mounted: function mounted() {
-    this.showRemaining();
-    console.log('Component mounted.');
+    this.showRemaining(); // var date = new Date(this.TimeSTamp);
+    // console.log(date.getMonth() + 1);
+    // console.log(date.getFullYear());
+    // console.log(date.getDate());
+    // console.log(date.getHours());
+    // console.log(date.getMinutes());
+    // console.log(date.getSeconds());
+    // const now = new Date();
+    // console.log(now.getHours());
+    // console.log('Component mounted.')
+
+    console.log(this.TimeSTamp);
   },
   data: function data() {
     return {
       displayDays: 0,
       displayHours: 0,
       displayMinutes: 0,
-      displaySeconds: 0
+      displaySeconds: 0,
+      TimeSTamp: this.timestamp,
+      AddTime: this.addtime
     };
   },
   computed: {
@@ -1978,7 +1990,8 @@ __webpack_require__.r(__webpack_exports__);
       return this._hours * 24;
     },
     end: function end() {
-      return new Date(this.year, this.month, this.date, this.hour, this.minute, this.second, this.millisecond);
+      var date = new Date(this.TimeSTamp);
+      return new Date(this.year = date.getFullYear(), this.month = date.getMonth(), this.date = date.getDate(), this.hour = date.getHours(), this.minute = date.getMinutes(), this.second = date.getSeconds(), this.millisecond = 0);
     }
   },
   methods: {
@@ -1991,7 +2004,9 @@ __webpack_require__.r(__webpack_exports__);
       var timer = setInterval(function () {
         var now = new Date(); // const end = new Date(2020, 4, 22, 10, 10, 10);
 
-        var distance = now.getTime() - _this.end.getTime();
+        var distance = now.getTime() - _this.end.getTime(); // distance = distance + this.AddTime * 60;
+        // console.log(this.AddTime);
+
 
         if (distance < 0) {
           clearInterval(timer);
@@ -2089,7 +2104,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -2276,8 +2290,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['devid', 'deviceid', 'devicename', 'connstatus', 'connstatustime', 'noalarmraised', 'noalarmactive', 'timeactivealarmone', 'timeactivealarmtwo'],
+  props: ['devid', 'deviceid', 'devicename', 'connstatus', 'connstatustime', 'noalarmraised', 'noalarmactive', 'timeactivealarmone', 'timeactivealarmtwo', 'alarmonetottime', 'alarmtwotottime', 'alarmonerunstatus', 'alarmtworunstatus'],
   data: function data() {
     return {
       dID: this.devid,
@@ -2288,13 +2305,16 @@ __webpack_require__.r(__webpack_exports__);
       AlarmRaised: this.noalarmraised,
       AlarmActive: this.noalarmactive,
       timeActiveAlarmOne: this.timeactivealarmone,
-      timeActiveAlarmTwo: this.timeactivealarmtwo
+      timeActiveAlarmTwo: this.timeactivealarmtwo,
+      AlarmTotOneTime: this.alarmonetottime,
+      AlarmTotTwoTime: this.alarmtwotottime,
+      AlarmOneRunStatus: this.alarmonerunstatus,
+      AlarmTwoRunStatus: this.alarmtworunstatus
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    console.log(this.conStatusTime);
     Echo.channel('DeviceDiagShow.' + this.devid).listen('DeviceDiagnosticShow', function (device) {
       _this.dID = device.device.id;
       _this.deviceID = device.device.deviceID;
@@ -2305,6 +2325,10 @@ __webpack_require__.r(__webpack_exports__);
       _this.AlarmActive = device.device.alarmActiveNo;
       _this.timeActiveAlarmOne = device.device.alarmOneTime;
       _this.timeActiveAlarmTwo = device.device.alarmTwoTime;
+      _this.AlarmOneRunStatus = device.device.alarmOneRunStatus;
+      _this.AlarmTwoRunStatus = device.device.alarmTwoRunStatus;
+      _this.AlarmTotOneTime = device.device.alarmonetotTime;
+      _this.AlarmTotTwoTime = device.device.alarmtwototTime;
       console.log('success');
       console.log(device); // this.AlarmActive =
     });
@@ -44005,10 +44029,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/connectionTimer.vue?vue&type=template&id=710ec7e8&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/connectionTimer.vue?vue&type=template&id=710ec7e8& ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/alarmonetime.vue?vue&type=template&id=cc6e54e6&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/alarmonetime.vue?vue&type=template&id=cc6e54e6& ***!
+  \***************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -44153,11 +44177,11 @@ var render = function() {
               ? _c("div", { staticClass: "card-body" }, [
                   _c("div", { staticClass: "row" }, [
                     _c("div", { staticClass: "col-xl-6" }, [
-                      device.connectionStatus == 0
+                      device.connectionStatus == 1
                         ? _c("span", { staticClass: "badge badge-success" }, [
                             _vm._v("Connected")
                           ])
-                        : device.connectionStatus == 1
+                        : device.connectionStatus == 0
                         ? _c("span", { staticClass: "badge badge-danger" }, [
                             _vm._v("Not Connected")
                           ])
@@ -44165,26 +44189,19 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-xl-6" }, [
-                      _c(
-                        "div",
-                        { staticClass: "row" },
-                        [
-                          _c("stop-watch", {
-                            attrs: {
-                              year: 2020,
-                              month: 6,
-                              date: 10,
-                              hour: 4,
-                              minute: 55,
-                              second: 60,
-                              millisecond: 0
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(1, true)
-                        ],
-                        1
-                      )
+                      _c("div", { staticClass: "row" }, [
+                        device.connectionStatus == 1
+                          ? _c("p", { staticClass: "font-weight-bold" }, [
+                              _vm._v(_vm._s(device.connectionTime))
+                            ])
+                          : device.connectionStatus == 0
+                          ? _c("p", { staticClass: "font-weight-bold" }, [
+                              _vm._v("00:00:00")
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm._m(1, true)
+                      ])
                     ])
                   ]),
                   _vm._v(" "),
@@ -44211,13 +44228,47 @@ var render = function() {
                     _vm._v(" "),
                     _vm._m(3, true),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-xl-6" }, [
-                      _vm._v(_vm._s(device.alarmOneTime))
-                    ]),
+                    device.alarmOneRunStatus == 1
+                      ? _c(
+                          "div",
+                          { staticClass: "col-xl-6" },
+                          [
+                            _c("alarm-one", {
+                              attrs: {
+                                timestamp: device.alarmOneTime,
+                                addtime: device.alarmonetotTime
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      : device.alarmOneRunStatus == 0
+                      ? _c("div", { staticClass: "col-xl-6" }, [
+                          _vm._v(_vm._s(device.alarmonetotTime))
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-xl-6" }, [
-                      _vm._v(_vm._s(device.alarmTwoTime))
-                    ])
+                    device.alarmTwoRunStatus == 1
+                      ? _c(
+                          "div",
+                          { staticClass: "col-xl-6" },
+                          [
+                            _c("alarm-one", {
+                              attrs: {
+                                timestamp: device.alarmTwoTime,
+                                addtime: device.alarmtwototTime
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    device.alarmTwoRunStatus == 0
+                      ? _c("div", { staticClass: "col-xl-6" }, [
+                          _vm._v(" " + _vm._s(device.alarmtwototTime) + " ")
+                        ])
+                      : _vm._e()
                   ])
                 ])
               : _vm._e()
@@ -44300,7 +44351,7 @@ var render = function() {
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-xl-6" }, [
                   _c("i", { staticClass: "fas fa-tachometer-alt mr-1" }),
-                  _vm._v(_vm._s(_vm.deviceName))
+                  _vm._v(_vm._s(_vm.deviceName) + " - " + _vm._s(_vm.deviceID))
                 ]),
                 _vm._v(" "),
                 _vm._m(0)
@@ -44324,28 +44375,19 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-xl-6" }, [
-                  _c(
-                    "div",
-                    { staticClass: "row" },
-                    [
-                      _c("stop-watch", {
-                        attrs: {
-                          year: _vm.connectionStatus,
-                          month: 7,
-                          date: 11,
-                          hour: 0,
-                          minute: 55,
-                          second: 60,
-                          millisecond: 0
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(" " + _vm._s(_vm.conStatusTime) + " ")]),
-                      _vm._v(" "),
-                      _vm._m(1)
-                    ],
-                    1
-                  )
+                  _c("div", { staticClass: "row" }, [
+                    _vm.connstatus == 1
+                      ? _c("p", { staticClass: "font-weight-bold" }, [
+                          _vm._v(_vm._s(_vm.connstatustime))
+                        ])
+                      : _vm.connstatus == 0
+                      ? _c("p", { staticClass: "font-weight-bold" }, [
+                          _vm._v("00:00:00")
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._m(1)
+                  ])
                 ])
               ]),
               _vm._v(" "),
@@ -44372,13 +44414,45 @@ var render = function() {
                 _vm._v(" "),
                 _vm._m(3),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6" }, [
-                  _vm._v(_vm._s(_vm.timeActiveAlarmOne))
-                ]),
+                _vm.AlarmOneRunStatus == 1
+                  ? _c(
+                      "div",
+                      { staticClass: "col-xl-6" },
+                      [
+                        _c("alarm-one", {
+                          attrs: {
+                            timestamp: _vm.timeActiveAlarmOne,
+                            addtime: _vm.AlarmTotOneTime
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  : _vm.AlarmOneRunStatus == 0
+                  ? _c("div", { staticClass: "col-xl-6" }, [
+                      _vm._v(_vm._s(_vm.AlarmTotOneTime) + " ")
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6" }, [
-                  _vm._v(_vm._s(_vm.timeActiveAlarmTwo))
-                ])
+                _vm.AlarmTwoRunStatus == 1
+                  ? _c(
+                      "div",
+                      { staticClass: "col-xl-6" },
+                      [
+                        _c("alarm-one", {
+                          attrs: {
+                            timestamp: _vm.timeActiveAlarmTwo,
+                            addtime: _vm.AlarmTotTwoTime
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  : _vm.AlarmTwoRunStatus == 0
+                  ? _c("div", { staticClass: "col-xl-6" }, [
+                      _vm._v(_vm._s(_vm.AlarmTotTwoTime) + " ")
+                    ])
+                  : _vm._e()
               ])
             ])
           ])
@@ -56624,7 +56698,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('diagnostic-show', __webpack_require__(/*! ./components/diagnosticshow.vue */ "./resources/js/components/diagnosticshow.vue")["default"]);
-Vue.component('stop-watch', __webpack_require__(/*! ./components/connectionTimer.vue */ "./resources/js/components/connectionTimer.vue")["default"]);
+Vue.component('alarm-one', __webpack_require__(/*! ./components/alarmonetime.vue */ "./resources/js/components/alarmonetime.vue")["default"]);
 Vue.component('diagnostics', __webpack_require__(/*! ./components/diagnostics.vue */ "./resources/js/components/diagnostics.vue")["default"]);
 Vue.component('dashboard', __webpack_require__(/*! ./components/dashboard.vue */ "./resources/js/components/dashboard.vue")["default"]);
 /**
@@ -56762,17 +56836,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/connectionTimer.vue":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/connectionTimer.vue ***!
-  \*****************************************************/
+/***/ "./resources/js/components/alarmonetime.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/alarmonetime.vue ***!
+  \**************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _connectionTimer_vue_vue_type_template_id_710ec7e8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./connectionTimer.vue?vue&type=template&id=710ec7e8& */ "./resources/js/components/connectionTimer.vue?vue&type=template&id=710ec7e8&");
-/* harmony import */ var _connectionTimer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./connectionTimer.vue?vue&type=script&lang=js& */ "./resources/js/components/connectionTimer.vue?vue&type=script&lang=js&");
+/* harmony import */ var _alarmonetime_vue_vue_type_template_id_cc6e54e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./alarmonetime.vue?vue&type=template&id=cc6e54e6& */ "./resources/js/components/alarmonetime.vue?vue&type=template&id=cc6e54e6&");
+/* harmony import */ var _alarmonetime_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./alarmonetime.vue?vue&type=script&lang=js& */ "./resources/js/components/alarmonetime.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -56782,9 +56856,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _connectionTimer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _connectionTimer_vue_vue_type_template_id_710ec7e8___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _connectionTimer_vue_vue_type_template_id_710ec7e8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _alarmonetime_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _alarmonetime_vue_vue_type_template_id_cc6e54e6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _alarmonetime_vue_vue_type_template_id_cc6e54e6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -56794,38 +56868,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/connectionTimer.vue"
+component.options.__file = "resources/js/components/alarmonetime.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/connectionTimer.vue?vue&type=script&lang=js&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/components/connectionTimer.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************/
+/***/ "./resources/js/components/alarmonetime.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/alarmonetime.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_connectionTimer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./connectionTimer.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/connectionTimer.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_connectionTimer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_alarmonetime_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./alarmonetime.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/alarmonetime.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_alarmonetime_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/connectionTimer.vue?vue&type=template&id=710ec7e8&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/components/connectionTimer.vue?vue&type=template&id=710ec7e8& ***!
-  \************************************************************************************/
+/***/ "./resources/js/components/alarmonetime.vue?vue&type=template&id=cc6e54e6&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/alarmonetime.vue?vue&type=template&id=cc6e54e6& ***!
+  \*********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_connectionTimer_vue_vue_type_template_id_710ec7e8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./connectionTimer.vue?vue&type=template&id=710ec7e8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/connectionTimer.vue?vue&type=template&id=710ec7e8&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_connectionTimer_vue_vue_type_template_id_710ec7e8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_alarmonetime_vue_vue_type_template_id_cc6e54e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./alarmonetime.vue?vue&type=template&id=cc6e54e6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/alarmonetime.vue?vue&type=template&id=cc6e54e6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_alarmonetime_vue_vue_type_template_id_cc6e54e6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_connectionTimer_vue_vue_type_template_id_710ec7e8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_alarmonetime_vue_vue_type_template_id_cc6e54e6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

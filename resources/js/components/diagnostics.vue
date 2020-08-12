@@ -24,21 +24,15 @@
 
                     <div class="row">
                       <div class="col-xl-6">
-                        <span class="badge badge-success" v-if="device.connectionStatus == 0">Connected</span>
-                        <span class="badge badge-danger" v-else-if="device.connectionStatus == 1">Not Connected</span>
+                        <span class="badge badge-success" v-if="device.connectionStatus == 1">Connected</span>
+                        <span class="badge badge-danger" v-else-if="device.connectionStatus == 0">Not Connected</span>
                       </div>
 
                       <div class="col-xl-6">
                           <div class="row">
-                            <!-- <p class="font-weight-bold">{{device.connectionTime}}</p> -->
-                                 <stop-watch
-                        :year = "2020"
-                        :month = "6"
-                        :date = "10"
-                        :hour = "4"
-                        :minute = "55"
-                        :second = "60"
-                        :millisecond = "0" />
+                            <p class="font-weight-bold" v-if="device.connectionStatus == 1">{{device.connectionTime}}</p>
+                            <p class="font-weight-bold" v-else-if="device.connectionStatus == 0">00:00:00</p>
+
                             <a  data-toggle="tooltip" data-placement="right" title="Elopsed Time">
                             <i class="fas fa-info-circle"></i>
 
@@ -55,11 +49,16 @@
                       <div class="col-xl-6">{{ device.alarmActiveNo }}</div>
                     </div>
 
-                    <div class="row">
+                 <div class="row">
                         <div class="col-xl-6"> <strong> Alarm 1 Active Time</strong></div>
                         <div class="col-xl-6"> <strong> Alarm 2 Active Time</strong></div>
-                        <div class="col-xl-6">{{ device.alarmOneTime }}</div>
-                        <div class="col-xl-6">{{ device.alarmTwoTime }}</div>
+                        <div class="col-xl-6" v-if="device.alarmOneRunStatus == 1">
+                            <alarm-one :timestamp = device.alarmOneTime :addtime = device.alarmonetotTime /></div>
+                           <div class="col-xl-6" v-else-if="device.alarmOneRunStatus == 0">{{ device.alarmonetotTime }}</div>
+
+                            <div class="col-xl-6" v-if="device.alarmTwoRunStatus == 1">
+                            <alarm-one :timestamp = device.alarmTwoTime :addtime = device.alarmtwototTime /></div>
+                           <div class="col-xl-6" v-if="device.alarmTwoRunStatus == 0"> {{ device.alarmtwototTime }} </div>
                     </div>
 
                   </div>

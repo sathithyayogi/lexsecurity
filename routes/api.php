@@ -34,12 +34,10 @@ Route::put('devices/{id}/init/{device}','deviceApiController@deviceInit');
 Route::put('devices/{id}/alarmonestart/{device}','deviceApiController@devicealarmOneStart');
 
 //alarm one stop
-Route::put('devices/{id}/alarmonestop','deviceApiController@devicealarmOneStop');
+Route::put('devices/{id}/alarmonestop/{device}','deviceApiController@devicealarmOneStop');
 
 //alarm two start
 Route::put('devices/{id}/alarmtwostart/{device}','deviceApiController@devicealarmtwoStart');
 
 //alarm two stop
-Route::put('devices/{id}/alarmtwostop','deviceApiController@devicealarmtwoStop');
-
-
+Route::put('devices/{id}/alarmtwostop/{device}','deviceApiController@devicealarmtwoStop');

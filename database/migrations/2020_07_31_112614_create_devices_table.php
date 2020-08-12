@@ -25,13 +25,17 @@ class CreateDevicesTable extends Migration
             $table->integer('initialized')->nullable();
             $table->integer('alarmRaisedNo')->nullable();
             $table->integer('alarmActiveNo')->nullable();
-            $table->timestamp('connectionTime')->nullable();
+            $table->time('connectionTime')->nullable();
             $table->timestamp('alarmOneTime')->nullable();
-            $table->integer('alarmonetotTime')->nullable();
-            $table->integer('alarmtwototTime')->nullable();
+            $table->time('alarmonetotTime')->nullable();
+            $table->time('alarmtwototTime')->nullable();
             $table->timestamp('alarmTwoTime')->nullable();
+            $table->integer('alarmOneRunStatus')->nullable();
+            $table->integer('alarmTwoRunStatus')->nullable();
             $table->timestamps();
         });
+
+
     }
 
     /**

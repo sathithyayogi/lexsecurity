@@ -8,5 +8,5 @@
           <li class="breadcrumb-item active">{{ $device->id }}</li>
       </ol>
     </div>
-<diagnostic-show devid="{{ $device->id }}" deviceid="{{ $device->deviceID }}" devicename="{{$device->deviceName}}" connstatus="{{ $device->connectionStatus }}" connstatustime="{{ $device->connectionTime }}" noalarmraised="{{$device->alarmRaisedNo}}" noalarmactive="{{$device->alarmActiveNo}}" timeactivealarmone="{{$device->alarmOneTime}}" timeactivealarmtwo="{{$device->alarmOneTime}}" ></diagnostic-show>
+<diagnostic-show devid="{{ $device->id }}" deviceid="{{ $device->deviceID }}" devicename="{{$device->deviceName}}" connstatus="{{ $device->connectionStatus }}" connstatustime="{{ $device->connectionTime }}" noalarmraised="{{$device->alarmRaisedNo}}" noalarmactive="{{$device->alarmActiveNo}}" timeactivealarmone="{{$device->alarmOneTime}}" timeactivealarmtwo="{{$device->alarmOneTime}}" alarmonetottime="{{$device->alarmonetotTime}}" alarmtwotottime="{{$device->alarmtwototTime}}" alarmonerunstatus = "{{$device->alarmOneRunStatus}}" alarmtworunstatus = "{{$device->alarmTwoRunStatus}}"></diagnostic-show>
 @endsection
