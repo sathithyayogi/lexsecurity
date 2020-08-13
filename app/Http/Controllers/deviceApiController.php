@@ -41,6 +41,7 @@ class deviceApiController extends Controller
         $device->save();
         broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));
+
         //Device Initialization
         return response()->json($device, 200);
     }
@@ -50,6 +51,7 @@ class deviceApiController extends Controller
         $device->alarmRaisedNo++;
         $device->alarmActiveNo = 1;
         $device->alarmOneRunStatus = 1;
+        $device->movementStatus = 1;
         $device->alarmOneTime = Carbon::now('Asia/Kolkata');
         $device->save();
 
@@ -63,23 +65,28 @@ class deviceApiController extends Controller
         $device = Device::find($id);
         $device->alarmActiveNo = 0;
         $device->alarmOneRunStatus = 0;
-
+        $device->movementStatus = 2;
         $alarmonetime = DB::table('devices')
-        ->where('id', '=', $id)->pluck('created_at');
+        ->where('id', '=', $id)->pluck('alarmOneTime');
 
-        $alarmonetimetwo = DB::table('devices')
-        ->where('id', '=', $id)->pluck('updated_at');
+        $currenttime = Carbon::now('Asia/Kolkata');
 
         $alarmonetottimeprev = DB::table('devices')
         ->where('id', '=', $id)->pluck('alarmonetotTime');
 
-        // $device->alarmonetotTime = 10 + $alarmonetottimeprev[0];
+        $timeFirst  = strtotime($alarmonetime[0]);
+        $timeSecond = strtotime($currenttime);
+        $differenceInSeconds = $timeSecond - $timeFirst;
+
+        $device->alarmonetotTime = (new Carbon($alarmonetottimeprev[0]))->addSeconds($differenceInSeconds);
+
 
         $device->save();
         broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));
         //Alarm One Stop
-
+        return $differenceInSeconds;
+        return $alarmonetime[0] ." ". $currenttime . " ". (new Carbon($alarmonetottimeprev[0]))->addSeconds(61);
         return response()->json($device, 200);
     }
 
@@ -87,9 +94,31 @@ class deviceApiController extends Controller
         $device = Device::find($id);
         $device->alarmRaisedNo++;
         $device->alarmActiveNo = 2;
-        $device->alarmOneRunStatus = 0;
+        $device->movementStatus = 0;
         $device->alarmTwoRunStatus = 1;
         $device->alarmTwoTime = Carbon::now('Asia/Kolkata');
+
+        $alarmonestatus = DB::table('devices')
+        ->where('id', '=', $id)->pluck('alarmOneTime');
+
+            $device->alarmOneRunStatus = 0;
+
+            $alarmonetime = DB::table('devices')
+            ->where('id', '=', $id)->pluck('alarmOneTime');
+
+            $currenttime = Carbon::now('Asia/Kolkata');
+
+            $alarmonetottimeprev = DB::table('devices')
+            ->where('id', '=', $id)->pluck('alarmonetotTime');
+
+            $timeFirst  = strtotime($alarmonetime[0]);
+            $timeSecond = strtotime($currenttime);
+            $differenceInSeconds = $timeSecond - $timeFirst;
+
+            $device->alarmonetotTime = (new Carbon($alarmonetottimeprev[0]))->addSeconds($differenceInSeconds);
+
+
+
         $device->save();
         //Alarm One Start
         broadcast(new DeviceDiagnosticShow($device));
@@ -100,8 +129,24 @@ class deviceApiController extends Controller
     public function devicealarmTwoStop(Request $request, $id, Device $device){
         $device = Device::find($id);
         $device->alarmActiveNo = 0;
-        $device->alarmOneRunStatus = 0;
         $device->alarmTwoRunStatus = 0;
+        $device->movementStatus = 2;
+
+        $alarmtwotime = DB::table('devices')
+        ->where('id', '=', $id)->pluck('alarmTwoTime');
+
+        $currenttime = Carbon::now('Asia/Kolkata');
+
+        $alarmtwotottimeprev = DB::table('devices')
+        ->where('id', '=', $id)->pluck('alarmtwototTime');
+
+        $timeFirst  = strtotime($alarmtwotime[0]);
+        $timeSecond = strtotime($currenttime);
+        $differenceInSeconds = $timeSecond - $timeFirst;
+
+        $device->alarmtwototTime = (new Carbon($alarmtwotottimeprev[0]))->addSeconds($differenceInSeconds);
+
+
         $device->save();
 
         //Alarm One Stop

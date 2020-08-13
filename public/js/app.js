@@ -1963,8 +1963,6 @@ __webpack_require__.r(__webpack_exports__);
     // const now = new Date();
     // console.log(now.getHours());
     // console.log('Component mounted.')
-
-    console.log(this.TimeSTamp);
   },
   data: function data() {
     return {
@@ -2002,11 +2000,18 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var timer = setInterval(function () {
+        var hms = _this.addtime; // your input string
+
+        var a = hms.split(':'); // split it at the colons
+        // minutes are worth 60 seconds. Hours are worth 60 minutes.
+
+        var secondsremain = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
         var now = new Date(); // const end = new Date(2020, 4, 22, 10, 10, 10);
 
-        var distance = now.getTime() - _this.end.getTime(); // distance = distance + this.AddTime * 60;
-        // console.log(this.AddTime);
+        var distance = now.getTime() - _this.end.getTime();
 
+        distance = distance + secondsremain * 1000;
+        console.log(secondsremain);
 
         if (distance < 0) {
           clearInterval(timer);
@@ -2063,10 +2068,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
+    var _this = this;
+
     this.loadDevices();
     Echo.channel('DeviceDiag').listen('DeviceDiagnosticsEvent', function (device) {
+      _this.loadDevices();
+
       console.log(device.device.alarmRaisedNo);
       console.log("pls work");
     });
@@ -2080,11 +2096,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     loadDevices: function loadDevices() {
-      var _this = this;
+      var _this2 = this;
 
       console.log('Device Loaded.');
       axios.get('/api/devices').then(function (response) {
-        _this.devices = response.data;
+        _this2.devices = response.data;
         console.log(response.data);
       })["catch"](function (error) {
         console.log(error);
@@ -2104,6 +2120,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -2293,8 +2311,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['devid', 'deviceid', 'devicename', 'connstatus', 'connstatustime', 'noalarmraised', 'noalarmactive', 'timeactivealarmone', 'timeactivealarmtwo', 'alarmonetottime', 'alarmtwotottime', 'alarmonerunstatus', 'alarmtworunstatus'],
+  props: ['devid', 'deviceid', 'devicename', 'connstatus', 'connstatustime', 'noalarmraised', 'noalarmactive', 'timeactivealarmone', 'timeactivealarmtwo', 'alarmonetottime', 'alarmtwotottime', 'alarmonerunstatus', 'alarmtworunstatus', 'initialized'],
   data: function data() {
     return {
       dID: this.devid,
@@ -2309,7 +2333,8 @@ __webpack_require__.r(__webpack_exports__);
       AlarmTotOneTime: this.alarmonetottime,
       AlarmTotTwoTime: this.alarmtwotottime,
       AlarmOneRunStatus: this.alarmonerunstatus,
-      AlarmTwoRunStatus: this.alarmtworunstatus
+      AlarmTwoRunStatus: this.alarmtworunstatus,
+      Init: this.initialized
     };
   },
   mounted: function mounted() {
@@ -2329,6 +2354,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.AlarmTwoRunStatus = device.device.alarmTwoRunStatus;
       _this.AlarmTotOneTime = device.device.alarmonetotTime;
       _this.AlarmTotTwoTime = device.device.alarmtwototTime;
+      _this.Init = device.device.initialized;
       console.log('success');
       console.log(device); // this.AlarmActive =
     });
@@ -44085,40 +44111,63 @@ var render = function() {
       "div",
       { staticClass: "row" },
       _vm._l(_vm.devices, function(device) {
-        return _c("div", { staticClass: "col-xl-3" }, [_vm._m(0, true)])
+        return _c("div", { staticClass: "col-xl-3" }, [
+          _c("div", { staticClass: "card xl-3" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-xl-12" }, [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(device.deviceName) +
+                      " - " +
+                      _vm._s(device.deviceID) +
+                      "\n              "
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            device.initialized == 0
+              ? _c("div", { staticClass: "card-body" }, [
+                  _c("h4", [_vm._v("Device Not Initialized")])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            device.initialized == 1
+              ? _c("div", { staticClass: "card-body" }, [
+                  device.movementStatus == 0
+                    ? _c("div", { staticClass: "circleindicator red" })
+                    : device.movementStatus == 1
+                    ? _c("div", { staticClass: "circleindicator yellow" })
+                    : device.movementStatus == 2
+                    ? _c("div", { staticClass: "circleindicator green" })
+                    : device.movementStatus == 3
+                    ? _c("div", { staticClass: "circleindicator grey" })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-xl-6 mt-3" }, [
+                      device.connectionStatus == 1
+                        ? _c("span", { staticClass: "badge badge-success" }, [
+                            _vm._v("Connected")
+                          ])
+                        : device.connectionStatus == 0
+                        ? _c("span", { staticClass: "badge badge-danger" }, [
+                            _vm._v("Not Connected")
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ])
+              : _vm._e()
+          ])
+        ])
       }),
       0
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card xl-3" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-xl-12" }, [
-            _vm._v("\n                DeviceOne\n              ")
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "circleindicator red" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-xl-6" }, [
-            _c("span", { staticClass: "badge badge-success" }, [
-              _vm._v("CONNECTED")
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -44141,12 +44190,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-xl-6" },
-        _vm._l(_vm.devices, function(device) {
-          return _c("div", { staticClass: "card mb-4" }, [
+    _c(
+      "div",
+      { staticClass: "row" },
+      _vm._l(_vm.devices, function(device) {
+        return _c("div", { staticClass: "col-xl-6" }, [
+          _c("div", { staticClass: "card mb-4" }, [
             _c("div", { staticClass: "card-header" }, [
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-xl-6" }, [
@@ -44163,7 +44212,17 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(0, true)
+                _c("div", { staticClass: "col-xl-6" }, [
+                  device.movementStatus == 0
+                    ? _c("div", { staticClass: "circleindicatorsmall red" })
+                    : device.movementStatus == 1
+                    ? _c("div", { staticClass: "circleindicatorsmall yellow" })
+                    : device.movementStatus == 2
+                    ? _c("div", { staticClass: "circleindicatorsmall green" })
+                    : device.movementStatus == 3
+                    ? _c("div", { staticClass: "circleindicatorsmall grey" })
+                    : _vm._e()
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -44200,7 +44259,7 @@ var render = function() {
                             ])
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm._m(1, true)
+                        _vm._m(0, true)
                       ])
                     ])
                   ]),
@@ -44224,9 +44283,9 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
-                    _vm._m(2, true),
+                    _vm._m(1, true),
                     _vm._v(" "),
-                    _vm._m(3, true),
+                    _vm._m(2, true),
                     _vm._v(" "),
                     device.alarmOneRunStatus == 1
                       ? _c(
@@ -44273,21 +44332,13 @@ var render = function() {
                 ])
               : _vm._e()
           ])
-        }),
-        0
-      )
-    ])
+        ])
+      }),
+      0
+    )
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-xl-6" }, [
-      _c("div", { staticClass: "circleindicatorsmall red" })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -44358,103 +44409,111 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h1"),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-xl-6" }, [
-                  _vm.connstatus == 1
-                    ? _c("span", { staticClass: "badge badge-success" }, [
-                        _vm._v("Connected")
-                      ])
-                    : _vm.connstatus == 0
-                    ? _c("span", { staticClass: "badge badge-danger" }, [
-                        _vm._v("Disconnected")
-                      ])
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6" }, [
+            _vm.Init == 0
+              ? _c("div", { staticClass: "card-body" }, [
+                  _c("h4", [_vm._v("Device Not Initialized")])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.Init == 1
+              ? _c("div", { staticClass: "card-body" }, [
+                  _c("h1"),
+                  _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
-                    _vm.connstatus == 1
-                      ? _c("p", { staticClass: "font-weight-bold" }, [
-                          _vm._v(_vm._s(_vm.connstatustime))
-                        ])
-                      : _vm.connstatus == 0
-                      ? _c("p", { staticClass: "font-weight-bold" }, [
-                          _vm._v("00:00:00")
+                    _c("div", { staticClass: "col-xl-6" }, [
+                      _vm.connstatus == 1
+                        ? _c("span", { staticClass: "badge badge-success" }, [
+                            _vm._v("Connected")
+                          ])
+                        : _vm.connstatus == 0
+                        ? _c("span", { staticClass: "badge badge-danger" }, [
+                            _vm._v("Disconnected")
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xl-6" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _vm.connstatus == 1
+                          ? _c("p", { staticClass: "font-weight-bold" }, [
+                              _vm._v(_vm._s(_vm.connstatustime))
+                            ])
+                          : _vm.connstatus == 0
+                          ? _c("p", { staticClass: "font-weight-bold" }, [
+                              _vm._v("00:00:00")
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm._m(1)
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-xl-6 font-weight-bold" }, [
+                      _vm._v("No. Of Alarm Raised")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xl-6 font-weight-bold" }, [
+                      _vm._v("No. Of Active Alarm")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xl-6" }, [
+                      _vm._v(_vm._s(_vm.AlarmRaised))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xl-6" }, [
+                      _vm._v(_vm._s(_vm.AlarmActive))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _vm.AlarmOneRunStatus == 1
+                      ? _c(
+                          "div",
+                          { staticClass: "col-xl-6" },
+                          [
+                            _c("alarm-one", {
+                              attrs: {
+                                timestamp: _vm.timeActiveAlarmOne,
+                                addtime: _vm.AlarmTotOneTime
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      : _vm.AlarmOneRunStatus == 0
+                      ? _c("div", { staticClass: "col-xl-6" }, [
+                          _vm._v(_vm._s(_vm.AlarmTotOneTime) + " ")
                         ])
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm._m(1)
+                    _vm.AlarmTwoRunStatus == 1
+                      ? _c(
+                          "div",
+                          { staticClass: "col-xl-6" },
+                          [
+                            _c("alarm-one", {
+                              attrs: {
+                                timestamp: _vm.timeActiveAlarmTwo,
+                                addtime: _vm.AlarmTotTwoTime
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      : _vm.AlarmTwoRunStatus == 0
+                      ? _c("div", { staticClass: "col-xl-6" }, [
+                          _vm._v(_vm._s(_vm.AlarmTotTwoTime) + " ")
+                        ])
+                      : _vm._e()
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-xl-6 font-weight-bold" }, [
-                  _vm._v("No. Of Alarm Raised")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6 font-weight-bold" }, [
-                  _vm._v("No. Of Active Alarm")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6" }, [
-                  _vm._v(_vm._s(_vm.AlarmRaised))
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6" }, [
-                  _vm._v(_vm._s(_vm.AlarmActive))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _vm._m(2),
-                _vm._v(" "),
-                _vm._m(3),
-                _vm._v(" "),
-                _vm.AlarmOneRunStatus == 1
-                  ? _c(
-                      "div",
-                      { staticClass: "col-xl-6" },
-                      [
-                        _c("alarm-one", {
-                          attrs: {
-                            timestamp: _vm.timeActiveAlarmOne,
-                            addtime: _vm.AlarmTotOneTime
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  : _vm.AlarmOneRunStatus == 0
-                  ? _c("div", { staticClass: "col-xl-6" }, [
-                      _vm._v(_vm._s(_vm.AlarmTotOneTime) + " ")
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.AlarmTwoRunStatus == 1
-                  ? _c(
-                      "div",
-                      { staticClass: "col-xl-6" },
-                      [
-                        _c("alarm-one", {
-                          attrs: {
-                            timestamp: _vm.timeActiveAlarmTwo,
-                            addtime: _vm.AlarmTotTwoTime
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  : _vm.AlarmTwoRunStatus == 0
-                  ? _c("div", { staticClass: "col-xl-6" }, [
-                      _vm._v(_vm._s(_vm.AlarmTotTwoTime) + " ")
-                    ])
-                  : _vm._e()
-              ])
-            ])
+              : _vm._e()
           ])
         ])
       ])

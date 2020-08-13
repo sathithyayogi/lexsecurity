@@ -20,8 +20,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'dashboardController@index');
 
-
-
 Auth::routes();
 
 Route::get('/diagnostics', 'diagnosticController@index')->name('home');

@@ -104,6 +104,11 @@ body {
   box-shadow: 0 0 20px 5px #2ecc71;
 }
 
+.circleindicator.grey {
+    background-color: #5a5a5a;
+    box-shadow: 0 0 20px 5px #5a5a5a;
+  }
+
 
 
 
@@ -142,6 +147,11 @@ body {
   background-color: #2ecc71;
   box-shadow: 0 0 20px 5px #2ecc71;
 }
+
+.circleindicatorsmall.grey {
+    background-color: #5a5a5a;
+    box-shadow: 0 0 20px 5px #5a5a5a;
+  }
 
 
 [tabindex="-1"]:focus:not(:focus-visible) {

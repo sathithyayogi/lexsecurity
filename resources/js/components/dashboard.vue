@@ -6,15 +6,22 @@
           <div class="card-header">
             <div class="row">
               <div class="col-xl-12">
-                DeviceOne
+                {{device.deviceName}} - {{ device.deviceID }}
               </div>
             </div>
           </div>
-          <div class="card-body">
-            <div class="circleindicator red"></div>
+              <div class="card-body" v-if="device.initialized == 0">
+                    <h4>Device Not Initialized</h4>
+                  </div>
+          <div class="card-body" v-if="device.initialized == 1">
+            <div class="circleindicator red" v-if="device.movementStatus == 0"></div>
+            <div class="circleindicator yellow" v-else-if="device.movementStatus == 1"></div>
+            <div class="circleindicator green" v-else-if="device.movementStatus == 2"></div>
+            <div class="circleindicator grey" v-else-if="device.movementStatus == 3"></div>
             <div class="row">
-              <div class="col-xl-6">
-                <span class="badge badge-success">CONNECTED</span>
+              <div class="col-xl-6 mt-3">
+                <span class="badge badge-success" v-if="device.connectionStatus == 1">Connected</span>
+                <span class="badge badge-danger" v-else-if="device.connectionStatus == 0">Not Connected</span>
               </div>
             </div>
           </div>
@@ -30,6 +37,7 @@
             this.loadDevices();
                         Echo.channel('DeviceDiag')
 .listen('DeviceDiagnosticsEvent', (device) => {
+    this.loadDevices();
 console.log(device.device.alarmRaisedNo);
 
 console.log("pls work");

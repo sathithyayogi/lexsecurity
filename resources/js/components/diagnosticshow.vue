@@ -13,7 +13,13 @@
                         </div>
                     </div>
                   </div>
-                  <div class="card-body">
+
+
+                  <div class="card-body" v-if="Init == 0">
+                    <h4>Device Not Initialized</h4>
+                  </div>
+
+                  <div class="card-body" v-if="Init == 1">
                     <h1></h1>
                     <div class="row">
                       <div class="col-xl-6">
@@ -68,7 +74,7 @@
 
 <script>
     export default {
-        props: ['devid', 'deviceid', 'devicename', 'connstatus', 'connstatustime', 'noalarmraised', 'noalarmactive', 'timeactivealarmone', 'timeactivealarmtwo', 'alarmonetottime', 'alarmtwotottime', 'alarmonerunstatus', 'alarmtworunstatus'],
+        props: ['devid', 'deviceid', 'devicename', 'connstatus', 'connstatustime', 'noalarmraised', 'noalarmactive', 'timeactivealarmone', 'timeactivealarmtwo', 'alarmonetottime', 'alarmtwotottime', 'alarmonerunstatus', 'alarmtworunstatus', 'initialized'],
 
         data() {
             return {
@@ -84,7 +90,8 @@
                 AlarmTotOneTime: this.alarmonetottime,
                 AlarmTotTwoTime: this.alarmtwotottime,
                 AlarmOneRunStatus: this.alarmonerunstatus,
-                AlarmTwoRunStatus: this.alarmtworunstatus
+                AlarmTwoRunStatus: this.alarmtworunstatus,
+                Init: this.initialized
             }
         },
 
@@ -104,6 +111,7 @@
     this.AlarmTwoRunStatus = device.device.alarmTwoRunStatus
     this.AlarmTotOneTime = device.device.alarmonetotTime
     this.AlarmTotTwoTime = device.device.alarmtwototTime
+    this.Init = device.device.initialized
 
  console.log('success');
  console.log(device);

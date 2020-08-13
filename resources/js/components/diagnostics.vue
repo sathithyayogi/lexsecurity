@@ -1,9 +1,9 @@
 <template>
 <div>
     <div class="row">
-                <div class="col-xl-6">
+                <div class="col-xl-6" v-for="device in devices">
 
-                <div class="card mb-4" v-for="device in devices">
+                <div class="card mb-4" >
                   <div class="card-header">
                       <div class="row">
                       <div class="col-xl-6"> <i class="fas fa-tachometer-alt mr-1"></i>
@@ -11,7 +11,10 @@
                             {{device.deviceName}} - {{ device.deviceID }}
                         </a></div>
                         <div class="col-xl-6">
-                          <div class="circleindicatorsmall red"></div>
+                          <div class="circleindicatorsmall red" v-if="device.movementStatus == 0"></div>
+                          <div class="circleindicatorsmall yellow" v-else-if="device.movementStatus == 1"></div>
+                          <div class="circleindicatorsmall green" v-else-if="device.movementStatus == 2"></div>
+                          <div class="circleindicatorsmall grey" v-else-if="device.movementStatus == 3"></div>
                         </div>
                     </div>
                   </div>
@@ -53,6 +56,7 @@
                         <div class="col-xl-6"> <strong> Alarm 1 Active Time</strong></div>
                         <div class="col-xl-6"> <strong> Alarm 2 Active Time</strong></div>
                         <div class="col-xl-6" v-if="device.alarmOneRunStatus == 1">
+
                             <alarm-one :timestamp = device.alarmOneTime :addtime = device.alarmonetotTime /></div>
                            <div class="col-xl-6" v-else-if="device.alarmOneRunStatus == 0">{{ device.alarmonetotTime }}</div>
 
@@ -62,8 +66,6 @@
                     </div>
 
                   </div>
-
-
 
                 </div>
 

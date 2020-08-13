@@ -23,7 +23,6 @@
             // const now = new Date();
             // console.log(now.getHours());
             // console.log('Component mounted.')
-            console.log(this.TimeSTamp);
 
         },
         data(){
@@ -65,11 +64,18 @@
 
             showRemaining() {
                 const timer = setInterval(()=> {
+
+                      var hms = this.addtime;   // your input string
+            var a = hms.split(':'); // split it at the colons
+
+            // minutes are worth 60 seconds. Hours are worth 60 minutes.
+            var secondsremain = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+
                     const now = new Date();
                     // const end = new Date(2020, 4, 22, 10, 10, 10);
                 var distance = now.getTime() - this.end.getTime();
-                // distance = distance + this.AddTime * 60;
-                // console.log(this.AddTime);
+                distance = distance + secondsremain * 1000;
+                console.log(secondsremain);
 
                     if(distance < 0){
                         clearInterval(timer);
