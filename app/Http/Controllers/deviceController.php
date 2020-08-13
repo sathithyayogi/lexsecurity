@@ -51,8 +51,9 @@ class deviceController extends Controller
         $device->deviceName = $request->input('deviceName');
         $device->deviceID = $request->input('deviceID');
         $device->mobileNumber = $request->input('mobileNumber');
-        $device->movementStatus = 0;
-        $device->connectionStatus = 0;
+        $device->movementStatus = 3;
+        $device->connectionStatus = 1;
+        $device->connectionTime = Carbon::now('Asia/Kolkata');
         $device->initialized = 0;
         $device->alarmRaisedNo = 0;
         $device->alarmActiveNo = 0;

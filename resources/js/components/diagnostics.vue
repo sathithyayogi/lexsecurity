@@ -33,7 +33,9 @@
 
                       <div class="col-xl-6">
                           <div class="row">
-                            <p class="font-weight-bold" v-if="device.connectionStatus == 1">{{device.connectionTime}}</p>
+                            <p class="font-weight-bold" v-if="device.connectionStatus == 1">
+                                <conn-time :timestamp = device.connectionTime />
+                                </p>
                             <p class="font-weight-bold" v-else-if="device.connectionStatus == 0">00:00:00</p>
 
                             <a  data-toggle="tooltip" data-placement="right" title="Elopsed Time">

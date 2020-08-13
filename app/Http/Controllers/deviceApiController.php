@@ -38,6 +38,9 @@ class deviceApiController extends Controller
     public function deviceInit(Request $request, $id, Device $device){
         $device = Device::find($id);
         $device->initialized = 1;
+        $device->connectionStatus = 1;
+        $device->movementStatus = 2;
+        $device->connectionTime = Carbon::now('Asia/Kolkata');
         $device->save();
         broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));

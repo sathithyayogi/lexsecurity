@@ -24,6 +24,7 @@ Vue.component('diagnostic-show', require('./components/diagnosticshow.vue').defa
 Vue.component('alarm-one', require('./components/alarmonetime.vue').default);
 Vue.component('diagnostics', require('./components/diagnostics.vue').default);
 Vue.component('dashboard', require('./components/dashboard.vue').default);
+Vue.component('conn-time', require('./components/connectiontime.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
