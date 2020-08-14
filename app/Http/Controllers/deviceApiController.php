@@ -11,6 +11,7 @@ use App\Events\WebsocketDemoEvent;
 use App\Events\DeviceDiagnosticShow;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\Cache;
 
 class deviceApiController extends Controller
 {
@@ -46,6 +47,27 @@ class deviceApiController extends Controller
         broadcast(new DeviceDiagnosticsEvent($device));
 
         //Device Initialization
+        return response()->json($device, 200);
+    }
+
+    public function connect(Request $request, $id, Device $device) {
+        $device = Device::find($id);
+
+        $constatus = DB::table('devices')
+        ->where('id', '=', $id)->pluck('connectionStatus');
+
+        if ($constatus[0] == 0) {
+            $device->connectionTime = Carbon::now('Asia/Kolkata');
+            $device->connectionStatus = 1;
+            $device->movementStatus = 2;
+        }elseif ($constatus[0] == 1) {
+            $device->connectionStatus = 1;
+        }
+        $expiresAt = Carbon::now()->addMinutes(3);
+        Cache::put('device-is-connected'.$id, true, $expiresAt);
+        $device->save();
+        broadcast(new DeviceDiagnosticShow($device));
+        broadcast(new DeviceDiagnosticsEvent($device));
         return response()->json($device, 200);
     }
 

@@ -10,11 +10,14 @@
                        <a :href="'/diagnostics/' + device.id">
                             {{device.deviceName}} - {{ device.deviceID }}
                         </a></div>
-                        <div class="col-xl-6">
+                        <div class="col-xl-6" v-if="device.connectionStatus == 1">
                           <div class="circleindicatorsmall red" v-if="device.movementStatus == 0"></div>
                           <div class="circleindicatorsmall yellow" v-else-if="device.movementStatus == 1"></div>
                           <div class="circleindicatorsmall green" v-else-if="device.movementStatus == 2"></div>
                           <div class="circleindicatorsmall grey" v-else-if="device.movementStatus == 3"></div>
+                        </div>
+                        <div class="col-xl-6" v-else-if="device.connectionStatus == 0">
+                          <div class="circleindicatorsmall grey"></div>
                         </div>
                     </div>
                   </div>

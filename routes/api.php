@@ -30,6 +30,9 @@ Route::put('devices/{deviceapi}', 'deviceApiController@deviceUpdate');
 //Device Init
 Route::put('devices/{id}/init/{device}','deviceApiController@deviceInit');
 
+//Device Connect
+Route::put('devices/{id}/connect/{device}','deviceApiController@connect');
+
 //alarm one start
 Route::put('devices/{id}/alarmonestart/{device}','deviceApiController@devicealarmOneStart');
 

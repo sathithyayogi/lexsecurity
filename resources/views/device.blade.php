@@ -9,7 +9,7 @@
             <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
             <li class="breadcrumb-item active">List of Devices</li>
         </ol>
-     
+
         <div class="card mb-4">
             <div class="card-header">
                 <div class="row">
@@ -19,14 +19,14 @@
                     </div>
                     <div class="col-xl-6"><a href="/devices/create" class="btn btn-primary">Add Device</a></div>
                 </div>
-             
+
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                {{-- <th>S.No</th> --}}
+                                <th>S.No</th>
                                 <th>Device Name</th>
                                 <th>Device ID</th>
                                 <th>Mobile Number</th>
@@ -37,7 +37,7 @@
                         </thead>
                         <tfoot>
                             <tr>
-                                {{-- <th>S.No</th> --}}
+                                <th>S.No</th>
                                 <th>Device Name</th>
                                 <th>Device ID</th>
                                 <th>Mobile Number</th>
@@ -50,7 +50,7 @@
                             @if (count($devices) > 0)
                             @foreach ($devices as $device)
                             <tr>
-                                {{-- <td>{{ $device->id }}</td> --}}
+                                <td>{{ $device->id }}</td>
                                 <td>{{ $device->deviceName }}</td>
                                 <td>{{ $device->deviceID }}</td>
                                 <td>{{ $device->mobileNumber }}</td>
@@ -66,7 +66,7 @@
                             </tr>
                             @endforeach
                             @endif
-                         
+
 
                         </tbody>
                     </table>
@@ -75,5 +75,5 @@
         </div>
     </div>
 </main>
-    
+
 @endsection

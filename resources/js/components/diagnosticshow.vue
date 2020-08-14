@@ -7,11 +7,14 @@
                   <div class="card-header">
                       <div class="row">
                       <div class="col-xl-6"> <i class="fas fa-tachometer-alt mr-1"></i>{{ deviceName }} - {{ deviceID }}</div>
-                        <div class="col-xl-6">
+                        <div class="col-xl-6" v-if="conStatus == 1">
                           <div class="circleindicatorsmall red" v-if="MoveStatus == 0"></div>
                           <div class="circleindicatorsmall yellow" v-else-if="MoveStatus == 1"></div>
                           <div class="circleindicatorsmall green" v-else-if="MoveStatus == 2"></div>
                           <div class="circleindicatorsmall grey" v-else-if="MoveStatus == 3"></div>
+                        </div>
+                        <div class="col-xl-6" v-else-if="conStatus == 0">
+                          <div class="circleindicatorsmall grey"></div>
                         </div>
                     </div>
                   </div>
@@ -33,10 +36,7 @@
                       <div class="col-xl-6">
                           <div class="row">
                         <p class="font-weight-bold" v-if="connstatus == 1">
-                                   <conn-time
-                        :timestamp = conStatusTime
-
-                        />
+                                   <conn-time :timestamp = conStatusTime />
                         </p>
                         <p class="font-weight-bold" v-else-if="connstatus == 0">00:00:00</p>
 

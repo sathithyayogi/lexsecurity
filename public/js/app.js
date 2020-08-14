@@ -2157,6 +2157,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var _this = this;
@@ -2202,6 +2207,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -44266,14 +44274,20 @@ var render = function() {
             _vm._v(" "),
             device.initialized == 1
               ? _c("div", { staticClass: "card-body" }, [
-                  device.movementStatus == 0
-                    ? _c("div", { staticClass: "circleindicator red" })
-                    : device.movementStatus == 1
-                    ? _c("div", { staticClass: "circleindicator yellow" })
-                    : device.movementStatus == 2
-                    ? _c("div", { staticClass: "circleindicator green" })
-                    : device.movementStatus == 3
-                    ? _c("div", { staticClass: "circleindicator grey" })
+                  device.connectionStatus == 1
+                    ? _c("div", [
+                        device.movementStatus == 0
+                          ? _c("div", { staticClass: "circleindicator red" })
+                          : device.movementStatus == 1
+                          ? _c("div", { staticClass: "circleindicator yellow" })
+                          : device.movementStatus == 2
+                          ? _c("div", { staticClass: "circleindicator green" })
+                          : _vm._e()
+                      ])
+                    : device.connectionStatus == 0
+                    ? _c("div", [
+                        _c("div", { staticClass: "circleindicator grey" })
+                      ])
                     : _vm._e(),
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
@@ -44343,17 +44357,29 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6" }, [
-                  device.movementStatus == 0
-                    ? _c("div", { staticClass: "circleindicatorsmall red" })
-                    : device.movementStatus == 1
-                    ? _c("div", { staticClass: "circleindicatorsmall yellow" })
-                    : device.movementStatus == 2
-                    ? _c("div", { staticClass: "circleindicatorsmall green" })
-                    : device.movementStatus == 3
-                    ? _c("div", { staticClass: "circleindicatorsmall grey" })
-                    : _vm._e()
-                ])
+                device.connectionStatus == 1
+                  ? _c("div", { staticClass: "col-xl-6" }, [
+                      device.movementStatus == 0
+                        ? _c("div", { staticClass: "circleindicatorsmall red" })
+                        : device.movementStatus == 1
+                        ? _c("div", {
+                            staticClass: "circleindicatorsmall yellow"
+                          })
+                        : device.movementStatus == 2
+                        ? _c("div", {
+                            staticClass: "circleindicatorsmall green"
+                          })
+                        : device.movementStatus == 3
+                        ? _c("div", {
+                            staticClass: "circleindicatorsmall grey"
+                          })
+                        : _vm._e()
+                    ])
+                  : device.connectionStatus == 0
+                  ? _c("div", { staticClass: "col-xl-6" }, [
+                      _c("div", { staticClass: "circleindicatorsmall grey" })
+                    ])
+                  : _vm._e()
               ])
             ]),
             _vm._v(" "),
@@ -44543,17 +44569,29 @@ var render = function() {
                   _vm._v(_vm._s(_vm.deviceName) + " - " + _vm._s(_vm.deviceID))
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6" }, [
-                  _vm.MoveStatus == 0
-                    ? _c("div", { staticClass: "circleindicatorsmall red" })
-                    : _vm.MoveStatus == 1
-                    ? _c("div", { staticClass: "circleindicatorsmall yellow" })
-                    : _vm.MoveStatus == 2
-                    ? _c("div", { staticClass: "circleindicatorsmall green" })
-                    : _vm.MoveStatus == 3
-                    ? _c("div", { staticClass: "circleindicatorsmall grey" })
-                    : _vm._e()
-                ])
+                _vm.conStatus == 1
+                  ? _c("div", { staticClass: "col-xl-6" }, [
+                      _vm.MoveStatus == 0
+                        ? _c("div", { staticClass: "circleindicatorsmall red" })
+                        : _vm.MoveStatus == 1
+                        ? _c("div", {
+                            staticClass: "circleindicatorsmall yellow"
+                          })
+                        : _vm.MoveStatus == 2
+                        ? _c("div", {
+                            staticClass: "circleindicatorsmall green"
+                          })
+                        : _vm.MoveStatus == 3
+                        ? _c("div", {
+                            staticClass: "circleindicatorsmall grey"
+                          })
+                        : _vm._e()
+                    ])
+                  : _vm.conStatus == 0
+                  ? _c("div", { staticClass: "col-xl-6" }, [
+                      _c("div", { staticClass: "circleindicatorsmall grey" })
+                    ])
+                  : _vm._e()
               ])
             ]),
             _vm._v(" "),
