@@ -4,7 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-
+use App\Events\DeviceDiagnosticsEvent;
+use App\Events\DeviceDiagnosticShow;
+use App\Events\WebsocketDemoEvent;
 class connStatusUpdate extends Command
 {
     /**
@@ -38,9 +40,8 @@ class connStatusUpdate extends Command
      */
     public function handle()
     {
-
         DB::table('devices')
               ->update(['connectionStatus' => 0]);
-        return 0;
+        broadcast(new WebsocketDemoEvent("test"));
     }
 }

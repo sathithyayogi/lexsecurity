@@ -91,7 +91,12 @@
                 .listen('DeviceDiagnosticsEvent', (device) => {
                 this.loadDevices();
                 console.log("success");
-});
+                });
+                Echo.channel('DemoChannel')
+                .listen('WebsocketDemoEvent', (e) => {
+                this.loadDevices();
+                console.log("demo channel");
+                });
         },
         data: function() {
             return {

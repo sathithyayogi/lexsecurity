@@ -2169,9 +2169,11 @@ __webpack_require__.r(__webpack_exports__);
     this.loadDevices();
     Echo.channel('DeviceDiag').listen('DeviceDiagnosticsEvent', function (device) {
       _this.loadDevices();
+    });
+    Echo.channel('DemoChannel').listen('WebsocketDemoEvent', function (e) {
+      _this.loadDevices();
 
-      console.log(device.device.alarmRaisedNo);
-      console.log("pls work");
+      console.log("demo channel");
     });
   },
   data: function data() {
@@ -2185,10 +2187,8 @@ __webpack_require__.r(__webpack_exports__);
     loadDevices: function loadDevices() {
       var _this2 = this;
 
-      console.log('Device Loaded.');
       axios.get('/api/devices').then(function (response) {
         _this2.devices = response.data;
-        console.log(response.data);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2301,6 +2301,11 @@ __webpack_require__.r(__webpack_exports__);
       _this.loadDevices();
 
       console.log("success");
+    });
+    Echo.channel('DemoChannel').listen('WebsocketDemoEvent', function (e) {
+      _this.loadDevices();
+
+      console.log("demo channel");
     });
   },
   data: function data() {
@@ -2460,6 +2465,10 @@ __webpack_require__.r(__webpack_exports__);
       console.log('success');
       console.log(device);
       console.log(_this.connstatustime); // this.AlarmActive =
+    });
+    Echo.channel('DemoChannel').listen('WebsocketDemoEvent', function (e) {
+      // this.loadDevices();
+      console.log("diagnostics Show ");
     });
   }
 });

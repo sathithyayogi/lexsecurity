@@ -40,13 +40,16 @@
     export default {
         mounted() {
             this.loadDevices();
-                        Echo.channel('DeviceDiag')
+            Echo.channel('DeviceDiag')
 .listen('DeviceDiagnosticsEvent', (device) => {
     this.loadDevices();
-console.log(device.device.alarmRaisedNo);
-
-console.log("pls work");
 });
+Echo.channel('DemoChannel')
+.listen('WebsocketDemoEvent', (e) => {
+      this.loadDevices();
+      console.log("demo channel");
+});
+
         },
         data: function() {
             return {
@@ -58,11 +61,9 @@ console.log("pls work");
 
         methods: {
             loadDevices: function() {
-            console.log('Device Loaded.');
             axios.get('/api/devices')
             .then((response) => {
                 this.devices = response.data
-                console.log(response.data);
             })
             .catch(function(error) {
                 console.log(error);

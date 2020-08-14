@@ -43,6 +43,7 @@ class deviceApiController extends Controller
         $device->movementStatus = 2;
         $device->connectionTime = Carbon::now('Asia/Kolkata');
         $device->save();
+
         broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));
 
@@ -66,6 +67,7 @@ class deviceApiController extends Controller
         $expiresAt = Carbon::now()->addMinutes(3);
         Cache::put('device-is-connected'.$id, true, $expiresAt);
         $device->save();
+
         broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));
         return response()->json($device, 200);
@@ -107,11 +109,12 @@ class deviceApiController extends Controller
 
 
         $device->save();
+
         broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));
         //Alarm One Stop
-        return $differenceInSeconds;
-        return $alarmonetime[0] ." ". $currenttime . " ". (new Carbon($alarmonetottimeprev[0]))->addSeconds(61);
+        // return $differenceInSeconds;
+        // return $alarmonetime[0] ." ". $currenttime . " ". (new Carbon($alarmonetottimeprev[0]))->addSeconds(61);
         return response()->json($device, 200);
     }
 
@@ -143,8 +146,8 @@ class deviceApiController extends Controller
             $device->alarmonetotTime = (new Carbon($alarmonetottimeprev[0]))->addSeconds($differenceInSeconds);
 
 
-
         $device->save();
+
         //Alarm One Start
         broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));

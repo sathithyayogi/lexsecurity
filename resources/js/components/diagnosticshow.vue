@@ -127,6 +127,11 @@
  console.log(this.connstatustime);
     // this.AlarmActive =
 });
+            Echo.channel('DemoChannel')
+                .listen('WebsocketDemoEvent', (e) => {
+                // this.loadDevices();
+                console.log("diagnostics Show ");
+                });
         }
     }
 </script>
