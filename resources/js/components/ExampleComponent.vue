@@ -18,6 +18,18 @@
     export default {
         mounted() {
             console.log('Component mounted.')
-        }
+        },
+                methods: {
+            loadDevices: function() {
+            console.log('Device Loaded.');
+            axios.get('/api/devices')
+            .then((response) => {
+                this.devices = response.data
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+            }
+        },
     }
 </script>

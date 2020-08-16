@@ -8,6 +8,10 @@
           <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
           <li class="breadcrumb-item active">Diagnostics</li>
       </ol>
+
+<div id="app">
+<no-alarm/>
+</div>
 <diagnostics/>
     </div>
   </main>

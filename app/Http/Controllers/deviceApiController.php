@@ -6,9 +6,9 @@ use App\Device;
 use Illuminate\Http\Request;
 use App\DeviceApi;
 use App\Events\DeviceDiagnosticsEvent;
+use App\Events\DeviceDiagnosticShow;
 use SebastianBergmann\Environment\Console;
 use App\Events\WebsocketDemoEvent;
-use App\Events\DeviceDiagnosticShow;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Facades\Cache;
@@ -46,6 +46,7 @@ class deviceApiController extends Controller
 
         broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));
+        broadcast(new WebsocketDemoEvent("test"));
 
         //Device Initialization
         return response()->json($device, 200);
@@ -70,6 +71,7 @@ class deviceApiController extends Controller
 
         broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));
+        broadcast(new WebsocketDemoEvent("test"));
         return response()->json($device, 200);
     }
 
@@ -84,6 +86,7 @@ class deviceApiController extends Controller
 
         broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));
+        broadcast(new WebsocketDemoEvent("test"));
         //Alarm One Start
         return response()->json($device, 200);
     }
@@ -112,6 +115,7 @@ class deviceApiController extends Controller
 
         broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));
+        broadcast(new WebsocketDemoEvent("test"));
         //Alarm One Stop
         // return $differenceInSeconds;
         // return $alarmonetime[0] ." ". $currenttime . " ". (new Carbon($alarmonetottimeprev[0]))->addSeconds(61);
@@ -121,7 +125,7 @@ class deviceApiController extends Controller
     public function devicealarmTwoStart(Request $request, $id, Device $device){
         $device = Device::find($id);
         $device->alarmRaisedNo++;
-        $device->alarmActiveNo = 2;
+        $device->alarmActiveNo = 1;
         $device->movementStatus = 0;
         $device->alarmTwoRunStatus = 1;
         $device->alarmTwoTime = Carbon::now('Asia/Kolkata');
@@ -151,6 +155,7 @@ class deviceApiController extends Controller
         //Alarm One Start
         broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));
+        broadcast(new WebsocketDemoEvent("test"));
         return response()->json($device, 200);
     }
 
@@ -180,6 +185,15 @@ class deviceApiController extends Controller
         //Alarm One Stop
         broadcast(new DeviceDiagnosticShow($device));
         broadcast(new DeviceDiagnosticsEvent($device));
+        broadcast(new WebsocketDemoEvent("test"));
         return response()->json($device, 200);
     }
+
+    public function devicessum()
+    {
+        $sum = DB::table('devices')->sum('alarmActiveNo');
+        return $sum;
+    }
+
+
 }

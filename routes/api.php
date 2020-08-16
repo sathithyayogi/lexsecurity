@@ -44,3 +44,7 @@ Route::put('devices/{id}/alarmtwostart/{device}','deviceApiController@devicealar
 
 //alarm two stop
 Route::put('devices/{id}/alarmtwostop/{device}','deviceApiController@devicealarmtwoStop');
+
+//no of active alarm sum
+
+Route::get('devices/sum/test', 'deviceApiController@devicessum');

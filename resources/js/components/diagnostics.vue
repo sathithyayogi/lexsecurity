@@ -7,7 +7,8 @@
                   <div class="card-header">
                       <div class="row">
                       <div class="col-xl-6"> <i class="fas fa-tachometer-alt mr-1"></i>
-                       <a :href="'/diagnostics/' + device.id">
+                       <!-- <a :href="'/diagnostics/' + device.id"> -->
+                       <a >
                             {{device.deviceName}} - {{ device.deviceID }}
                         </a></div>
                         <div class="col-xl-6" v-if="device.connectionStatus == 1">
