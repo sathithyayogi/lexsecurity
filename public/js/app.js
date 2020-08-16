@@ -44513,17 +44513,13 @@ var render = function() {
                       _vm._v("No. Of Alarm Raised")
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-xl-6 font-weight-bold" }, [
-                      _vm._v("No. Of Active Alarm")
-                    ]),
+                    _c("div", { staticClass: "col-xl-6 font-weight-bold" }),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-xl-6" }, [
                       _vm._v(_vm._s(device.alarmRaisedNo))
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-xl-6" }, [
-                      _vm._v(_vm._s(device.alarmActiveNo))
-                    ])
+                    _c("div", { staticClass: "col-xl-6" })
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
@@ -44727,17 +44723,13 @@ var render = function() {
                       _vm._v("No. Of Alarm Raised")
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-xl-6 font-weight-bold" }, [
-                      _vm._v("No. Of Active Alarm")
-                    ]),
+                    _c("div", { staticClass: "col-xl-6 font-weight-bold" }),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-xl-6" }, [
                       _vm._v(_vm._s(_vm.AlarmRaised))
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-xl-6" }, [
-                      _vm._v(_vm._s(_vm.AlarmActive))
-                    ])
+                    _c("div", { staticClass: "col-xl-6" })
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [

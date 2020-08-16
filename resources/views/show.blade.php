@@ -4,7 +4,7 @@
 <div class="container-fluid">
       <h1 class="mt-4">Diagnostics</h1>
       <ol class="breadcrumb mb-4">
-          <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="/diagnostics">Dashboard</a></li>
           <li class="breadcrumb-item active">{{ $device->id }}</li>
       </ol>
     </div>

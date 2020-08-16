@@ -49,9 +49,9 @@
 
                     <div class="row">
                       <div class="col-xl-6 font-weight-bold">No. Of Alarm Raised</div>
-                      <div class="col-xl-6 font-weight-bold">No. Of Active Alarm</div>
+                      <div class="col-xl-6 font-weight-bold"></div>
                       <div class="col-xl-6">{{ AlarmRaised }}</div>
-                      <div class="col-xl-6">{{ AlarmActive }}</div>
+                      <div class="col-xl-6"></div>
                     </div>
 
                     <div class="row">
