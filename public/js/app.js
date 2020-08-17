@@ -2512,6 +2512,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var _this = this;
@@ -44428,11 +44430,11 @@ var render = function() {
                   _vm._v(" "),
                   _c("a", [
                     _vm._v(
-                      "\n                            " +
+                      "\r\n                            " +
                         _vm._s(device.deviceName) +
                         " - " +
                         _vm._s(device.deviceID) +
-                        "\n                        "
+                        "\r\n                        "
                     )
                   ])
                 ]),
