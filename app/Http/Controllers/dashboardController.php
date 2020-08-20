@@ -14,7 +14,7 @@ class dashboardController extends Controller
     //
     public function index()
     {
-        Artisan::call('websockets:serve');
+        // Artisan::call('websockets:serve');
         $sum = DB::table('devices')->sum('alarmActiveNo');
         // broadcast(new WebsocketDemoEvent('some data'));
         $devices = device::all();
