@@ -58,8 +58,8 @@ class deviceController extends Controller
         $device->alarmActiveNo = 0;
         $device->alarmOneRunStatus = 0;
         $device->alarmTwoRunStatus = 0;
-        $device->alarmonetotTime = 0;
-        $device->alarmtwototTime = 0;
+        // $device->alarmonetotTime = 0;
+        // $device->alarmtwototTime = 0;
         $device->save();
 
         return redirect('/devices')->with('success', 'Device Added');
