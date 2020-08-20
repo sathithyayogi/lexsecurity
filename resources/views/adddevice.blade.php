@@ -8,8 +8,8 @@
                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Add Device</h3></div>
                     <div class="card-body">
-                        {{-- <form action="{{ action('deviceController@store') }}" method="POST" id="adddevice"> --}}
-                        <form id="adddevice">
+                        <form action="{{ action('deviceController@store') }}" method="POST" id="adddevice">
+                        {{-- <form id="adddevice"> --}}
                             {{ csrf_field() }}
                             <div class="form-row">
                                 <div class="col-md-6">
@@ -32,7 +32,7 @@
                             <button class="form-control btn btn-primary btn-block"  type="submit">Add Device</button>
                         </form>
                     </div>
-                 
+
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
 src="https://code.jquery.com/jquery-3.5.1.js"
 integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 crossorigin="anonymous"></script>
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).ready(function() {
         $('#adddevice').on('submit', function(e){
             e.preventDefault();
@@ -63,4 +63,4 @@ crossorigin="anonymous"></script>
             });
         });
     });
-</script>
+</script> --}}
