@@ -44330,7 +44330,7 @@ var render = function() {
       "div",
       { staticClass: "row" },
       _vm._l(_vm.devices, function(device) {
-        return _c("div", { staticClass: "col-xl-3" }, [
+        return _c("div", { staticClass: "col-xl-3 full" }, [
           _c("div", { staticClass: "card xl-3" }, [
             _c("div", { staticClass: "card-header" }, [
               _c("div", { staticClass: "row" }, [
@@ -57117,10 +57117,11 @@ window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/d
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: "anyKey",
-  forceTLS: false,
+  forceTLS: true,
   wsHost: window.location.hostname,
   wsPort: 6001,
-  disableStats: true
+  disableStats: true,
+  enabledTransports: ['ws', 'wss']
 }); // window.Echo.channel('DemoChannel')
 // .listen('WebsocketDemoEvent', (e) => {
 //     console.log(e);

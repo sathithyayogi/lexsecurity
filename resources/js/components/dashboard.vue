@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="row">
-             <div class="col-xl-3" v-for="device in devices">
+             <div class="col-xl-3 full" v-for="device in devices">
         <div class="card xl-3">
           <div class="card-header">
             <div class="row">
