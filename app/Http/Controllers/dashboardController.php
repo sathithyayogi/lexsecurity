@@ -14,8 +14,9 @@ class dashboardController extends Controller
     //
     public function index()
     {
+
         $sum = DB::table('devices')->sum('alarmActiveNo');
-        // broadcast(new WebsocketDemoEvent('some data'));
+        // broadcast(new WebsocketDemoEvent('test'));
         $devices = device::all();
         return view('dashboard')->with('devices', $devices);
     }

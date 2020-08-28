@@ -44,9 +44,9 @@ class deviceApiController extends Controller
         $device->connectionTime = Carbon::now('Asia/Kolkata');
         $device->save();
 
-        broadcast(new DeviceDiagnosticShow($device));
-        broadcast(new DeviceDiagnosticsEvent($device));
-        broadcast(new WebsocketDemoEvent("test"));
+        // broadcast(new DeviceDiagnosticShow($device));
+        // broadcast(new DeviceDiagnosticsEvent($device));
+        // broadcast(new WebsocketDemoEvent("test"));
 
         //Device Initialization
         return response()->json($device, 200);
@@ -69,9 +69,9 @@ class deviceApiController extends Controller
         Cache::put('device-is-connected'.$id, true, $expiresAt);
         $device->save();
 
-        broadcast(new DeviceDiagnosticShow($device));
-        broadcast(new DeviceDiagnosticsEvent($device));
-        broadcast(new WebsocketDemoEvent("test"));
+        // broadcast(new DeviceDiagnosticShow($device));
+        // broadcast(new DeviceDiagnosticsEvent($device));
+        // broadcast(new WebsocketDemoEvent("test"));
         return response()->json($device, 200);
     }
 
@@ -84,9 +84,9 @@ class deviceApiController extends Controller
         $device->alarmOneTime = Carbon::now('Asia/Kolkata');
         $device->save();
 
-        broadcast(new DeviceDiagnosticShow($device));
-        broadcast(new DeviceDiagnosticsEvent($device));
-        broadcast(new WebsocketDemoEvent("test"));
+        // broadcast(new DeviceDiagnosticShow($device));
+        // broadcast(new DeviceDiagnosticsEvent($device));
+        // broadcast(new WebsocketDemoEvent("test"));
         //Alarm One Start
         return response()->json($device, 200);
     }
@@ -113,9 +113,9 @@ class deviceApiController extends Controller
 
         $device->save();
 
-        broadcast(new DeviceDiagnosticShow($device));
-        broadcast(new DeviceDiagnosticsEvent($device));
-        broadcast(new WebsocketDemoEvent("test"));
+        // broadcast(new DeviceDiagnosticShow($device));
+        // broadcast(new DeviceDiagnosticsEvent($device));
+        // broadcast(new WebsocketDemoEvent("test"));
         //Alarm One Stop
         // return $differenceInSeconds;
         // return $alarmonetime[0] ." ". $currenttime . " ". (new Carbon($alarmonetottimeprev[0]))->addSeconds(61);
@@ -153,9 +153,9 @@ class deviceApiController extends Controller
         $device->save();
 
         //Alarm One Start
-        broadcast(new DeviceDiagnosticShow($device));
-        broadcast(new DeviceDiagnosticsEvent($device));
-        broadcast(new WebsocketDemoEvent("test"));
+        // broadcast(new DeviceDiagnosticShow($device));
+        // broadcast(new DeviceDiagnosticsEvent($device));
+        // broadcast(new WebsocketDemoEvent("test"));
         return response()->json($device, 200);
     }
 
@@ -182,10 +182,20 @@ class deviceApiController extends Controller
 
         $device->save();
 
+        $number = DB::table('devices')
+        ->where('id', '=', $id)->pluck('mobileNumber');
+
+
+        $contactNumber = DB::table('devicesetting')
+        ->where('id', '=', $id)->pluck('mobileNumber');
+
+        $response = file_get_contents('https://api-mapper.clicksend.com/http/v2/send.php?method=http&username=sathithyayogi@spearfox.com&key=193C3686-57B6-966F-4EA1-6BFEFB7CC8E4&to='.$contactNumber[0].'&message=testing');
+
         //Alarm One Stop
-        broadcast(new DeviceDiagnosticShow($device));
-        broadcast(new DeviceDiagnosticsEvent($device));
-        broadcast(new WebsocketDemoEvent("test"));
+        // broadcast(new DeviceDiagnosticShow($device));
+        // broadcast(new DeviceDiagnosticsEvent($device));
+        // broadcast(new WebsocketDemoEvent("test"));
+        // return $response;
         return response()->json($device, 200);
     }
 
@@ -195,5 +205,18 @@ class deviceApiController extends Controller
         return $sum;
     }
 
+    public function deviceupdateoneday($id){
+
+        $device = Device::find($id);
+        $device->alarmonetimeday++;
+        return response()->json($device, 200);
+    }
+
+    public function deviceupdatetwoday($id){
+
+        $device = Device::find($id);
+        $device->alarmtwotimeday++;
+        return response()->json($device, 200);
+    }
 
 }

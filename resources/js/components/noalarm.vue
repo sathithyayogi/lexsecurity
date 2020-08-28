@@ -4,9 +4,9 @@
     <div class="col-xl-3 col-md-6">
         <div class="card text-black mb-4">
             <div class="card-header">
-            <div class="">No of Active Alarm</div>
-        </div>
-            <h5 >{{ Alarmno }}</h5>
+            <div class="">No of Active Alarm : <span class="font-weight-bold">{{ Alarmno }}</span></div>
+        </div class="d-flex justify-content-center">
+            <!-- <h5 class="d-flex justify-content-center">{{ Alarmno }}</h5> -->
         </div>
     </div>
     </div>
@@ -16,17 +16,16 @@
 <script>
     export default {
         mounted() {
-            this.loadDevices();
-            console.log('Component mounted alarm count.')
-                            Echo.channel('DemoChannel')
-                .listen('WebsocketDemoEvent', (e) => {
-                this.loadDevices();
-                console.log("demo channel");
-                });
+            // this.loadDevices();
+             setInterval(this.loadDevices, 2000);
+                //             Echo.channel('DemoChannel')
+                // .listen('WebsocketDemoEvent', (e) => {
+                // this.loadDevices();
+                // console.log("demo channel");
+                // });
         },
                 methods: {
             loadDevices: function() {
-            console.log('Device Loaded.');
             axios.get('/api/devices/sum/test')
             .then((response) => {
                 console.log(response.data);

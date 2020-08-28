@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="row">
-             <div class="col-xl-3 full" v-for="device in devices">
+             <div class="col-xl-3 full mt-2" v-for="device in devices">
         <div class="card xl-3">
           <div class="card-header">
             <div class="row">
@@ -39,16 +39,18 @@
 <script>
     export default {
         mounted() {
-            this.loadDevices();
-            Echo.channel('DeviceDiag')
-.listen('DeviceDiagnosticsEvent', (device) => {
-    this.loadDevices();
-});
-Echo.channel('DemoChannel')
-.listen('WebsocketDemoEvent', (e) => {
-      this.loadDevices();
-      console.log("demo channel");
-});
+          this.loadDevices();
+             setInterval(this.loadDevices, 2000);
+            // this.loadDevices();
+//             Echo.channel('DeviceDiag')
+// .listen('DeviceDiagnosticsEvent', (device) => {
+//     this.loadDevices();
+// });
+// Echo.channel('DemoChannel')
+// .listen('WebsocketDemoEvent', (e) => {
+//       this.loadDevices();
+//       console.log("demo channel");
+// });
 
         },
         data: function() {

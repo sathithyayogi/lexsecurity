@@ -11,10 +11,7 @@
     export default {
         props: ['timestamp'],
         mounted() {
-
             this.showRemaining();
-
-
         },
         data(){
             return {

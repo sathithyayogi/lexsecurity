@@ -25,26 +25,30 @@ Route::get('devices/{id}', 'deviceApiController@devicesByID');
 Route::post('devices', 'deviceApiController@devicesSave');
 
 //Edit Testing
-Route::put('devices/{deviceapi}', 'deviceApiController@deviceUpdate');
+Route::post('devices/{deviceapi}', 'deviceApiController@deviceUpdate');
 
 //Device Init
-Route::put('devices/{id}/init/{device}','deviceApiController@deviceInit');
+Route::post('devices/{id}/init/{device}','deviceApiController@deviceInit');
 
 //Device Connect
-Route::put('devices/{id}/connect/{device}','deviceApiController@connect');
+Route::post('devices/{id}/connect/{device}','deviceApiController@connect');
 
 //alarm one start
-Route::put('devices/{id}/alarmonestart/{device}','deviceApiController@devicealarmOneStart');
+Route::post('devices/{id}/alarmonestart/{device}','deviceApiController@devicealarmOneStart');
 
 //alarm one stop
-Route::put('devices/{id}/alarmonestop/{device}','deviceApiController@devicealarmOneStop');
+Route::post('devices/{id}/alarmonestop/{device}','deviceApiController@devicealarmOneStop');
 
 //alarm two start
-Route::put('devices/{id}/alarmtwostart/{device}','deviceApiController@devicealarmtwoStart');
+Route::post('devices/{id}/alarmtwostart/{device}','deviceApiController@devicealarmtwoStart');
 
 //alarm two stop
-Route::put('devices/{id}/alarmtwostop/{device}','deviceApiController@devicealarmtwoStop');
+Route::post('devices/{id}/alarmtwostop/{device}','deviceApiController@devicealarmtwoStop');
 
 //no of active alarm sum
 
 Route::get('devices/sum/test', 'deviceApiController@devicessum');
+
+Route::get('devices/update/dayone/{id}', 'deviceApiController@deviceupdateoneday');
+
+Route::get('devices/update/daytwo/{id}', 'deviceApiController@deviceupdatetwoday');

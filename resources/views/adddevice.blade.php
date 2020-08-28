@@ -25,10 +25,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label class="small mb-1" for="mobileNumber">Mobile Number</label>
-                                <input class="form-control py-4" id="mobileNumber" type="number" name="mobileNumber"/>
-                            </div>
+                                <input class="form-control py-4" id="mobileNumber"  type="hidden" name="mobileNumber"/>
+                            </div> --}}
                             <button class="form-control btn btn-primary btn-block"  type="submit">Add Device</button>
                         </form>
                     </div>

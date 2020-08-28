@@ -26,15 +26,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label class="small mb-1" for="mobileNumber">Mobile Number</label>
-                                <input class="form-control py-4" id="mobileNumber" value="{{ $device->mobileNumber }}" type="number" name="mobileNumber"/>
-                            </div>
+                                <input class="form-control py-4" id="mobileNumber" value="{{ $device->mobileNumber }}" type="hidden" name="mobileNumber"/>
+                            </div> --}}
                             <button class="form-control btn btn-primary btn-block"  type="submit">Edit Device</button>
-                        
+
                         </form>
                     </div>
-                 
+
                 </div>
             </div>
         </div>

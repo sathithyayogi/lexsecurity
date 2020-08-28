@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Device;
 use App\Events\WebsocketDemoEvent;
+use App\Events\DeviceDiagnosticShow;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 

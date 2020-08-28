@@ -1963,7 +1963,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['timestamp', 'addtime'],
+  props: ['timestamp', 'addtime', 'deviceID', 'deviceno', 'deviceone', 'devicetwo'],
   mounted: function mounted() {
     this.showRemaining(); // var date = new Date(this.TimeSTamp);
     // console.log(date.getMonth() + 1);
@@ -1983,7 +1983,9 @@ __webpack_require__.r(__webpack_exports__);
       displayMinutes: 0,
       displaySeconds: 0,
       TimeSTamp: this.timestamp,
-      AddTime: this.addtime
+      AddTime: this.addtime,
+      dID: this.deviceID,
+      dno: this.deviceno
     };
   },
   computed: {
@@ -2038,7 +2040,29 @@ __webpack_require__.r(__webpack_exports__);
         _this.displaySeconds = _this.formatNum(seconds);
         _this.displayHours = _this.formatNum(hours);
         _this.displayDays = _this.formatNum(days);
+
+        if (_this.displayHours == 23 && _this.displayMinutes == 59 && _this.displaySeconds == 59) {
+          if (_this.deviceno == 1) {
+            _this.updateone();
+          } else if (_this.deviceno == 2) {
+            _this.updatetwo();
+          }
+        }
       }, 1000);
+    },
+    updateone: function updateone() {
+      axios.get('/api/devices/update/dayone/' + this.deviceID).then(function (response) {})["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    updatetwo: function updatetwo() {
+      var _this2 = this;
+
+      axios.get('/api/devices/update/daytwo/' + this.deviceID).then(function (response) {
+        _this2.devices = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -2176,17 +2200,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    var _this = this;
-
     this.loadDevices();
-    Echo.channel('DeviceDiag').listen('DeviceDiagnosticsEvent', function (device) {
-      _this.loadDevices();
-    });
-    Echo.channel('DemoChannel').listen('WebsocketDemoEvent', function (e) {
-      _this.loadDevices();
-
-      console.log("demo channel");
-    });
+    setInterval(this.loadDevices, 2000); // this.loadDevices();
+    //             Echo.channel('DeviceDiag')
+    // .listen('DeviceDiagnosticsEvent', (device) => {
+    //     this.loadDevices();
+    // });
+    // Echo.channel('DemoChannel')
+    // .listen('WebsocketDemoEvent', (e) => {
+    //       this.loadDevices();
+    //       console.log("demo channel");
+    // });
   },
   data: function data() {
     return {
@@ -2197,10 +2221,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     loadDevices: function loadDevices() {
-      var _this2 = this;
+      var _this = this;
 
       axios.get('/api/devices').then(function (response) {
-        _this2.devices = response.data;
+        _this.devices = response.data;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2305,21 +2329,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    var _this = this;
-
-    this.loadDevices();
-    Echo.channel('DeviceDiag').listen('DeviceDiagnosticsEvent', function (device) {
-      _this.loadDevices();
-
-      console.log("success");
-    });
-    Echo.channel('DemoChannel').listen('WebsocketDemoEvent', function (e) {
-      _this.loadDevices();
-
-      console.log("demo channel");
-    });
+    // this.loadDevices();
+    setInterval(this.loadDevices, 2000); // Echo.channel('DeviceDiag')
+    // .listen('DeviceDiagnosticsEvent', (device) => {
+    // this.loadDevices();
+    // console.log("success");
+    // });
+    // Echo.channel('DemoChannel')
+    // .listen('WebsocketDemoEvent', (e) => {
+    // this.loadDevices();
+    // console.log("demo channel");
+    // });
   },
   data: function data() {
     return {
@@ -2330,11 +2377,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     loadDevices: function loadDevices() {
-      var _this2 = this;
+      var _this = this;
 
       console.log('Device Loaded.');
       axios.get('/api/devices').then(function (response) {
-        _this2.devices = response.data;
+        _this.devices = response.data;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2353,6 +2400,40 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2514,24 +2595,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    var _this = this;
-
-    this.loadDevices();
-    console.log('Component mounted alarm count.');
-    Echo.channel('DemoChannel').listen('WebsocketDemoEvent', function (e) {
-      _this.loadDevices();
-
-      console.log("demo channel");
-    });
+    // this.loadDevices();
+    setInterval(this.loadDevices, 2000); //             Echo.channel('DemoChannel')
+    // .listen('WebsocketDemoEvent', (e) => {
+    // this.loadDevices();
+    // console.log("demo channel");
+    // });
   },
   methods: {
     loadDevices: function loadDevices() {
-      var _this2 = this;
+      var _this = this;
 
-      console.log('Device Loaded.');
       axios.get('/api/devices/sum/test').then(function (response) {
         console.log(response.data);
-        _this2.Alarmno = response.data;
+        _this.Alarmno = response.data;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -44257,11 +44334,11 @@ var render = function() {
     _vm._v(
       "\n    " +
         _vm._s(_vm.displayDays) +
-        "\n    " +
+        " :\n    " +
         _vm._s(_vm.displayHours) +
-        "\n    " +
+        " :\n    " +
         _vm._s(_vm.displayMinutes) +
-        "\n    " +
+        " :\n    " +
         _vm._s(_vm.displaySeconds) +
         "\n"
     )
@@ -44330,7 +44407,7 @@ var render = function() {
       "div",
       { staticClass: "row" },
       _vm._l(_vm.devices, function(device) {
-        return _c("div", { staticClass: "col-xl-3 full" }, [
+        return _c("div", { staticClass: "col-xl-3 full mt-2" }, [
           _c("div", { staticClass: "card xl-3" }, [
             _c("div", { staticClass: "card-header" }, [
               _c("div", { staticClass: "row" }, [
@@ -44423,38 +44500,42 @@ var render = function() {
           _c("div", { staticClass: "card mb-4" }, [
             _c("div", { staticClass: "card-header" }, [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-xl-6" }, [
+                _c("div", { staticClass: "col-6" }, [
                   _c("i", { staticClass: "fas fa-tachometer-alt mr-1" }),
                   _vm._v(" "),
                   _c("a", [
                     _vm._v(
-                      "\n                            " +
-                        _vm._s(device.deviceName) +
+                      _vm._s(device.deviceName) +
                         " - " +
-                        _vm._s(device.deviceID) +
-                        "\n                        "
+                        _vm._s(device.deviceID)
                     )
                   ])
                 ]),
                 _vm._v(" "),
                 device.connectionStatus == 1
-                  ? _c("div", { staticClass: "col-xl-6" }, [
-                      device.movementStatus == 0
-                        ? _c("div", { staticClass: "circleindicatorsmall red" })
-                        : device.movementStatus == 1
-                        ? _c("div", {
-                            staticClass: "circleindicatorsmall yellow"
-                          })
-                        : device.movementStatus == 2
-                        ? _c("div", {
-                            staticClass: "circleindicatorsmall green"
-                          })
-                        : device.movementStatus == 3
-                        ? _c("div", {
-                            staticClass: "circleindicatorsmall grey"
-                          })
-                        : _vm._e()
-                    ])
+                  ? _c(
+                      "div",
+                      { staticClass: "col-6 d-flex justify-content-center" },
+                      [
+                        device.movementStatus == 0
+                          ? _c("div", {
+                              staticClass: "circleindicatorsmall red"
+                            })
+                          : device.movementStatus == 1
+                          ? _c("div", {
+                              staticClass: "circleindicatorsmall yellow"
+                            })
+                          : device.movementStatus == 2
+                          ? _c("div", {
+                              staticClass: "circleindicatorsmall green"
+                            })
+                          : device.movementStatus == 3
+                          ? _c("div", {
+                              staticClass: "circleindicatorsmall grey"
+                            })
+                          : _vm._e()
+                      ]
+                    )
                   : device.connectionStatus == 0
                   ? _c("div", { staticClass: "col-xl-6" }, [
                       _c("div", { staticClass: "circleindicatorsmall grey" })
@@ -44472,7 +44553,7 @@ var render = function() {
             device.initialized == 1
               ? _c("div", { staticClass: "card-body" }, [
                   _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-xl-6" }, [
+                    _c("div", { staticClass: "col-6" }, [
                       device.connectionStatus == 1
                         ? _c("span", { staticClass: "badge badge-success" }, [
                             _vm._v("Connected")
@@ -44484,7 +44565,7 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-xl-6" }, [
+                    _c("div", { staticClass: "col-6" }, [
                       _c("div", { staticClass: "row" }, [
                         device.connectionStatus == 1
                           ? _c(
@@ -44499,11 +44580,9 @@ var render = function() {
                             )
                           : device.connectionStatus == 0
                           ? _c("p", { staticClass: "font-weight-bold" }, [
-                              _vm._v("00:00:00")
+                              _vm._v("00:00:00\n                            ")
                             ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm._m(0, true)
+                          : _vm._e()
                       ])
                     ])
                   ]),
@@ -44523,51 +44602,82 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
-                    _vm._m(1, true),
-                    _vm._v(" "),
-                    _vm._m(2, true),
-                    _vm._v(" "),
-                    device.alarmOneRunStatus == 1
-                      ? _c(
-                          "div",
-                          { staticClass: "col-xl-6" },
-                          [
-                            _c("alarm-one", {
-                              attrs: {
-                                timestamp: device.alarmOneTime,
-                                addtime: device.alarmonetotTime
-                              }
-                            })
-                          ],
-                          1
+                    _c("div", { staticClass: "col-6 p-0" }, [
+                      _c("div", { staticClass: "col-xl-12 font-weight-bold" }, [
+                        _vm._v(
+                          "\n                          Alarm 1 Active Time"
                         )
-                      : device.alarmOneRunStatus == 0
-                      ? _c("div", { staticClass: "col-xl-6" }, [
-                          _vm._v(_vm._s(device.alarmonetotTime))
-                        ])
-                      : _vm._e(),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-xl-0 font-weight-bold" }),
+                      _vm._v(" "),
+                      device.alarmOneRunStatus == 1
+                        ? _c(
+                            "div",
+                            { staticClass: "col-xl-12 p-0" },
+                            [
+                              _c("alarm-one", {
+                                attrs: {
+                                  timestamp: device.alarmOneTime,
+                                  addtime: device.alarmonetotTime,
+                                  deviceID: device.id,
+                                  deviceno: 1
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : device.alarmOneRunStatus == 0
+                        ? _c("div", { staticClass: "col-xl-6" }, [
+                            _vm._v(
+                              _vm._s(device.alarmonetimeday) +
+                                " " +
+                                _vm._s(device.alarmonetotTime)
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-xl-0" })
+                    ]),
                     _vm._v(" "),
-                    device.alarmTwoRunStatus == 1
-                      ? _c(
-                          "div",
-                          { staticClass: "col-xl-6" },
-                          [
-                            _c("alarm-one", {
-                              attrs: {
-                                timestamp: device.alarmTwoTime,
-                                addtime: device.alarmtwototTime
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    device.alarmTwoRunStatus == 0
-                      ? _c("div", { staticClass: "col-xl-6" }, [
-                          _vm._v(" " + _vm._s(device.alarmtwototTime) + " ")
-                        ])
-                      : _vm._e()
+                    _c("div", { staticClass: "col-6 p-0" }, [
+                      _c("div", { staticClass: "col-xl-12 font-weight-bold" }, [
+                        _vm._v("Alarm 2 Active Time")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-xl- font-weight-bold" }),
+                      _vm._v(" "),
+                      device.alarmTwoRunStatus == 1
+                        ? _c(
+                            "div",
+                            { staticClass: "col-xl-12 p-0" },
+                            [
+                              _c("alarm-one", {
+                                attrs: {
+                                  timestamp: device.alarmTwoTime,
+                                  addtime: device.alarmtwototTime,
+                                  deviceID: device.id,
+                                  deviceno: 2
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      device.alarmTwoRunStatus == 0
+                        ? _c("div", { staticClass: "col-xl-6" }, [
+                            _vm._v(
+                              _vm._s(device.alarmtwotimeday) +
+                                " " +
+                                _vm._s(device.alarmtwototTime) +
+                                " "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-xl-0" })
+                    ])
                   ])
                 ])
               : _vm._e()
@@ -44578,40 +44688,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        attrs: {
-          "data-toggle": "tooltip",
-          "data-placement": "right",
-          title: "Elopsed Time"
-        }
-      },
-      [_c("i", { staticClass: "fas fa-info-circle" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-xl-6" }, [
-      _c("strong", [_vm._v(" Alarm 1 Active Time")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-xl-6" }, [
-      _c("strong", [_vm._v(" Alarm 2 Active Time")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -44640,13 +44717,13 @@ var render = function() {
           _c("div", { staticClass: "card mb-4" }, [
             _c("div", { staticClass: "card-header" }, [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-xl-6" }, [
+                _c("div", { staticClass: "col-6" }, [
                   _c("i", { staticClass: "fas fa-tachometer-alt mr-1" }),
                   _vm._v(_vm._s(_vm.deviceName) + " - " + _vm._s(_vm.deviceID))
                 ]),
                 _vm._v(" "),
                 _vm.conStatus == 1
-                  ? _c("div", { staticClass: "col-xl-6" }, [
+                  ? _c("div", { staticClass: "col-6" }, [
                       _vm.MoveStatus == 0
                         ? _c("div", { staticClass: "circleindicatorsmall red" })
                         : _vm.MoveStatus == 1
@@ -44682,7 +44759,7 @@ var render = function() {
                   _c("h1"),
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-xl-6" }, [
+                    _c("div", { staticClass: "col-6" }, [
                       _vm.connstatus == 1
                         ? _c("span", { staticClass: "badge badge-success" }, [
                             _vm._v("Connected")
@@ -44694,7 +44771,7 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-xl-6" }, [
+                    _c("div", { staticClass: "col-6" }, [
                       _c("div", { staticClass: "row" }, [
                         _vm.connstatus == 1
                           ? _c(
@@ -44711,9 +44788,7 @@ var render = function() {
                           ? _c("p", { staticClass: "font-weight-bold" }, [
                               _vm._v("00:00:00")
                             ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm._m(0)
+                          : _vm._e()
                       ])
                     ])
                   ]),
@@ -44733,49 +44808,67 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
-                    _vm._m(1),
+                    _c("div", { staticClass: "col-6 p-0" }, [
+                      _c("div", { staticClass: "col-xl-12 font-weight-bold" }, [
+                        _vm._v("Alarm 1 Active Time")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-xl-0 font-weight-bold" }),
+                      _vm._v(" "),
+                      _vm.AlarmOneRunStatus == 1
+                        ? _c(
+                            "div",
+                            { staticClass: "col-xl-12 p-0" },
+                            [
+                              _c("alarm-one", {
+                                attrs: {
+                                  timestamp: _vm.timeActiveAlarmOne,
+                                  addtime: _vm.AlarmTotOneTime
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm.AlarmOneRunStatus == 0
+                        ? _c("div", { staticClass: "col-xl-6" }, [
+                            _vm._v(_vm._s(_vm.AlarmTotOneTime))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-xl-0" })
+                    ]),
                     _vm._v(" "),
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm.AlarmOneRunStatus == 1
-                      ? _c(
-                          "div",
-                          { staticClass: "col-xl-6" },
-                          [
-                            _c("alarm-one", {
-                              attrs: {
-                                timestamp: _vm.timeActiveAlarmOne,
-                                addtime: _vm.AlarmTotOneTime
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      : _vm.AlarmOneRunStatus == 0
-                      ? _c("div", { staticClass: "col-xl-6" }, [
-                          _vm._v(_vm._s(_vm.AlarmTotOneTime) + " ")
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.AlarmTwoRunStatus == 1
-                      ? _c(
-                          "div",
-                          { staticClass: "col-xl-6" },
-                          [
-                            _c("alarm-one", {
-                              attrs: {
-                                timestamp: _vm.timeActiveAlarmTwo,
-                                addtime: _vm.AlarmTotTwoTime
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      : _vm.AlarmTwoRunStatus == 0
-                      ? _c("div", { staticClass: "col-xl-6" }, [
-                          _vm._v(_vm._s(_vm.AlarmTotTwoTime) + " ")
-                        ])
-                      : _vm._e()
+                    _c("div", { staticClass: "col-6 p-0" }, [
+                      _c("div", { staticClass: "col-xl-12 font-weight-bold" }, [
+                        _vm._v("Alarm 2 Active Time")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-xl- font-weight-bold" }),
+                      _vm._v(" "),
+                      _vm.AlarmTwoRunStatus == 1
+                        ? _c(
+                            "div",
+                            { staticClass: "col-xl-12 p-0" },
+                            [
+                              _c("alarm-one", {
+                                attrs: {
+                                  timestamp: _vm.timeActiveAlarmTwo,
+                                  addtime: _vm.AlarmTotTwoTime
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.AlarmTwoRunStatus == 0
+                        ? _c("div", { staticClass: "col-xl-6" }, [
+                            _vm._v(" " + _vm._s(_vm.AlarmTotTwoTime) + " ")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-xl-0" })
+                    ])
                   ])
                 ])
               : _vm._e()
@@ -44785,40 +44878,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        attrs: {
-          "data-toggle": "tooltip",
-          "data-placement": "right",
-          title: "Elopsed Time"
-        }
-      },
-      [_c("i", { staticClass: "fas fa-info-circle" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-xl-6" }, [
-      _c("strong", [_vm._v(" Alarm 1 Active Time")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-xl-6" }, [
-      _c("strong", [_vm._v(" Alarm 2 Active Time")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -44844,24 +44904,20 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-xl-3 col-md-6" }, [
         _c("div", { staticClass: "card text-black mb-4" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("h5", [_vm._v(_vm._s(_vm.Alarmno))])
+          _c("div", { staticClass: "card-header" }, [
+            _c("div", {}, [
+              _vm._v("No of Active Alarm : "),
+              _c("span", { staticClass: "font-weight-bold" }, [
+                _vm._v(_vm._s(_vm.Alarmno))
+              ])
+            ])
+          ])
         ])
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("div", {}, [_vm._v("No of Active Alarm")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -57117,15 +57173,15 @@ window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/d
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: "anyKey",
-  forceTLS: true,
+  forceTLS: false,
   wsHost: window.location.hostname,
   wsPort: 6001,
-  disableStats: true,
-  enabledTransports: ['ws', 'wss']
+  disableStats: true
 }); // window.Echo.channel('DemoChannel')
 // .listen('WebsocketDemoEvent', (e) => {
 //     console.log(e);
 // });
+// enabledTransports: ['ws', 'wss']
 
 /***/ }),
 

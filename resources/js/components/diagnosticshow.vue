@@ -6,8 +6,8 @@
                 <div class="card mb-4">
                   <div class="card-header">
                       <div class="row">
-                      <div class="col-xl-6"> <i class="fas fa-tachometer-alt mr-1"></i>{{ deviceName }} - {{ deviceID }}</div>
-                        <div class="col-xl-6" v-if="conStatus == 1">
+                      <div class="col-6"> <i class="fas fa-tachometer-alt mr-1"></i>{{ deviceName }} - {{ deviceID }}</div>
+                        <div class="col-6" v-if="conStatus == 1">
                           <div class="circleindicatorsmall red" v-if="MoveStatus == 0"></div>
                           <div class="circleindicatorsmall yellow" v-else-if="MoveStatus == 1"></div>
                           <div class="circleindicatorsmall green" v-else-if="MoveStatus == 2"></div>
@@ -27,34 +27,34 @@
                   <div class="card-body" v-if="Init == 1">
                     <h1></h1>
                     <div class="row">
-                      <div class="col-xl-6">
+                      <div class="col-6">
 
                         <span class="badge badge-success" v-if="connstatus == 1">Connected</span>
                         <span class="badge badge-danger" v-else-if="connstatus == 0">Disconnected</span>
                       </div>
 
-                      <div class="col-xl-6">
+                      <div class="col-6">
                           <div class="row">
                         <p class="font-weight-bold" v-if="connstatus == 1">
                                    <conn-time :timestamp = conStatusTime />
                         </p>
                         <p class="font-weight-bold" v-else-if="connstatus == 0">00:00:00</p>
 
-                        <a  data-toggle="tooltip" data-placement="right" title="Elopsed Time">
+                        <!-- <a  data-toggle="tooltip" data-placement="right" title="Elopsed Time">
                             <i class="fas fa-info-circle"></i>
-                          </a>
+                          </a> -->
                         </div>
                       </div>
                     </div>
 
-                    <div class="row">
+                       <div class="row">
                       <div class="col-xl-6 font-weight-bold">No. Of Alarm Raised</div>
                       <div class="col-xl-6 font-weight-bold"></div>
-                      <div class="col-xl-6">{{ AlarmRaised }}</div>
+                      <div class="col-xl-6" >{{ AlarmRaised }}</div>
                       <div class="col-xl-6"></div>
                     </div>
 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-xl-6"> <strong> Alarm 1 Active Time</strong></div>
                         <div class="col-xl-6"> <strong> Alarm 2 Active Time</strong></div>
                         <div class="col-xl-6" v-if="AlarmOneRunStatus == 1">
@@ -69,9 +69,43 @@
                             <alarm-one
                         :timestamp = timeActiveAlarmTwo
                         :addtime = AlarmTotTwoTime
-                        /></div>
+                        />
+                        </div>
                            <div class="col-xl-6" v-else-if="AlarmTwoRunStatus == 0">{{AlarmTotTwoTime}} </div>
+                    </div> -->
+
+
+
+                                     <div class="row">
+                    <div class="col-6 p-0">
+                      <div class="col-xl-12 font-weight-bold">Alarm 1 Active Time</div>
+                      <div class="col-xl-0 font-weight-bold"></div>
+                          <div class="col-xl-12 p-0" v-if="AlarmOneRunStatus == 1">
+                                  <alarm-one
+                        :timestamp = timeActiveAlarmOne
+                        :addtime = AlarmTotOneTime
+                        />
+                        </div>
+                           <div class="col-xl-6" v-else-if="AlarmOneRunStatus == 0">{{ AlarmTotOneTime }}</div>
+                      <div class="col-xl-0"></div>
                     </div>
+
+                            <div class="col-6 p-0">
+                      <div class="col-xl-12 font-weight-bold">Alarm 2 Active Time</div>
+                      <div class="col-xl- font-weight-bold"></div>
+                          <div class="col-xl-12 p-0" v-if="AlarmTwoRunStatus == 1">
+
+                                        <alarm-one
+                        :timestamp = timeActiveAlarmTwo
+                        :addtime = AlarmTotTwoTime
+                        />
+                            </div>
+                           <div class="col-xl-6" v-if="AlarmTwoRunStatus == 0"> {{ AlarmTotTwoTime }} </div>
+                      <div class="col-xl-0"></div>
+                    </div>
+                    </div>
+
+
                   </div>
                 </div>
             </div>

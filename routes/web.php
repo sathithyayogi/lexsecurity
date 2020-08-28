@@ -25,4 +25,6 @@ Auth::routes();
 Route::get('/diagnostics', 'diagnosticController@index')->name('home');
 Route::get('/diagnostics/{id}', 'diagnosticController@show')->name('show');
 
+Route::get('/device/config/{id}', 'deviceSettingController@show')->name('deviceset');
+Route::put('/device/config/{id}', 'deviceSettingController@change');
 Route::resource('devices', 'deviceController');

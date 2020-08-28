@@ -29,7 +29,6 @@
                                 <th>S.No</th>
                                 <th>Device Name</th>
                                 <th>Device ID</th>
-                                <th>Mobile Number</th>
                                 <th>Device Added Time</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
@@ -40,7 +39,6 @@
                                 <th>S.No</th>
                                 <th>Device Name</th>
                                 <th>Device ID</th>
-                                <th>Mobile Number</th>
                                 <th>Device Added Time</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
@@ -53,7 +51,6 @@
                                 <td>{{ $device->id }}</td>
                                 <td>{{ $device->deviceName }}</td>
                                 <td>{{ $device->deviceID }}</td>
-                                <td>{{ $device->mobileNumber }}</td>
                                 <td>{{ $device->created_at->diffForHumans()}}</td>
                                 <td><a href="/devices/{{$device->id}}/edit" class="btn btn-default">Edit</a></td>
                                 <td>

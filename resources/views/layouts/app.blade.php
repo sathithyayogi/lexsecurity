@@ -34,53 +34,25 @@ use Carbon\Carbon;
       <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle">
         <i class="fas fa-bars"></i>
       </button>
-      <!-- Navbar Search-->
-      <form
-        class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-<div class="input-group">
-      </form>
-      <!-- Navbar-->
-      <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            id="userDropdown"
-            href="#"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-            ><i class="fas fa-user fa-fw"></i
-          ></a>
-          <div
-            class="dropdown-menu dropdown-menu-right"
-            aria-labelledby="userDropdown"
-          >
-            <a class="dropdown-item" href="#">Settings</a>
-            <a class="dropdown-item" href="#">Activity Log</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="login.html">Logout</a>
-          </div>
-        </li>
-      </ul>
+
     </nav>
     <div id="layoutSidenav">
       <div id="layoutSidenav_nav">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
           <div class="sb-sidenav-menu">
             <div class="nav">
-              <div class="sb-sidenav-menu-heading">Core</div>
+              <div class="sb-sidenav-menu-heading">Dashboard</div>
               <a class="nav-link" href="/">
                 <div class="sb-nav-link-icon">
                   <i class="fas fa-tachometer-alt"></i>
                 </div>
-                Dashboard
+                Device Status
               </a>
               <a class="nav-link" href="/diagnostics">
                 <div class="sb-nav-link-icon">
                   <i class="fas fa-tachometer-alt"></i>
                 </div>
-                Diagnostics
+                Device Detail View
               </a>
 
               <div class="sb-sidenav-menu-heading">Devices</div>
@@ -94,6 +66,16 @@ use Carbon\Carbon;
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Add
               </a>
+
+              <div class="sb-sidenav-menu-heading">Config</div>
+              <a class="nav-link" href="/device/config/1">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-chart-area"></i>
+                </div>
+                Mobile Number
+              </a>
+
+
             </div>
           </div>
           <div class="sb-sidenav-footer">
@@ -113,9 +95,9 @@ use Carbon\Carbon;
               class="d-flex align-items-center justify-content-between small">
               <div class="text-muted">Copyright &copy; Your Website 2020</div>
               <div>
-                <a href="#">Privacy Policy</a>
+                {{-- <a href="#">Privacy Policy</a>
                 &middot;
-                <a href="#">Terms &amp; Conditions</a>
+                <a href="#">Terms &amp; Conditions</a> --}}
               </div>
             </div>
           </div>
@@ -148,5 +130,6 @@ use Carbon\Carbon;
     ></script>
 
     <script src="{{ asset('js/datatables-demo.js') }}"></script>
+    <script src="{{ asset('js/nav.js') }}"></script>
   </body>
 </html>

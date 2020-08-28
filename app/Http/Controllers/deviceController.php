@@ -43,14 +43,12 @@ class deviceController extends Controller
         //
         $this->validate($request, [
             'deviceName' => 'required',
-            'deviceID' => 'required',
-            'mobileNumber' => 'required'
+            'deviceID' => 'required'
         ]);
         // return 123;
         $device = new Device;
         $device->deviceName = $request->input('deviceName');
         $device->deviceID = $request->input('deviceID');
-        $device->mobileNumber = $request->input('mobileNumber');
         $device->movementStatus = 0;
         $device->connectionStatus = 0;
         $device->initialized = 0;
@@ -58,6 +56,8 @@ class deviceController extends Controller
         $device->alarmActiveNo = 0;
         $device->alarmOneRunStatus = 0;
         $device->alarmTwoRunStatus = 0;
+        $device->alarmonetimeday = 0;
+        $device->alarmtwotimeday = 0;
         // $device->alarmonetotTime = 0;
         // $device->alarmtwototTime = 0;
         $device->save();
@@ -101,14 +101,12 @@ class deviceController extends Controller
         //
         $this->validate($request, [
             'deviceName' => 'required',
-            'deviceID' => 'required',
-            'mobileNumber' => 'required'
+            'deviceID' => 'required'
         ]);
         // return 123;
         $device = Device::find($id);
         $device->deviceName = $request->input('deviceName');
         $device->deviceID = $request->input('deviceID');
-        $device->mobileNumber = $request->input('mobileNumber');
         $device->save();
 
         return redirect('/devices')->with('success', 'Device Updated');
@@ -127,4 +125,6 @@ class deviceController extends Controller
         $device->delete();
         return redirect('/devices')->with('success', 'Device Removed');
     }
+
+
 }

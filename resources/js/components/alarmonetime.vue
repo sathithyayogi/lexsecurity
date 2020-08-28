@@ -1,17 +1,16 @@
 <template>
     <div class="container">
-        {{ displayDays }}
-        {{ displayHours }}
-        {{ displayMinutes }}
+        {{ displayDays }} :
+        {{ displayHours }} :
+        {{ displayMinutes }} :
         {{ displaySeconds }}
     </div>
 </template>
 
 <script>
     export default {
-        props: ['timestamp', 'addtime'],
+        props: ['timestamp', 'addtime', 'deviceID', 'deviceno', 'deviceone', 'devicetwo'],
         mounted() {
-
             this.showRemaining();
             // var date = new Date(this.TimeSTamp);
             // console.log(date.getMonth() + 1);
@@ -32,7 +31,9 @@
                 displayMinutes: 0,
                 displaySeconds: 0,
                 TimeSTamp: this.timestamp,
-                AddTime: this.addtime
+                AddTime: this.addtime,
+                dID: this.deviceID,
+                dno : this.deviceno
             }
         },
         computed: {
@@ -65,8 +66,8 @@
             showRemaining() {
                 const timer = setInterval(()=> {
 
-                      var hms = this.addtime;   // your input string
-            var a = hms.split(':'); // split it at the colons
+            var hms = this.addtime;             // your input string
+            var a = hms.split(':');             // split it at the colons
 
             // minutes are worth 60 seconds. Hours are worth 60 minutes.
             var secondsremain = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
@@ -81,7 +82,6 @@
                         clearInterval(timer);
                             return;
                     }
-
                     const days = Math.floor((distance / this._days));
                     const hours = Math.floor((distance % this._days) / this._hours);
                     const minutes = Math.floor((distance % this._hours) / this._minutes);
@@ -90,7 +90,33 @@
                     this.displaySeconds = this.formatNum(seconds);
                     this.displayHours = this.formatNum(hours);
                     this.displayDays = this.formatNum(days);
+                    if(this.displayHours == 23 && this.displayMinutes == 59 && this.displaySeconds == 59){
+                        if(this.deviceno == 1){
+                            this.updateone();
+                        }else if(this.deviceno == 2){
+                            this.updatetwo();
+                        }
+                    }
                 }, 1000);
+            },
+            updateone: function() {
+                axios.get('/api/devices/update/dayone/'+this.deviceID)
+            .then((response) => {
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+
+            },
+            updatetwo: function(){
+                            axios.get('/api/devices/update/daytwo/'+this.deviceID)
+            .then((response) => {
+                this.devices = response.data
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+
             }
         }
     };
