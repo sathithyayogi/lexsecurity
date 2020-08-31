@@ -286,6 +286,7 @@ class deviceApiController extends Controller
         return response()->json($device, 200);
     }
 
+
     public function deviceupdatetwoday($id){
 
         $device = Device::find($id);

@@ -79,7 +79,7 @@
                           Alarm 1 Active Time</div>
                       <div class="col-xl-0 font-weight-bold"></div>
                           <div class="col-xl-12 p-0" v-if="device.alarmOneRunStatus == 1">
-                           <alarm-one :timestamp = device.alarmOneTime :addtime = device.alarmonetotTime :deviceID = device.id :deviceno = 1 />
+                           <alarm-one :timestamp = device.alarmOneTime :addtime = device.alarmonetotTime :deviceID = device.id :deviceno = 1 :dayone = device.alarmonetimeday :daytwo = device.alarmtwotimeday />
                         </div>
                            <div class="col-xl-6" v-else-if="device.alarmOneRunStatus == 0">{{ device.alarmonetimeday }} {{ device.alarmonetotTime }}</div>
                       <div class="col-xl-0"></div>
@@ -89,7 +89,7 @@
                       <div class="col-xl-12 font-weight-bold">Alarm 2 Active Time</div>
                       <div class="col-xl- font-weight-bold"></div>
                           <div class="col-xl-12 p-0" v-if="device.alarmTwoRunStatus == 1">
-                                <alarm-one :timestamp = device.alarmTwoTime :addtime = device.alarmtwototTime :deviceID = device.id :deviceno = 2 />
+                                   <alarm-one :timestamp = device.alarmOneTime :addtime = device.alarmonetotTime :deviceID = device.id :deviceno = 2 :dayone = device.alarmonetimeday :daytwo = device.alarmtwotimeday />
                             </div>
                            <div class="col-xl-6" v-if="device.alarmTwoRunStatus == 0">{{ device.alarmtwotimeday }} {{ device.alarmtwototTime }} </div>
                       <div class="col-xl-0"></div>

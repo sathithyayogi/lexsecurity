@@ -9,7 +9,7 @@
 
 <script>
     export default {
-        props: ['timestamp', 'addtime', 'deviceID', 'deviceno', 'deviceone', 'devicetwo'],
+        props: ['timestamp', 'addtime', 'deviceID', 'deviceno', 'deviceone', 'devicetwo', 'dayone', 'daytwo'],
         mounted() {
             this.showRemaining();
             // var date = new Date(this.TimeSTamp);
@@ -33,7 +33,9 @@
                 TimeSTamp: this.timestamp,
                 AddTime: this.addtime,
                 dID: this.deviceID,
-                dno : this.deviceno
+                dno : this.deviceno,
+                done : this.dayone,
+                daytwo : this.daytwo
             }
         },
         computed: {
@@ -72,10 +74,16 @@
             // minutes are worth 60 seconds. Hours are worth 60 minutes.
             var secondsremain = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
 
+            if(this.deviceno == 1){
+                var addday = this.dayone * 86400 * 1000;
+            }else if(this.deviceno == 2){
+                var addday = this.daytwo * 86400 * 1000;
+            }
+
                     const now = new Date();
                     // const end = new Date(2020, 4, 22, 10, 10, 10);
                 var distance = now.getTime() - this.end.getTime();
-                distance = distance + secondsremain * 1000;
+                distance = distance + secondsremain * 1000 + addday;
                 console.log(secondsremain);
 
                     if(distance < 0){

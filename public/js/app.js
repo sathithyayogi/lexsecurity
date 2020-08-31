@@ -1963,7 +1963,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['timestamp', 'addtime', 'deviceID', 'deviceno', 'deviceone', 'devicetwo'],
+  props: ['timestamp', 'addtime', 'deviceID', 'deviceno', 'deviceone', 'devicetwo', 'dayone', 'daytwo'],
   mounted: function mounted() {
     this.showRemaining(); // var date = new Date(this.TimeSTamp);
     // console.log(date.getMonth() + 1);
@@ -1985,7 +1985,9 @@ __webpack_require__.r(__webpack_exports__);
       TimeSTamp: this.timestamp,
       AddTime: this.addtime,
       dID: this.deviceID,
-      dno: this.deviceno
+      dno: this.deviceno,
+      done: this.dayone,
+      daytwo: this.daytwo
     };
   },
   computed: {
@@ -2020,11 +2022,18 @@ __webpack_require__.r(__webpack_exports__);
         // minutes are worth 60 seconds. Hours are worth 60 minutes.
 
         var secondsremain = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+
+        if (_this.deviceno == 1) {
+          var addday = _this.dayone * 86400 * 1000;
+        } else if (_this.deviceno == 2) {
+          var addday = _this.daytwo * 86400 * 1000;
+        }
+
         var now = new Date(); // const end = new Date(2020, 4, 22, 10, 10, 10);
 
         var distance = now.getTime() - _this.end.getTime();
 
-        distance = distance + secondsremain * 1000;
+        distance = distance + secondsremain * 1000 + addday;
         console.log(secondsremain);
 
         if (distance < 0) {
@@ -44621,7 +44630,9 @@ var render = function() {
                                   timestamp: device.alarmOneTime,
                                   addtime: device.alarmonetotTime,
                                   deviceID: device.id,
-                                  deviceno: 1
+                                  deviceno: 1,
+                                  dayone: device.alarmonetimeday,
+                                  daytwo: device.alarmtwotimeday
                                 }
                               })
                             ],
@@ -44654,10 +44665,12 @@ var render = function() {
                             [
                               _c("alarm-one", {
                                 attrs: {
-                                  timestamp: device.alarmTwoTime,
-                                  addtime: device.alarmtwototTime,
+                                  timestamp: device.alarmOneTime,
+                                  addtime: device.alarmonetotTime,
                                   deviceID: device.id,
-                                  deviceno: 2
+                                  deviceno: 2,
+                                  dayone: device.alarmonetimeday,
+                                  daytwo: device.alarmtwotimeday
                                 }
                               })
                             ],
