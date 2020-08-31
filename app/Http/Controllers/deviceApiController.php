@@ -83,6 +83,11 @@ class deviceApiController extends Controller
         $device->movementStatus = 1;
         $device->alarmOneTime = Carbon::now('Asia/Kolkata');
 
+        $dt = Carbon::now('Asia/Kolkata');
+        $timestr = $dt->format('H:i:s');
+        $device->connTimeUpdate = $timestr;
+
+
         //conn
         $constatus = DB::table('devices')
         ->where('id', '=', $id)->pluck('connectionStatus');
@@ -206,6 +211,14 @@ class deviceApiController extends Controller
 
         $device->save();
 
+        $contactNumber = DB::table('devicesetting')
+        ->where('id', '=', $id)->pluck('mobileNumber');
+
+        $devicename = DB::table('devices')
+        ->where('id', '=', $id)->pluck('deviceID');
+
+        $response = file_get_contents('https://api-mapper.clicksend.com/http/v2/send.php?method=http&username=sathithyayogi@spearfox.com&key=193C3686-57B6-966F-4EA1-6BFEFB7CC8E4&to='.$contactNumber[0].'&message=Device '.$devicename[0].' stationary for 60 seconds');
+
         //Alarm One Start
         // broadcast(new DeviceDiagnosticShow($device));
         // broadcast(new DeviceDiagnosticsEvent($device));
@@ -256,13 +269,6 @@ class deviceApiController extends Controller
         ->where('id', '=', $id)->pluck('mobileNumber');
 
 
-        $contactNumber = DB::table('devicesetting')
-        ->where('id', '=', $id)->pluck('mobileNumber');
-
-        $devicename = DB::table('devices')
-        ->where('id', '=', $id)->pluck('deviceID');
-
-        $response = file_get_contents('https://api-mapper.clicksend.com/http/v2/send.php?method=http&username=sathithyayogi@spearfox.com&key=193C3686-57B6-966F-4EA1-6BFEFB7CC8E4&to='.$contactNumber[0].'&message=Device '.$devicename[0].' stationary for 60 seconds');
 
         //Alarm One Stop
         // broadcast(new DeviceDiagnosticShow($device));

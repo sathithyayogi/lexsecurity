@@ -21,6 +21,7 @@ class CreateDevicesTable extends Migration
             $table->string('deviceID');
             $table->integer('movementStatus')->nullable();
             $table->integer('connectionStatus')->nullable();
+            $table->time('connTimeUpdate')->nullable()->default('00:00:00');
             $table->string('mobileNumber')->nullable();
             $table->integer('initialized')->nullable();
             $table->integer('alarmRaisedNo')->nullable();
