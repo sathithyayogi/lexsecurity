@@ -82,7 +82,32 @@ class deviceApiController extends Controller
         $device->alarmOneRunStatus = 1;
         $device->movementStatus = 1;
         $device->alarmOneTime = Carbon::now('Asia/Kolkata');
+
+        //conn
+        $constatus = DB::table('devices')
+        ->where('id', '=', $id)->pluck('connectionStatus');
+
+        if ($constatus[0] == 0) {
+            $device->connectionTime = Carbon::now('Asia/Kolkata');
+            $device->connectionStatus = 1;
+            // $device->movementStatus = 2;
+            $device->movementStatus = 1;
+        }elseif ($constatus[0] == 1) {
+            $device->connectionStatus = 1;
+        }
+        $expiresAt = Carbon::now()->addMinutes(3);
+        Cache::put('device-is-connected'.$id, true, $expiresAt);
+        //conn
         $device->save();
+
+        $contactNumber = DB::table('devicesetting')
+        ->where('id', '=', $id)->pluck('mobileNumber');
+
+        $devicename = DB::table('devices')
+        ->where('id', '=', $id)->pluck('deviceID');
+
+        $response = file_get_contents('https://api-mapper.clicksend.com/http/v2/send.php?method=http&username=sathithyayogi@spearfox.com&key=193C3686-57B6-966F-4EA1-6BFEFB7CC8E4&to='.$contactNumber[0].'&message=Device '.$devicename[0].' stationary for 30 seconds');
+
 
         // broadcast(new DeviceDiagnosticShow($device));
         // broadcast(new DeviceDiagnosticsEvent($device));
@@ -110,6 +135,20 @@ class deviceApiController extends Controller
 
         $device->alarmonetotTime = (new Carbon($alarmonetottimeprev[0]))->addSeconds($differenceInSeconds);
 
+                //conn
+                $constatus = DB::table('devices')
+                ->where('id', '=', $id)->pluck('connectionStatus');
+
+                if ($constatus[0] == 0) {
+                    $device->connectionTime = Carbon::now('Asia/Kolkata');
+                    $device->connectionStatus = 1;
+                    $device->movementStatus = 2;
+                }elseif ($constatus[0] == 1) {
+                    $device->connectionStatus = 1;
+                }
+                $expiresAt = Carbon::now()->addMinutes(3);
+                Cache::put('device-is-connected'.$id, true, $expiresAt);
+                //conn
 
         $device->save();
 
@@ -149,6 +188,21 @@ class deviceApiController extends Controller
 
             $device->alarmonetotTime = (new Carbon($alarmonetottimeprev[0]))->addSeconds($differenceInSeconds);
 
+                    //conn
+        $constatus = DB::table('devices')
+        ->where('id', '=', $id)->pluck('connectionStatus');
+
+        if ($constatus[0] == 0) {
+            $device->connectionTime = Carbon::now('Asia/Kolkata');
+            $device->connectionStatus = 1;
+            $device->movementStatus = 0;
+        }elseif ($constatus[0] == 1) {
+            $device->connectionStatus = 1;
+        }
+        $expiresAt = Carbon::now()->addMinutes(3);
+        Cache::put('device-is-connected'.$id, true, $expiresAt);
+        //conn
+
 
         $device->save();
 
@@ -177,8 +231,24 @@ class deviceApiController extends Controller
         $timeSecond = strtotime($currenttime);
         $differenceInSeconds = $timeSecond - $timeFirst;
 
+
         $device->alarmtwototTime = (new Carbon($alarmtwotottimeprev[0]))->addSeconds($differenceInSeconds);
 
+
+                //conn
+                $constatus = DB::table('devices')
+                ->where('id', '=', $id)->pluck('connectionStatus');
+
+                if ($constatus[0] == 0) {
+                    $device->connectionTime = Carbon::now('Asia/Kolkata');
+                    $device->connectionStatus = 1;
+                    $device->movementStatus = 2;
+                }elseif ($constatus[0] == 1) {
+                    $device->connectionStatus = 1;
+                }
+                $expiresAt = Carbon::now()->addMinutes(3);
+                Cache::put('device-is-connected'.$id, true, $expiresAt);
+                //conn
 
         $device->save();
 
@@ -189,7 +259,10 @@ class deviceApiController extends Controller
         $contactNumber = DB::table('devicesetting')
         ->where('id', '=', $id)->pluck('mobileNumber');
 
-        $response = file_get_contents('https://api-mapper.clicksend.com/http/v2/send.php?method=http&username=sathithyayogi@spearfox.com&key=193C3686-57B6-966F-4EA1-6BFEFB7CC8E4&to='.$contactNumber[0].'&message=testing');
+        $devicename = DB::table('devices')
+        ->where('id', '=', $id)->pluck('deviceID');
+
+        $response = file_get_contents('https://api-mapper.clicksend.com/http/v2/send.php?method=http&username=sathithyayogi@spearfox.com&key=193C3686-57B6-966F-4EA1-6BFEFB7CC8E4&to='.$contactNumber[0].'&message=Device '.$devicename[0].' stationary for 60 seconds');
 
         //Alarm One Stop
         // broadcast(new DeviceDiagnosticShow($device));
@@ -209,6 +282,7 @@ class deviceApiController extends Controller
 
         $device = Device::find($id);
         $device->alarmonetimeday++;
+        $device->save();
         return response()->json($device, 200);
     }
 
@@ -216,6 +290,7 @@ class deviceApiController extends Controller
 
         $device = Device::find($id);
         $device->alarmtwotimeday++;
+        $device->save();
         return response()->json($device, 200);
     }
 

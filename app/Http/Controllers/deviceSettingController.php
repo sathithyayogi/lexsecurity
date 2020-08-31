@@ -17,6 +17,7 @@ class deviceSettingController extends Controller
     public function change(Request $request, $id){
         $device = Devicesettings::find($id);
         $device->mobileNumber = $request->input('mobileNumber');
+        $device->save();
         return redirect('/')->with('success', 'Number Updated');
     }
 }

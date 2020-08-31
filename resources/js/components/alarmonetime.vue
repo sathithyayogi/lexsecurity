@@ -101,6 +101,7 @@
             },
             updateone: function() {
                 axios.get('/api/devices/update/dayone/'+this.deviceID)
+
             .then((response) => {
             })
             .catch(function(error) {

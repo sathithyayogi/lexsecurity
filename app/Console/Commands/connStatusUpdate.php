@@ -42,6 +42,6 @@ class connStatusUpdate extends Command
     {
         DB::table('devices')
               ->update(['connectionStatus' => 0]);
-        broadcast(new WebsocketDemoEvent("test"));
+        // broadcast(new WebsocketDemoEvent("test"));
     }
 }
