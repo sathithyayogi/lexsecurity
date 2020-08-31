@@ -57,7 +57,7 @@ class connStatusUpdate extends Command
             $constatus = strtotime($constatus);
 
             // $diff = $timestr - $constatus[0];
-            $diff = 60;
+            $diff = 80;
 
             if($diff > 70){
                 $device = Device::find($x);

@@ -138,6 +138,10 @@ class deviceApiController extends Controller
         $timeSecond = strtotime($currenttime);
         $differenceInSeconds = $timeSecond - $timeFirst;
 
+        $dt = Carbon::now('Asia/Kolkata');
+        $timestr = $dt->format('H:i:s');
+        $device->connTimeUpdate = $timestr;
+
         $device->alarmonetotTime = (new Carbon($alarmonetottimeprev[0]))->addSeconds($differenceInSeconds);
 
                 //conn
@@ -173,6 +177,10 @@ class deviceApiController extends Controller
         $device->movementStatus = 0;
         $device->alarmTwoRunStatus = 1;
         $device->alarmTwoTime = Carbon::now('Asia/Kolkata');
+
+        $dt = Carbon::now('Asia/Kolkata');
+        $timestr = $dt->format('H:i:s');
+        $device->connTimeUpdate = $timestr;
 
         $alarmonestatus = DB::table('devices')
         ->where('id', '=', $id)->pluck('alarmOneTime');
@@ -232,6 +240,10 @@ class deviceApiController extends Controller
         $device->alarmTwoRunStatus = 0;
         $device->movementStatus = 2;
 
+        $dt = Carbon::now('Asia/Kolkata');
+        $timestr = $dt->format('H:i:s');
+        $device->connTimeUpdate = $timestr;
+
         $alarmtwotime = DB::table('devices')
         ->where('id', '=', $id)->pluck('alarmTwoTime');
 
@@ -265,8 +277,7 @@ class deviceApiController extends Controller
 
         $device->save();
 
-        $number = DB::table('devices')
-        ->where('id', '=', $id)->pluck('mobileNumber');
+
 
 
 
