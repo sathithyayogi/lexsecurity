@@ -27,4 +27,8 @@ Route::get('/diagnostics/{id}', 'diagnosticController@show')->name('show');
 
 Route::get('/device/config/{id}', 'deviceSettingController@show')->name('deviceset');
 Route::put('/device/config/{id}', 'deviceSettingController@change');
+Route::get('/device/mobilenumber/', 'deviceSettingController@view');
+Route::get('/device/mobilenumber/add', 'deviceSettingController@create');
+Route::post('/device/mobilenumber/add', 'deviceSettingController@stored');
+Route::delete('/device/mobilenumber/delete/{$id}', 'deviceSettingController@destroyed');
 Route::resource('devices', 'deviceController');

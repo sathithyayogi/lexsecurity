@@ -114,6 +114,7 @@
         mounted() {
                 // this.loadDevices();
                 setInterval(this.loadDevices, 2000);
+                setInterval(this.connupdate, 60000);
                 // Echo.channel('DeviceDiag')
                 // .listen('DeviceDiagnosticsEvent', (device) => {
                 // this.loadDevices();
@@ -136,8 +137,17 @@
 
         methods: {
             loadDevices: function() {
-            console.log('Device Loaded.');
             axios.get('/api/devices')
+            .then((response) => {
+                this.devices = response.data
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+            },
+
+            connupdate: function() {
+            axios.get('api/device/connupdate')
             .then((response) => {
                 this.devices = response.data
             })

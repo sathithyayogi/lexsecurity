@@ -52,3 +52,5 @@ Route::get('devices/sum/test', 'deviceApiController@devicessum');
 Route::get('devices/update/dayone/{id}', 'deviceApiController@deviceupdateoneday');
 
 Route::get('devices/update/daytwo/{id}', 'deviceApiController@deviceupdatetwoday');
+
+Route::get('device/connupdate', 'deviceApiController@connupdate');

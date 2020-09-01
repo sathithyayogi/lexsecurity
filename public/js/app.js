@@ -2210,7 +2210,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.loadDevices();
-    setInterval(this.loadDevices, 2000); // this.loadDevices();
+    setInterval(this.loadDevices, 2000);
+    setInterval(this.connupdate, 60000); // this.loadDevices();
     //             Echo.channel('DeviceDiag')
     // .listen('DeviceDiagnosticsEvent', (device) => {
     //     this.loadDevices();
@@ -2234,6 +2235,15 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/devices').then(function (response) {
         _this.devices = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    connupdate: function connupdate() {
+      var _this2 = this;
+
+      axios.get('api/device/connupdate').then(function (response) {
+        _this2.devices = response.data;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2366,7 +2376,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     // this.loadDevices();
-    setInterval(this.loadDevices, 2000); // Echo.channel('DeviceDiag')
+    setInterval(this.loadDevices, 2000);
+    setInterval(this.connupdate, 60000); // Echo.channel('DeviceDiag')
     // .listen('DeviceDiagnosticsEvent', (device) => {
     // this.loadDevices();
     // console.log("success");
@@ -2388,9 +2399,17 @@ __webpack_require__.r(__webpack_exports__);
     loadDevices: function loadDevices() {
       var _this = this;
 
-      console.log('Device Loaded.');
       axios.get('/api/devices').then(function (response) {
         _this.devices = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    connupdate: function connupdate() {
+      var _this2 = this;
+
+      axios.get('api/device/connupdate').then(function (response) {
+        _this2.devices = response.data;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -57271,15 +57290,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************!*\
   !*** ./resources/js/components/alarmonetime.vue ***!
   \**************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _alarmonetime_vue_vue_type_template_id_cc6e54e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./alarmonetime.vue?vue&type=template&id=cc6e54e6& */ "./resources/js/components/alarmonetime.vue?vue&type=template&id=cc6e54e6&");
 /* harmony import */ var _alarmonetime_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./alarmonetime.vue?vue&type=script&lang=js& */ "./resources/js/components/alarmonetime.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _alarmonetime_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _alarmonetime_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -57309,7 +57327,7 @@ component.options.__file = "resources/js/components/alarmonetime.vue"
 /*!***************************************************************************!*\
   !*** ./resources/js/components/alarmonetime.vue?vue&type=script&lang=js& ***!
   \***************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
