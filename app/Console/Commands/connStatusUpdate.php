@@ -10,6 +10,8 @@ use App\Events\DeviceDiagnosticShow;
 use App\Events\WebsocketDemoEvent;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+
 class connStatusUpdate extends Command
 {
     /**
@@ -49,17 +51,17 @@ class connStatusUpdate extends Command
         // echo $count;
         for ($x = 1; $x <= $count; $x++) {
             $dt = Carbon::now('Asia/Kolkata');
-            $timestr = $dt->format('H:i:s');
-            $timestr = strtotime($timestr);
+
+            $timestr = strtotime($dt);
 
             $constatus = DB::table('devices')
             ->where('id', '=', $x)->pluck('connTimeUpdate');
-            $constatus = strtotime($constatus);
+            $constatust = strtotime($constatus[0]);
 
-            // $diff = $timestr - $constatus[0];
-            $diff = 80;
+            $difft = $timestr - $constatust;
 
-            if($diff > 70){
+
+            if($difft > 70){
                 $device = Device::find($x);
                 $device->connectionStatus = 0;
                 $device->save();
@@ -91,21 +93,6 @@ class connStatusUpdate extends Command
                     $device->alarmtwototTime = (new Carbon($alarmtwotottimeprev[0]))->addSeconds($differenceInSeconds);
 
 
-                            //conn
-                            $constatus = DB::table('devices')
-                            ->where('id', '=', $x)->pluck('connectionStatus');
-
-                            if ($constatus[0] == 0) {
-                                $device->connectionTime = Carbon::now('Asia/Kolkata');
-                                $device->connectionStatus = 1;
-                                $device->movementStatus = 2;
-                            }elseif ($constatus[0] == 1) {
-                                $device->connectionStatus = 1;
-                            }
-                            $expiresAt = Carbon::now()->addMinutes(3);
-                            Cache::put('device-is-connected'.$x, true, $expiresAt);
-                            //conn
-
                     $device->save();
 
 
@@ -114,7 +101,7 @@ class connStatusUpdate extends Command
                     $device = Device::find($x);
                     $device->alarmActiveNo = 0;
                     $device->alarmOneRunStatus = 0;
-                    $device->movementStatus = 2;
+                    $device->movementStatus = 3;
                     $alarmonetime = DB::table('devices')
                     ->where('id', '=', $x)->pluck('alarmOneTime');
 
@@ -129,27 +116,14 @@ class connStatusUpdate extends Command
 
                     $device->alarmonetotTime = (new Carbon($alarmonetottimeprev[0]))->addSeconds($differenceInSeconds);
 
-                            //conn
-                            $constatus = DB::table('devices')
-                            ->where('id', '=', $x)->pluck('connectionStatus');
 
-                            if ($constatus[0] == 0) {
-                                $device->connectionTime = Carbon::now('Asia/Kolkata');
-                                $device->connectionStatus = 1;
-                                $device->movementStatus = 2;
-                            }elseif ($constatus[0] == 1) {
-                                $device->connectionStatus = 1;
-                            }
-                            $expiresAt = Carbon::now()->addMinutes(3);
-                            Cache::put('device-is-connected'.$x, true, $expiresAt);
-                            //conn
 
                     $device->save();
                 }
 
             }
 
+
           }
-        // broadcast(new WebsocketDemoEvent("test"));
     }
 }

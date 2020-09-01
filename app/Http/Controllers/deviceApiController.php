@@ -42,6 +42,7 @@ class deviceApiController extends Controller
         $device->connectionStatus = 1;
         $device->movementStatus = 2;
         $device->connectionTime = Carbon::now('Asia/Kolkata');
+        $device->connTimeUpdate = Carbon::now('Asia/Kolkata');
         $device->save();
 
         // broadcast(new DeviceDiagnosticShow($device));
@@ -83,9 +84,9 @@ class deviceApiController extends Controller
         $device->movementStatus = 1;
         $device->alarmOneTime = Carbon::now('Asia/Kolkata');
 
-        $dt = Carbon::now('Asia/Kolkata');
-        $timestr = $dt->format('H:i:s');
-        $device->connTimeUpdate = $timestr;
+        // $dt = Carbon::now('Asia/Kolkata');
+        // $timestr = $dt->format('H:i:s');
+        $device->connTimeUpdate = Carbon::now('Asia/Kolkata');
 
 
         //conn
@@ -138,9 +139,9 @@ class deviceApiController extends Controller
         $timeSecond = strtotime($currenttime);
         $differenceInSeconds = $timeSecond - $timeFirst;
 
-        $dt = Carbon::now('Asia/Kolkata');
-        $timestr = $dt->format('H:i:s');
-        $device->connTimeUpdate = $timestr;
+        // $dt = Carbon::now('Asia/Kolkata');
+        // $timestr = $dt->format('H:i:s');
+        $device->connTimeUpdate = Carbon::now('Asia/Kolkata');
 
         $device->alarmonetotTime = (new Carbon($alarmonetottimeprev[0]))->addSeconds($differenceInSeconds);
 
@@ -178,9 +179,9 @@ class deviceApiController extends Controller
         $device->alarmTwoRunStatus = 1;
         $device->alarmTwoTime = Carbon::now('Asia/Kolkata');
 
-        $dt = Carbon::now('Asia/Kolkata');
-        $timestr = $dt->format('H:i:s');
-        $device->connTimeUpdate = $timestr;
+        // $dt = Carbon::now('Asia/Kolkata');
+        // $timestr = $dt->format('H:i:s');
+        $device->connTimeUpdate = Carbon::now('Asia/Kolkata');
 
         $alarmonestatus = DB::table('devices')
         ->where('id', '=', $id)->pluck('alarmOneTime');
@@ -240,9 +241,9 @@ class deviceApiController extends Controller
         $device->alarmTwoRunStatus = 0;
         $device->movementStatus = 2;
 
-        $dt = Carbon::now('Asia/Kolkata');
-        $timestr = $dt->format('H:i:s');
-        $device->connTimeUpdate = $timestr;
+        // $dt = Carbon::now('Asia/Kolkata');
+        // $timestr = $dt->format('H:i:s');
+        $device->connTimeUpdate = Carbon::now('Asia/Kolkata');
 
         $alarmtwotime = DB::table('devices')
         ->where('id', '=', $id)->pluck('alarmTwoTime');
