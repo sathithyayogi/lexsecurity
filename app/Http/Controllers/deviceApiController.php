@@ -12,8 +12,12 @@ use SebastianBergmann\Environment\Console;
 use App\Events\WebsocketDemoEvent;
 use Carbon\Carbon;
 use DB;
+use Exception;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
+
+require_once '../vendor/autoload.php';
+use Twilio\Rest\Client;
 
 class deviceApiController extends Controller
 {
@@ -117,10 +121,24 @@ class deviceApiController extends Controller
 
         $contactNumber = DB::table('devicesetting')
             ->where('id', '=', $x)->pluck('mobileNumber');
-            $response = file_get_contents('https://api-mapper.clicksend.com/http/v2/send.php?method=http&username=sathithyayogi@spearfox.com&key=193C3686-57B6-966F-4EA1-6BFEFB7CC8E4&to='.$contactNumber[0].'&message=Device '.$devicename[0].' stationary for 30 seconds');
+            // $response = file_get_contents('https://api-mapper.clicksend.com/http/v2/send.php?method=http&username=sathithyayogi@spearfox.com&key=193C3686-57B6-966F-4EA1-6BFEFB7CC8E4&to='.$contactNumber[0].'&message=Device '.$devicename[0].' stationary for 30 seconds');
         }
 
+        $account_sid = 'AC4aacb3aaf89080000040a549932785d4';
+        $auth_token = '27ab8c17d3568a919b450d5f552be312';
+        // A Twilio number you own with Voice capabilities
+        $twilio_number = "+12253519436";
 
+        // Where to make a voice call (your cell phone?)
+        $to_number = "+918667547179";
+        $client = new Client($account_sid, $auth_token);
+$client->account->calls->create(
+    $to_number,
+    $twilio_number,
+    array(
+        "url" => "http://demo.twilio.com/docs/voice.xml"
+    )
+);
 
         // broadcast(new DeviceDiagnosticShow($device));
         // broadcast(new DeviceDiagnosticsEvent($device));
