@@ -16,13 +16,15 @@ use Exception;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 
-require_once '../vendor/autoload.php';
+// require_once '../vendor/autoload.php';
+
 use Twilio\Rest\Client;
 
 class deviceApiController extends Controller
 {
     //
     public function devices(){
+
         return response()->json(DeviceApi::get(), 200);
     }
 
@@ -117,28 +119,27 @@ class deviceApiController extends Controller
         ->where('id', '=', $id)->pluck('deviceID');
         $count = Devicesettings::count();
 
-        for ($x = 1; $x <= $count; $x++) {
-
         $contactNumber = DB::table('devicesetting')
-            ->where('id', '=', $x)->pluck('mobileNumber');
-            // $response = file_get_contents('https://api-mapper.clicksend.com/http/v2/send.php?method=http&username=sathithyayogi@spearfox.com&key=193C3686-57B6-966F-4EA1-6BFEFB7CC8E4&to='.$contactNumber[0].'&message=Device '.$devicename[0].' stationary for 30 seconds');
-        }
+            ->pluck('mobileNumber');
 
-        $account_sid = 'AC4aacb3aaf89080000040a549932785d4';
-        $auth_token = '27ab8c17d3568a919b450d5f552be312';
+        for ($x = 0; $x < $count; $x++) {
+            $response = file_get_contents('https://api-mapper.clicksend.com/http/v2/send.php?method=http&username=sathithyayogi@spearfox.com&key=193C3686-57B6-966F-4EA1-6BFEFB7CC8E4&to='.$contactNumber[$x].'&message=Device '.$devicename[0].' stationary for 30 seconds');
+        }
+        // $account_sid = 'AC4aacb3aaf89080000040a549932785d4';
+        // $auth_token = '27ab8c17d3568a919b450d5f552be312';
         // A Twilio number you own with Voice capabilities
-        $twilio_number = "+12253519436";
+        // $twilio_number = "+12253519436";
 
         // Where to make a voice call (your cell phone?)
-        $to_number = "+918667547179";
-        $client = new Client($account_sid, $auth_token);
-$client->account->calls->create(
-    $to_number,
-    $twilio_number,
-    array(
-        "url" => "http://demo.twilio.com/docs/voice.xml"
-    )
-);
+//         $to_number = "+918667547179";
+//         $client = new Client($account_sid, $auth_token);
+// $client->account->calls->create(
+//     $to_number,
+//     $twilio_number,
+//     array(
+//         "url" => "http://demo.twilio.com/docs/voice.xml"
+//     )
+// );
 
         // broadcast(new DeviceDiagnosticShow($device));
         // broadcast(new DeviceDiagnosticsEvent($device));
@@ -191,8 +192,6 @@ $client->account->calls->create(
         // broadcast(new DeviceDiagnosticsEvent($device));
         // broadcast(new WebsocketDemoEvent("test"));
         //Alarm One Stop
-        // return $differenceInSeconds;
-        // return $alarmonetime[0] ." ". $currenttime . " ". (new Carbon($alarmonetottimeprev[0]))->addSeconds(61);
         return response()->json($device, 200);
     }
 
@@ -249,13 +248,11 @@ $client->account->calls->create(
         ->where('id', '=', $id)->pluck('deviceID');
 
         $count = Devicesettings::count();
-        for ($x = 1; $x <= $count; $x++) {
 
         $contactNumber = DB::table('devicesetting')
-            ->where('id', '=', $x)->pluck('mobileNumber');
-
-
-            $response = file_get_contents('https://api-mapper.clicksend.com/http/v2/send.php?method=http&username=sathithyayogi@spearfox.com&key=193C3686-57B6-966F-4EA1-6BFEFB7CC8E4&to='.$contactNumber[0].'&message=Device '.$devicename[0].' stationary for 60 seconds');
+            ->pluck('mobileNumber');
+        for ($x = 1; $x < $count; $x++) {
+            $response = file_get_contents('https://api-mapper.clicksend.com/http/v2/send.php?method=http&username=sathithyayogi@spearfox.com&key=193C3686-57B6-966F-4EA1-6BFEFB7CC8E4&to='.$contactNumber[$x].'&message=Device '.$devicename[0].' stationary for 60 seconds');
         }
         //Alarm One Start
         // broadcast(new DeviceDiagnosticShow($device));

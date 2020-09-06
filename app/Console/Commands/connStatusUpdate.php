@@ -49,41 +49,43 @@ class connStatusUpdate extends Command
         //       ->update(['connectionStatus' => 0]);
         $count = Device::count();
         // echo $count;
-        for ($x = 1; $x <= $count; $x++) {
+        $ids = DB::table('devices')
+            ->pluck('id');
+        for ($x = 0; $x < $count; $x++) {
             $dt = Carbon::now('Asia/Kolkata');
 
             $timestr = strtotime($dt);
 
             $constatus = DB::table('devices')
-            ->where('id', '=', $x)->pluck('connTimeUpdate');
+            ->where('id', '=', $ids[$x])->pluck('connTimeUpdate');
             $constatust = strtotime($constatus[0]);
 
             $difft = $timestr - $constatust;
 
 
             if($difft > 70){
-                $device = Device::find($x);
+                $device = Device::find($ids[$x]);
                 $device->connectionStatus = 0;
                 $device->save();
 
                 $mstatus =  DB::table('devices')
-                ->where('id', '=', $x)->pluck('movementStatus');
+                ->where('id', '=', $ids[$x])->pluck('movementStatus');
 
                 if($mstatus[0] == 0){
                     // 2nd start
 
-                    $device = Device::find($x);
+                    $device = Device::find($ids[$x]);
                     $device->alarmActiveNo = 0;
                     $device->alarmTwoRunStatus = 0;
                     $device->movementStatus = 2;
 
                     $alarmtwotime = DB::table('devices')
-                    ->where('id', '=', $x)->pluck('alarmTwoTime');
+                    ->where('id', '=', $ids[$x])->pluck('alarmTwoTime');
 
                     $currenttime = Carbon::now('Asia/Kolkata');
 
                     $alarmtwotottimeprev = DB::table('devices')
-                    ->where('id', '=', $x)->pluck('alarmtwototTime');
+                    ->where('id', '=', $ids[$x])->pluck('alarmtwototTime');
 
                     $timeFirst  = strtotime($alarmtwotime[0]);
                     $timeSecond = strtotime($currenttime);
@@ -98,17 +100,17 @@ class connStatusUpdate extends Command
 
                 }else if($mstatus[0] == 1){
                     // 1st starts
-                    $device = Device::find($x);
+                    $device = Device::find($ids[$x]);
                     $device->alarmActiveNo = 0;
                     $device->alarmOneRunStatus = 0;
                     $device->movementStatus = 3;
                     $alarmonetime = DB::table('devices')
-                    ->where('id', '=', $x)->pluck('alarmOneTime');
+                    ->where('id', '=', $ids[$x])->pluck('alarmOneTime');
 
                     $currenttime = Carbon::now('Asia/Kolkata');
 
                     $alarmonetottimeprev = DB::table('devices')
-                    ->where('id', '=', $x)->pluck('alarmonetotTime');
+                    ->where('id', '=', $ids[$x])->pluck('alarmonetotTime');
 
                     $timeFirst  = strtotime($alarmonetime[0]);
                     $timeSecond = strtotime($currenttime);
