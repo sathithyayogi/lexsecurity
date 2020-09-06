@@ -13,7 +13,7 @@
                             <div class="form-row">
                             </div>
                             <div class="form-group">
-                                <label class="small mb-1" for="mobileNumber">Mobile Number</label>
+                                <label class="small mb-1" for="mobileNumber">Mobile Number (+91 put infront of each number Ex: +919585xxxx79)</label>
                                 <input class="form-control py-4" id="mobileNumber"  type="number" name="mobileNumber"/>
                             </div>
                             <button class="form-control btn btn-primary btn-block"  type="submit">Edit Number</button>
