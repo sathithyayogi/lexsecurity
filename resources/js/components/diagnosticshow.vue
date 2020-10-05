@@ -156,9 +156,9 @@
     this.AlarmTotTwoTime = device.device.alarmtwototTime
     this.Init = device.device.initialized
     this.MoveStatus = device.device.movementStatus
- console.log('success');
- console.log(device);
- console.log(this.connstatustime);
+//  console.log('success');
+//  console.log(device);
+//  console.log(this.connstatustime);
     // this.AlarmActive =
 });
             Echo.channel('DemoChannel')

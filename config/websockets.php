@@ -19,7 +19,8 @@ return [
      * concurrent connections for a specific app.
      *
      * Optionally you can disable client events so clients cannot send
-     * messages to each other via the webSockets.
+     * messages to each other
+     via the webSockets.
      */
     'apps' => [
         [

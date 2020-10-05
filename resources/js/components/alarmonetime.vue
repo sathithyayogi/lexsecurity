@@ -84,7 +84,7 @@
                     // const end = new Date(2020, 4, 22, 10, 10, 10);
                 var distance = now.getTime() - this.end.getTime();
                 distance = distance + secondsremain * 1000 + addday;
-                console.log(secondsremain);
+                // console.log(secondsremain);
 
                     if(distance < 0){
                         clearInterval(timer);

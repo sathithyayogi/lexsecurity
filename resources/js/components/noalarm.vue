@@ -28,7 +28,7 @@
             loadDevices: function() {
             axios.get('/api/devices/sum/test')
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 this.Alarmno = response.data;
             })
             .catch(function(error) {
