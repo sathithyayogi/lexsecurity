@@ -30,7 +30,7 @@ use Carbon\Carbon;
       <div id="app">
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">LexLabs</a>
+      <a class="navbar-brand" href="/">Satmotion360</a>
       <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle">
         <i class="fas fa-bars"></i>
       </button>
@@ -80,7 +80,7 @@ use Carbon\Carbon;
           </div>
           <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            LexLabs
+            Satmotion360
           </div>
         </nav>
       </div>
