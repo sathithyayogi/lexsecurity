@@ -129,7 +129,7 @@ use Carbon\Carbon;
       crossorigin="anonymous"
     ></script>
 
-    <script src="{{ asset('js/datatables-demo.js') }}"></script>
+    <script src="https://lexsecurity.herokuapp.com/js/datatables-demo.js"></script>
     <script src="https://lexsecurity.herokuapp.com/js/nav.js"></script>
   </body>
 </html>
