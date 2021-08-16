@@ -15,7 +15,7 @@ use Carbon\Carbon;
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard - SB Admin</title>
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="https://lexsecurity.herokuapp.com/css/style.css" rel="stylesheet">
     <link
       href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
       rel="stylesheet"
