@@ -130,6 +130,6 @@ use Carbon\Carbon;
     ></script>
 
     <script src="{{ asset('js/datatables-demo.js') }}"></script>
-    <script src="{{ asset('js/nav.js') }}"></script>
+    <script src="https://lexsecurity.herokuapp.com/js/nav.js"></script>
   </body>
 </html>
