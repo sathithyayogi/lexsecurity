@@ -15,7 +15,7 @@ use Carbon\Carbon;
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard - SB Admin</title>
-    <link href="https://lexsecurity.herokuapp.com/css/style.css" rel="stylesheet">
+    <link href="https://satmotion360.herokuapp.com/css/style.css" rel="stylesheet">
     <link
       href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
       rel="stylesheet"
@@ -129,7 +129,7 @@ use Carbon\Carbon;
       crossorigin="anonymous"
     ></script>
 
-    <script src="https://lexsecurity.herokuapp.com/js/datatables-demo.js"></script>
-    <script src="https://lexsecurity.herokuapp.com/js/nav.js"></script>
+    <script src="https://satmotion360.herokuapp.com/js/datatables-demo.js"></script>
+    <script src="https://satmotion360.herokuapp.com/js/nav.js"></script>
   </body>
 </html>
