@@ -80,7 +80,7 @@ use Carbon\Carbon;
           </div>
           <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            Satmotion360
+            Satmotion361
           </div>
         </nav>
       </div>
