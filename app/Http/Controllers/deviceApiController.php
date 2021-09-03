@@ -180,7 +180,6 @@ class deviceApiController extends Controller
         //Alarm One Stop
         return response()->json($device, 200);
     }
-
     public function devicealarmTwoStart(Request $request, $id, Device $device){
         $device = Device::find($id);
         $device->alarmRaisedNo++;
@@ -242,10 +241,10 @@ class deviceApiController extends Controller
 
                     $account_sid = 'AC4aacb3aaf89080000040a549932785d4';
         $auth_token = '27ab8c17d3568a919b450d5f552be312';
-        A Twilio number you own with Voice capabilities
+        // A Twilio number you own with Voice capabilities
         $twilio_number = "+919585085879";
 
-        Where to make a voice call (your cell phone?)
+        // Where to make a voice call (your cell phone?)
         $to_number = $contactNumber[$x];
         $client = new Client($account_sid, $auth_token);
 $client->account->calls->create(
@@ -262,6 +261,7 @@ $client->account->calls->create(
         // broadcast(new WebsocketDemoEvent("test"));
         return response()->json($device, 200);
     }
+
 
     public function devicealarmTwoStop(Request $request, $id, Device $device){
         $device = Device::find($id);
