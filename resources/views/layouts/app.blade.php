@@ -14,7 +14,7 @@ use Carbon\Carbon;
     <meta name="author" content="" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Dashboard - SB Admin</title>
+    <title>Dashboard - SB Admin T</title>
     <link href="https://satmotion360.herokuapp.com/css/style.css" rel="stylesheet">
     <link
       href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
